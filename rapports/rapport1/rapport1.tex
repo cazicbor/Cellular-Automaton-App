@@ -1,0 +1,83 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+\pagestyle{fancy}
+\fancyhf{}
+\chead{\includegraphics[height=1cm]{utc.jpg}}
+\cfoot{Page \thepage}
+
+\title{LO21 - Rapport intermédiaire 1}
+\author{Romain de Laage, Victor Blanchet, Maxime Goret, Luning Yang, Boris Cazic, Léon Vialonga}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\section{Introduction}
+
+Dans le cadre de l'UV LO21 nous devons implémenter une application permettant de simuler des automates cellulaires à 2 dimensions, \texttt{Cellulut}. Cette application doit être très modulaire, en effet, il doit être très simple d'ajouter de nouveaux types d'automates, de nouvelles règles, de nouveaux voisinages, ...
+
+\medskip
+
+Nous avons commencé par nous documenter sur le concept d'automate cellulaire, puis à réfléchir à la manière de créer une abstraction la plus générale possible (pour qu'elle soit modulaire) de ce concept sous forme de classes. Nous avons enfin eu une réunion pour discuter entre nous de nos avancées, établir une liste de tâches et nous les répartir.
+
+\section{Identification des tâches, urgence et estimation du temps}
+
+Nous estimons ici le nombre de tâches que nous aurons à effectuer afin de réaliser l'application spécifiée dans le cahier des charges. Ces tâches sont les premières tâches que nous avons identifié, étant donné que nous n'avons pas encore commencé l'implémentation elles seront amenées à bouger, être découpées, retravaillées, reformulées et affinées.
+
+\bigskip
+
+\begin{itemize}
+    \item S'occuper de la conceptualisation et de l'implémentation d'une cellule ainsi que celle d'une grille, c'est-à-dire, définir un ensemble de classes avec leurs attributs et leurs méthodes ainsi que les associations entre elles qui permettront au programme d'abstraire cette partie de l'automate. Nous avons identifié le fait qu'une grille est un ensemble de cellules.
+    
+    Cette tâche est une tâche urgente, on ne peut pas programmer l'application sans elle et elle fait partie des premières tâches à effectuer. Nous estimons que cette tâche est assez rapide, nous pensons pouvoir terminer la conceptualisation et l'implémentation avant le prochain rapport.
+    
+    \item S'occuper de la conceptualisation et de l'implémentation d'une règle ainsi que celle d'une fonction. Nous avons convenu qu'une fonction est un ensemble de règles qui chacune représente une configuration possible du voisinage ainsi que l'état de la cellule à l'étape suivante si nous avons ce voisinage.
+    
+    Cette tâche est urgente. Elle sera longue mais la conceptualisation devrait être bien avancée voire terminée avant le prochain rapport.
+    
+    \item S'occuper de la conceptualisation et de l'implémentation d'un voisinage. Un voisinage devrait être défini par un ensemble de coordonnées relatives et construit soit par une méthode qui construit des voisinage de von Neumann ou de Moore avec un paramètre \texttt{r} soit en passant un ensemble de coordonnées relatives.
+    
+    Cette tâche est également urgente. Nous estimons que le temps nécessaire à sa réalisation est entre le temps nécessaire pour la première tâche et pour la seconde, c'est-à-dire que la conceptualisation devrait être terminée au prochain rapport mais amenée à évoluer et l'implémentation ne sera peut-être pas fort avancée.
+    
+    \item S'occuper de la conceptualisation et de l'implémentation d'un automate.
+    
+    Cette tâche s'appuie sur les travaux des tâches précédentes donc elle est de fait moins urgente. Néanmoins elle doit être commencée aussitôt que possible puisqu'elle est essentielle à la réalisation de notre programme. Nous avons pas encore d'idée précise du temps nécessaire à sa réalisation.
+    
+    \item S'occuper de la conceptualisation et de l'implémentation d'une interface.
+    
+    Cette tâche s'appuie sur les travaux des tâches précédentes donc elle est de fait moins urgente. Néanmoins elle doit être commencée aussitôt que possible puisqu'elle est essentielle à la réalisation de notre programme. Nous pensons que cette tâche sera assez longue.
+    
+    \item Définir un format de sauvegarde des données (bibliothèque d'automates, règles, voisinages, structures, grilles, ...) et une manière de les importer dans l'application. Cette tâche devrait avoir la même urgence que celle pour l'interface. Cette tâche sera assez longue.
+    
+    \item Tâches optionnelles, à voir éventuellement après les tâches précédentes.
+\end{itemize}
+
+\section{Répartition}
+
+Nous nous concentrerons dans un premier temps surtout des tâches urgentes et en priorité sur la partie conceptualisation, l'implémentation des prototypes viendra dès que nous aurons terminé la conceptualisation (définition des classes).
+
+\bigskip
+
+\begin{itemize}
+    \item Cellule et grille $\rightarrow$ Victor
+    \item Fonction de transition et règles $\rightarrow$ Léon, Romain, Boris
+    \item Voisinage $\rightarrow$ Luning, Maxime
+\end{itemize}
+
+\section{Conclusion}
+
+Nous avons commencé à identifier les différentes tâches nécessaires à la conception du projet. Celles-ci seront probablement à affiner mais nous avons commencé grâce à ce travail à dégrossir le projet et à avoir une meilleure vue de la manière que nous pourront employer pour le réaliser.
+
+\medskip
+
+Le but avant le prochain rapport est d'avoir le modèle conceptuel prêt (les diagrammes \texttt{UML}, ils seront peut-être amenés à évoluer dans le futur mais la base sera là) et d'avoir implémenté en \texttt{C++} les différents prototypes des classes représentées.
+
+\end{document}
