@@ -12,4 +12,3 @@ $(PROJNAME): $(OBJS)
 clean:
 	rm -f $(OBJS) $(PROJNAME)
 
-//testeste
