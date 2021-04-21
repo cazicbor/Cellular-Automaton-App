@@ -6,7 +6,7 @@ PROJNAME = projetLO21
 $(PROJNAME): $(OBJS)
 	$(CC) $(FLAGS) -o $(PROJNAME) $^
 
-%.o: %.c
+%.o: %.cpp
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
