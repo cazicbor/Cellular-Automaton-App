@@ -22,6 +22,7 @@ private :
     friend class RegleVoisinage;
     friend class RegleVoisinageMoore;
     friend class RegleVoisinageNeumann;
+    friend class VoisinageIterator;
 public:
 
     Voisinage();
@@ -29,6 +30,9 @@ public:
     Cellule* getCelluleCentre()const {return celluleCentre;}
     void setr(unsigned int rayon);
     unsigned int getr() const {return r;}
+    VoisinageIterator *creerIterator()const{
+        return new VoisinageIterator(this);
+    }
     
 };
 
@@ -62,4 +66,32 @@ public:
     void calculVoisinage(Voisinage& v);
 
 };
+
+class VoisinageIterator {
+    const Voisinage *vsn;
+    int i;
+    public :
+    
+    VoisinageIterator(const Voisinage *v){
+        vsn = v;
+    }
+    
+    void first(){
+        i=0;
+    }
+    
+    void next(){
+        i++;
+    }
+    
+//   bool isDone(){
+//       return i == vsn->voisinage
+//   }
+    int currentItem(){
+        
+        return vsn->voisinage[i];
+        
+    }
+    
+}
 #endif /* voisinnage_hpp */
