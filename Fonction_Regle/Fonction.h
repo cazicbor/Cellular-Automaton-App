@@ -3,7 +3,8 @@
 
 class Regle {
 	private:
-		int seuils[8];
+		int seuilsMin[8];
+		int seuilsMax[8];
 		Etat destination;
 
 	public:
