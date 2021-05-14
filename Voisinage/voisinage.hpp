@@ -28,7 +28,7 @@ public:
     Voisinage();
     ~Voisinage();
     Cellule* getCelluleCentre()const {return celluleCentre;}
-    void setr(unsigned int rayon);
+    void setr(unsigned int rayon) {r = rayon;}
     unsigned int getr() const {return r;}
     VoisinageIterator *creerIterator()const{
         return new VoisinageIterator(this);
@@ -44,16 +44,17 @@ class RegleVoisinage{
     public :
     void setNbVoisins(unsigned int r);
     unsigned int getNbVoisin() {return nbVoisin;}
-    void calculVoisinage(Voisinage& v);
+    void calculVoisinage(Voisinage& v, const Reseau& r);
     
     
 };
 
 
 
-class RegleVoisinageNeumann {
+class RegleVoisinageNeumann : public RegleVoisinage {
 public:
-    void calculVoisinage(Voisinage& v);
+    void setNbVoisins(unsigned int r);
+    void calculVoisinage(Voisinage& v, const Reseau& r);
 
 };
 
@@ -63,7 +64,8 @@ public:
 
 class RegleVoisinageMoore : public RegleVoisinage {
 public:
-    void calculVoisinage(Voisinage& v);
+    void setNbVoisins(unsigned int r);
+    void calculVoisinage(Voisinage& v, const Reseau& r);
 
 };
 
@@ -93,5 +95,5 @@ class VoisinageIterator {
         
     }
     
-}
+};
 #endif /* voisinnage_hpp */
