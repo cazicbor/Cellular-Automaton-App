@@ -1,4 +1,4 @@
-#include <Voisinage_voisinage.hpp>
+#include <voisinage.hpp>
 #include<math.h>
 
 Voisinage::void setr(unsigned int rayon){
