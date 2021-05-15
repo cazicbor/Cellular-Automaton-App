@@ -1,6 +1,21 @@
 #include <Voisinage_voisinage.hpp>
 #include<math.h>
 
+Voisinage::void setr(unsigned int rayon){
+	int rayon = -1;
+
+	while (rayon < 0){
+		printf("Entrez le ratonde voisinage (0 pour le voisinage arbitraire):\n ");
+		scanf("%d", &rayon);
+
+		if(rayon >= 0){
+			r = rayon;
+		}
+		else printf("Rayon incorrect !\n");
+	}
+	 
+}
+
 void RegleVoisinage::setNbVoisins(unsigned int r) {
 	if (r == 0) { //voisinage arbitraire
 		printf("Entrez le nombre de voisins.\n");
@@ -170,7 +185,7 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r){
 }
 
 Voisinage::~Voisinage() {
-	VoisinageIterator* cellules(this);
+	VoisinageIterator *cellules = voisins.creerIterator();
 	cellules.first();
 	int nb = 0;
 
