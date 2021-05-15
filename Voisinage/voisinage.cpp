@@ -1,7 +1,7 @@
 #include <voisinage.hpp>
 #include<math.h>
 
-Voisinage::void setr(unsigned int rayon){
+void Voisinage::setr(unsigned int rayon){
 	int rayon = -1;
 
 	while (rayon < 0){
