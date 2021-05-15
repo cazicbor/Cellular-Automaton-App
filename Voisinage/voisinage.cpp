@@ -168,3 +168,17 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r){
 
 	}
 }
+
+Voisinage::~Voisinage() {
+	VoisinageIterator* cellules(this);
+	cellules.first();
+	int nb = 0;
+
+	while (!cellules.isDone()){
+		delete voisinage[nb];
+		nb++;
+	}
+
+	delete[] voisinage;
+
+}
