@@ -28,7 +28,7 @@ public:
     Voisinage();
     ~Voisinage();
     Cellule* getCelluleCentre()const {return celluleCentre;}
-    void setr(unsigned int rayon) {r = rayon;}
+    void setr(unsigned int rayon);
     unsigned int getr() const {return r;}
     VoisinageIterator *creerIterator()const{
         return new VoisinageIterator(this);
