@@ -1,10 +1,10 @@
-#include <voisinage.hpp>
+#include"voisinage.hpp"
 #include<math.h>
 
 void Voisinage::setr(unsigned int rayon){
-	int rayon = -1;
+    rayon = -1;
 
-	while (rayon < 0){
+	while (rayon< 0){
 		printf("Entrez le ratonde voisinage (0 pour le voisinage arbitraire):\n ");
 		scanf("%d", &rayon);
 
@@ -185,11 +185,11 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r){
 }
 
 Voisinage::~Voisinage() {
-	VoisinageIterator *cellules = voisins.creerIterator();
-	cellules.first();
+	VoisinageIterator *cellules = creerIterator();
+	cellules->first();
 	int nb = 0;
 
-	while (!cellules.isDone()){
+	while (!cellules->isDone()){
 		delete voisinage[nb];
 		nb++;
 	}

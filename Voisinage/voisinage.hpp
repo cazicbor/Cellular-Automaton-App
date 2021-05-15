@@ -13,6 +13,8 @@
 
 using namespace std;
 
+
+
 class Voisinage {
 private :
     
@@ -38,10 +40,11 @@ public:
 
 class RegleVoisinage{
     private :
-    unsigned int nbVoisin;
+    
     
     
     public :
+    unsigned int nbVoisin;
     void setNbVoisins(unsigned int r);
     unsigned int getNbVoisin() {return nbVoisin;}
     void calculVoisinage(Voisinage& v, const Reseau& r);
@@ -85,10 +88,9 @@ class VoisinageIterator {
     void next(){
         i++;
     }
-    
-//   bool isDone(){
-//       return i == vsn->voisinage
-//   }
+    bool isDone(){
+        return (vsn->voisinage.size() <= i);
+    }
     int currentItem(){
         
         return vsn->voisinage[i];
@@ -96,4 +98,5 @@ class VoisinageIterator {
     }
     
 };
+
 #endif /* voisinnage_hpp */
