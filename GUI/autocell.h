@@ -20,6 +20,10 @@
 #include <QCheckBox>
 #include <QFormLayout>
 
+using namespace std;
+
+extern EnsembleEtat& enseEtats;
+
 class AutoCell : public QWidget
 
 {
