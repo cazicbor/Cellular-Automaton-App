@@ -2,6 +2,8 @@
 #include <iostream>
 #include <iomanip>
 
+using namespace std;
+
 //méthodes de la classe EnsembleEtat
 
 EnsembleEtat::Handler EnsembleEtat::handler;
@@ -25,8 +27,8 @@ void EnsembleEtat::libererInstance() {
     handler.instance = nullptr;
 }
 
-void EnsembleEtat::ajouterEtat(unsigned int ind, std::string lab,int r, int g, int b, int a){
-    handler.instance->ensEtats[nbEtats] = new Etat(ind, lab, r, g, b, a);
+void EnsembleEtat::ajouterEtat(unsigned int ind, std::string lab,int r, int g, int b){
+    handler.instance->ensEtats[nbEtats] = new Etat(ind, lab, r, g, b);
     nbEtats++;
 }
 
