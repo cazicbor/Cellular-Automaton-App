@@ -19,6 +19,14 @@
 #include <QFormLayout>
 #include <QObject>
 #include <string>
+#include <QBrush>
+
+#include <iostream>
+#include <iomanip>
+
+extern EnsembleEtat& enseEtats;
+
+using namespace std;
 
 AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 {
@@ -108,33 +116,6 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 
     grid = new QTableWidget(0,0,win_grid);
 
-    /*unsigned int taille=17; //Taille en pixel.
-
-    grid = new QTableWidget(taille,taille,win_grid);
-
-    grid->setFixedSize(taille*30,taille*30); //Largeur hauteur.
-    grid->horizontalHeader()->setVisible(false); //Pas de nom pour les colonnes.
-    grid->verticalHeader()->setVisible(false);
-    grid->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); //Pas de barre pour scroller.
-    grid->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    QSize size(30, 30);
-    QFont serifFont("Times", 10, QFont::Bold);
-
-    for(unsigned int i=0; i<taille; i++){
-    grid->setColumnWidth(i,30);
-    for(unsigned int j=0; j<taille; j++)
-        {
-        grid->setItem(j, i, new QTableWidgetItem(""));
-        grid->item(j,i)->setBackground(Qt::white);
-        grid->item(j,i)->setForeground(Qt::blue);
-        grid->item(j,i)->setSizeHint(size);
-        grid->item(j,i)->setFont(serifFont);
-        }
-    }*/
-
-    general->addWidget(win_grid,1,1,2,2);
-
     //notice
 
     win_notice = new QWidget;
@@ -148,15 +129,17 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 
 void AutoCell::afficherGrille(Reseau& Grille)
 {
+    win_grid = new QWidget;
 
     unsigned int l = Grille.getLargeur();
     unsigned int h = Grille.getHauteur();
 
     delete grid;
     grid = new QTableWidget(h,l,win_grid);
-    int dim_pixels=30; //Taille en pixel.
+    int dim_pixels_h=32; //Taille en pixel.
+    int dim_pixels_v=30;
 
-    grid->setFixedSize((l+1)*dim_pixels, h*dim_pixels);
+    grid->setFixedSize((l)*dim_pixels_h, h*dim_pixels_v);
 
     grid->horizontalHeader()->setVisible(false); //Pas de nom pour les colonnes.
     grid->verticalHeader()->setVisible(false);
@@ -172,14 +155,24 @@ void AutoCell::afficherGrille(Reseau& Grille)
             //vérifier si les cellules ont ou non été générés (!= nullptr)
 
             QString indice; indice.setNum(Grille.getReseau()[i][j].getIndEtat());
+
+            QString label; label = QString::fromStdString(enseEtats.getEtat(indice.toInt()).getLabel()); //label de la cellule
+
             if (grid->item(i,j) == nullptr)
-                grid->setItem(i, j, new QTableWidgetItem(indice));
+                grid->setItem(i, j, new QTableWidgetItem(label));
 
             //afficherCellule
 
-            QColor color = EnsembleEtat::getInstance().getEtat((Grille.getReseau()[i][j]).getIndEtat()).getColor(); //couleur de la cellule
+            QColor color; color = enseEtats.getEtat(indice.toInt()).getColor();
 
-            grid->item(i,j)->setBackground(color);
+            //QColor color(236, 240, 21);
+
+            //QColor color = enseEtats.getEtat((Grille.getReseau()[i][j]).getIndEtat()).getColor(); //couleur de la cellule
+
+            QBrush brush_color;
+            brush_color.setColor(color);
+
+            grid->item(i,j)->setBackground(brush_color.color());
             grid->item(i,j)->setForeground(Qt::black);
             grid->item(i,j)->setSizeHint(size);
             grid->item(i,j)->setFont(serifFont);
@@ -194,7 +187,7 @@ void AutoCell::afficherGrille(Reseau& Grille)
 
 
 void AutoCell::initialiserGrille(){
-    /*bool ok;
+    bool ok;
 
     int l = (edit_largeur->text()).toInt(&ok, 10);
 
@@ -203,14 +196,13 @@ void AutoCell::initialiserGrille(){
     QString str_l; str_l.setNum(l);
     QString str_h; str_h.setNum(h);
 
-    lab_init->setText(str_l);*/
-
-    //Reseau Grille1(h,l);
-    Reseau Grille1(12,12);
+    Reseau Grille1(h,l);
+    //Reseau Grille1(12,12);
 
     this->afficherGrille(Grille1);
 
 }; //méthode à implémenter qui récupère les données du formulaire - penser à réinitialiser les données annexes
+
 
 void AutoCell::RAZ(){
     delete grid;
