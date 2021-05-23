@@ -1,25 +1,43 @@
-#include <iostream>
-#include <iomanip>
-#include <reseau_cellule_etats.h>
+#include "autocell.h"
+#include "reseau_cellule_etats.h"
+
+#include <QApplication>
+#include <QPushButton>
+#include <QWidget>
+#include <QLineEdit>
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QComboBox>
+#include <QTableWidget>
+#include <QTableWidgetItem>
+#include <QHeaderView>
+#include <QLayoutItem>
+#include <QFont>
 
 using namespace std;
 
-int main()
+EnsembleEtat &enseEtats = EnsembleEtat::getInstance();
+
+int main(int argc, char* argv[])
 {
-    std::cout<<"--- Affichage d'une grille initialisee par defaut --- \n";
+    QApplication app(argc, argv);
 
     EnsembleEtat &enseEtats = EnsembleEtat::getInstance();
 
-    enseEtats.ajouterEtat(0, "vivant", "white");
-    enseEtats.ajouterEtat(1, "mort", "black");
+    enseEtats.ajouterEtat(0, "vivant", 100, 30, 22);
+    enseEtats.ajouterEtat(1, "mort", 236, 240, 21);
 
-    //std::cout<<enseEtats.getEtat(0).getLabel()<<endl;
-
-    int largeur = 10;
+    int largeur = 15;
     int hauteur = 12;
 
     Reseau Grille(hauteur, largeur);
-    Grille.affiche();
 
-    return 0;
+    AutoCell autocell;
+    autocell.afficherGrille(Grille);
+    autocell.show();
+
+    return app.exec();
 }
+
+
