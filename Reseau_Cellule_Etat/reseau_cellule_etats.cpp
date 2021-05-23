@@ -25,8 +25,8 @@ void EnsembleEtat::libererInstance() {
     handler.instance = nullptr;
 }
 
-void EnsembleEtat::ajouterEtat(unsigned int ind, std::string lab,std::string col){
-    handler.instance->ensEtats[nbEtats] = new Etat(ind, lab, col);
+void EnsembleEtat::ajouterEtat(unsigned int ind, std::string lab,int r, int g, int b, int a){
+    handler.instance->ensEtats[nbEtats] = new Etat(ind, lab, r, g, b, a);
     nbEtats++;
 }
 
