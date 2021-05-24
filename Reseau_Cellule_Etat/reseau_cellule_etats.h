@@ -1,86 +1,84 @@
-#ifndef AUTOCELL_H
-#define AUTOCELL_H
-
-#include "reseau_cellule_etats.h"
-
-#include <QApplication>
-#include <QPushButton>
-#include <QWidget>
-#include <QLineEdit>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QComboBox>
-#include <QTableWidget>
-#include <QTableWidgetItem>
-#include <QHeaderView>
-#include <QLayoutItem>
-#include <QFont>
-#include <QPushButton>
-#include <QCheckBox>
-#include <QFormLayout>
+#pragma once
+#include <iostream>
+#include <array>
+#include <QColor>
 
 using namespace std;
 
-extern EnsembleEtat& enseEtats;
+class Cellule{
+private:
+    unsigned int indEtat;
+    unsigned int abs;
+    unsigned int ord;
+    Cellule();
+    //inline Cellule():indEtat(0), abs(0), ord(0){};
+    void initCellule(const unsigned int ind, const unsigned int &x, const unsigned int &y);
+    friend class Reseau;
+public:
+    inline unsigned int getIndEtat() const {return indEtat;}
+};
 
-class AutoCell : public QWidget
+class Etat{
+private:
+    unsigned int indice;
+    std::string label;
+    QColor color;
+    inline Etat(unsigned int ind, std::string lab, int r = 0, int g = 0, int b = 0):
+    indice(ind),label(lab),color(r,g,b){};
+    inline Etat(unsigned int ind, std::string lab, QColor col):
+    indice(ind),label(lab),color(col){};//constructeur privé (l'utilisateur ne doit pas pouvoir créer un Etat par ce biais)
+    friend class EnsembleEtat;
 
-{
-    Q_OBJECT
-    QGridLayout* general;
-
-    //définition de la frame choix du modèle
-    QWidget* win_model_choice;
-    QLabel* lab_model_choice;
-    QComboBox *liste;
-    QGridLayout *grid_model_choice;
-
-    //définition de la frame initialisation
-    QWidget* win_init;
-    QLabel* lab_init;
-    QGridLayout* form_init;
-
-    QFormLayout* form_saved_grids;
-    QFormLayout* form_config;
-
-    QComboBox *list_grids;
-    QCheckBox* check_load_grid;
-
-    QLineEdit* edit_largeur;
-    QLineEdit* edit_hauteur;
-    QCheckBox* check_aleatoire;
-    QPushButton* button_valide_init;
-
-    //définition de la frame "panneau de contrôle de l'exécution"
-    QWidget* win_run_ctrl;
-    QLabel* lab_run_crtl;
-
-    //définition de la frame affichage de la grille
-    QWidget* win_grid;
-    QTableWidget* grid;
-
-    //notice
-    QWidget* win_notice;
-    QLabel* lab_notice;
-
-    public:
-    explicit AutoCell(QWidget* parent=nullptr);
-
-    public slots:
-    //void chargerModele();
-    //void listerModele(); //à faire en dernier
-    //void chargerGrille();
-    //void listerGrille(); //déjà réfléchir à la recopie
-    //Reseau initialiserGrille(); //méthode à implémenter qui récupère les données du formulaire - penser à réinitialiser les données annexes
-    void afficherGrille(Reseau&); //affiche une grille
-    void initialiserGrille();
-    void RAZ();
-    //void faireSimulation();
-    //void sauvegarderGrille();
-    //void modifierGrille();//à implémenter
-
+public:
+    inline std::string getLabel(){return label;}
+    inline QColor getColor(){return color;}
 };
 
 
-#endif // AUTOCELL_H
+class EnsembleEtat{ //singleton qui regroupe l'ensemble des états
+private:          //permet d'éviter que chaque cellule inclue une instance d'Etat
+    size_t nbEtats = 0;
+    static const size_t nbEtatsMax = 10;
+    Etat* ensEtats[nbEtatsMax];
+    struct Handler {
+        EnsembleEtat* instance=nullptr;
+        ~Handler() { delete instance; }
+    };
+    static Handler handler;
+    friend struct Handler;
+    EnsembleEtat();
+    ~EnsembleEtat();
+    EnsembleEtat(const EnsembleEtat&) = delete;
+    EnsembleEtat operator=(const EnsembleEtat&) = delete;
+
+public:
+    void ajouterEtat(unsigned int ind, std::string lab,int r = 0, int g = 0, int b = 0);
+    void supprimerEtat(const unsigned int ind);
+    static EnsembleEtat& getInstance();
+    static void libererInstance();
+    void initEtat(const Etat* init_etats = nullptr);//initialisation du tableau d'Etats à partir d'un tableau externe
+    inline Etat& getEtat(const unsigned int &ind){return *ensEtats[ind];}
+};
+
+class Reseau{
+private:
+    unsigned int hauteur;
+    unsigned int largeur;
+    Cellule** reseau;
+
+public:
+    /* inline Reseau(const unsigned int &h, const unsigned int &l):hauteur(h),largeur(l){
+            reseau = new Cellule* [hauteur];
+                for(unsigned int i=0; i<hauteur; i++)
+                    reseau[i] = new Cellule [largeur];
+            for(unsigned int i=0; i<hauteur; i++) //initialisation des cellules dans un second temps car pas possible avec l'allocation dynamique
+                for(unsigned int j=0; j<largeur; j++)
+                    reseau[i][j].initCellule(0,i,j);
+    }*/
+    inline int getLargeur() const {return largeur;};
+    inline int getHauteur() const {return hauteur;};
+    inline Cellule** getReseau() const {return reseau;};
+    Reseau(const unsigned int &h, const unsigned int &l);
+    ~Reseau();
+    void affiche();
+};
