@@ -1,6 +1,9 @@
 #ifndef _FONCTION_H
 #define _FONCTION_H
 
+#include "../Reseau_Cellule_Etat/reseau_cellule_etats.h"
+#include "../Voisinage/voisinage.hpp"
+
 class Regle {
 	private:
 		int seuilsMin[8];
