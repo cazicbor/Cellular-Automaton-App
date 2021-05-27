@@ -38,16 +38,16 @@ void RegleVoisinage::calculVoisinage(Voisinage& v, const Reseau& r) {
 	v.voisinage = std::vector<Cellule*>();
 	for (int k = 0; k < nbVoisin; k++) {
 		unsigned int i, j;
-		while (i >= r.hauteur || j >= r.largeur) {
+		while (i >= r.getHauteur() || j >= r.getLargeur()) {
 			printf("Entrez l'abscisse de la %d ième cellule.\n", k);
 			scanf("%u", &i);
 			printf("Entrez l'ordonnée de la %d ième cellule.\n", k);
 			scanf("%u", &j);
-			if (i >= r.hauteur || j >= r.largeur)
+			if (i >= r.getHauteur() || j >= r.getLargeur())
 				printf("Coordonnées incorrecte!\n");
 		}
-		if (i < r.hauteur && j < r.largeur)
-			v.voisinage[k] = &r.reseau[i][j];
+		if (i < r.getHauteur() && j < r.getLargeur())
+			v.voisinage[k] = &r.getReseau()[i][j];
 	}
 }
 
@@ -56,50 +56,50 @@ void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) {
 	int nb = 0;
 	unsigned int abs = v.celluleCentre->abs;
 	unsigned int ord = v.celluleCentre->ord;
-	unsigned int hauteur = r.hauteur;
-	unsigned int largeur = r.largeur;
+	unsigned int hauteur = r.getHauteur();
+	unsigned int largeur = r.getLargeur();
 
 	for (int i = 0; i < v.r; i++) {
 		for (int j = 0; j < v.r; j++) {
 			if ((i + j) <= v.r || (i + j) != 0) {
 				
-				v.voisinage[nb] = &r.reseau[(abs + i)%hauteur][(ord + j)%largeur];
+				v.voisinage[nb] = &r.getReseau()[(abs + i)%hauteur][(ord + j)%largeur];
 				nb++;
 
 				if ((ord - j) < 0) {
-					v.voisinage[nb] = &r.reseau[(abs + i) % hauteur][largeur + ord - j];
+					v.voisinage[nb] = &r.getReseau()[(abs + i) % hauteur][largeur + ord - j];
 					nb++;
 					if ((abs - i >= 0)) {
-						v.voisinage[nb] = &r.reseau[abs - i][(ord + j) % largeur];
+						v.voisinage[nb] = &r.getReseau()[abs - i][(ord + j) % largeur];
 						nb++;
 
-						v.voisinage[nb] = &r.reseau[abs - i][largeur + ord - j];
+						v.voisinage[nb] = &r.getReseau()[abs - i][largeur + ord - j];
 						nb++;
 					}
 					else {
-						v.voisinage[nb] = &r.reseau[hauteur + abs - i][(ord + j) % largeur];
+						v.voisinage[nb] = &r.getReseau()[hauteur + abs - i][(ord + j) % largeur];
 						nb++;
 
-						v.voisinage[nb] = &r.reseau[hauteur + abs - i][largeur + ord - j];
+						v.voisinage[nb] = &r.getReseau()[hauteur + abs - i][largeur + ord - j];
 						nb++;
 					}
 				}					
 				else {
-					v.voisinage[nb] = &r.reseau[(abs + i) % hauteur][ord - j];
+					v.voisinage[nb] = &r.getReseau()[(abs + i) % hauteur][ord - j];
 					nb++;
 
 					if ((abs - i >= 0)) {
-						v.voisinage[nb] = &r.reseau[abs - i][(ord + j) % largeur];
+						v.voisinage[nb] = &r.getReseau()[abs - i][(ord + j) % largeur];
 						nb++;
 
-						v.voisinage[nb] = &r.reseau[abs - i][abs - j];
+						v.voisinage[nb] = &r.getReseau()[abs - i][abs - j];
 						nb++;
 					}
 					else {
-						v.voisinage[nb] = &r.reseau[hauteur + abs - i][(ord + j) % largeur];
+						v.voisinage[nb] = &r.getReseau()[hauteur + abs - i][(ord + j) % largeur];
 						nb++;
 
-						v.voisinage[nb] = &r.reseau[hauteur + abs - i][ord - j];
+						v.voisinage[nb] = &r.getReseau()[hauteur + abs - i][ord - j];
 						nb++;
 					}
 				}
@@ -119,55 +119,55 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r){
 	int nb = 0;
 	unsigned int abs = v.celluleCentre->abs;
 	unsigned int ord = v.celluleCentre->ord;
-	unsigned int hauteur = r.hauteur;
-	unsigned int largeur = r.largeur;
+	unsigned int hauteur = r.getHauteur();
+	unsigned int largeur = r.getLargeur();
 
 	for (int i = 1; i <= v.r; i++) {
 		for (int j = 1; j <= i; j++) {
-			v.voisinage[nb] = &r.reseau[(abs + i) % hauteur][(ord + j) % largeur];
+			v.voisinage[nb] = &r.getReseau()[(abs + i) % hauteur][(ord + j) % largeur];
 			nb++;
 
 			if ((abs - i) < 0) {
 				if ((ord - j) < 0) {
-					v.voisinage[nb] = &r.reseau[hauteur + abs - i][largeur + ord - j];
+					v.voisinage[nb] = &r.getReseau()[hauteur + abs - i][largeur + ord - j];
 					nb++;
 
-					v.voisinage[nb] = &r.reseau[(abs + i) % hauteur][largeur + ord - j];
+					v.voisinage[nb] = &r.getReseau()[(abs + i) % hauteur][largeur + ord - j];
 					nb++;
 
-					v.voisinage[nb] = &r.reseau[hauteur + abs - i][(ord + j) % largeur];
+					v.voisinage[nb] = &r.getReseau()[hauteur + abs - i][(ord + j) % largeur];
 					nb++;
 				}
 				else {
-					v.voisinage[nb] = &r.reseau[hauteur + abs - i][ord - j];
+					v.voisinage[nb] = &r.getReseau()[hauteur + abs - i][ord - j];
 					nb++;
 
-					v.voisinage[nb] = &r.reseau[(abs + i) % hauteur][ord - j];
+					v.voisinage[nb] = &r.getReseau()[(abs + i) % hauteur][ord - j];
 					nb++;
 
-					v.voisinage[nb] = &r.reseau[hauteur + abs - i][(ord + j) % largeur];
+					v.voisinage[nb] = &r.getReseau()[hauteur + abs - i][(ord + j) % largeur];
 					nb++;
 				}
 			}
 			else {
 				if ((ord - j) < 0) {
-					v.voisinage[nb] = &r.reseau[abs - i][largeur + ord - j];
+					v.voisinage[nb] = &r.getReseau()[abs - i][largeur + ord - j];
 					nb++;
 
-					v.voisinage[nb] = &r.reseau[(abs + i) % hauteur][largeur + ord - j];
+					v.voisinage[nb] = &r.getReseau()[(abs + i) % hauteur][largeur + ord - j];
 					nb++;
 
-					v.voisinage[nb] = &r.reseau[abs - i][(ord + j) % largeur];
+					v.voisinage[nb] = &r.getReseau()[abs - i][(ord + j) % largeur];
 					nb++;
 				}
 				else {
-					v.voisinage[nb] = &r.reseau[abs - i][ord - j];
+					v.voisinage[nb] = &r.getReseau()[abs - i][ord - j];
 					nb++;
 
-					v.voisinage[nb] = &r.reseau[(abs + i) % hauteur][ord - j];
+					v.voisinage[nb] = &r.getReseau()[(abs + i) % hauteur][ord - j];
 					nb++;
 
-					v.voisinage[nb] = &r.reseau[abs - i][(ord + j) % largeur];
+					v.voisinage[nb] = &r.getReseau()[abs - i][(ord + j) % largeur];
 					nb++;
 
 				}
