@@ -10,26 +10,56 @@
 
 #include <stdio.h>
 #include <iostream>
+#include "../Reseau_Cellule_Etat/reseau_cellule_etats.h"
+#include <string.h>
 
 using namespace std;
 
+#include <vector>
 
 
 class Voisinage {
 private :
     
     const Cellule* celluleCentre;
-    Cellule** voisinage;
+    vector<Cellule*> voisinage;
     unsigned int r;
     friend class RegleVoisinage;
     friend class RegleVoisinageMoore;
     friend class RegleVoisinageNeumann;
     friend class VoisinageIterator;
 public:
+    
+    class VoisinageIterator {
+        const Voisinage *vsn;
+        int i;
+        public :
+        
+        VoisinageIterator(const Voisinage *v){
+            vsn = v;
+        }
+        
+        void first(){
+            i=0;
+        }
+        
+        void next(){
+            i++;
+        }
+        bool isDone(){
+            return (vsn->voisinage.size() <= i);
+        }
+        Cellule* currentItem(){
+            
+            return vsn->voisinage[i];
+            
+        }
+        
+    };
 
     Voisinage();
     ~Voisinage();
-    Cellule* getCelluleCentre()const {return celluleCentre;}
+    Cellule getCelluleCentre()const {return *celluleCentre;}
     void setr(unsigned int rayon);
     unsigned int getr() const {return r;}
     VoisinageIterator *creerIterator()const{
@@ -72,31 +102,6 @@ public:
 
 };
 
-class VoisinageIterator {
-    const Voisinage *vsn;
-    int i;
-    public :
-    
-    VoisinageIterator(const Voisinage *v){
-        vsn = v;
-    }
-    
-    void first(){
-        i=0;
-    }
-    
-    void next(){
-        i++;
-    }
-    bool isDone(){
-        return (vsn->voisinage.size() <= i);
-    }
-    int currentItem(){
-        
-        return vsn->voisinage[i];
-        
-    }
-    
-};
+
 
 #endif /* voisinnage_hpp */

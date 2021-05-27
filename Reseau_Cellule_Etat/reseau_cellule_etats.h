@@ -11,6 +11,11 @@ private:
     //inline Cellule():indEtat(0), abs(0), ord(0){};
     void initCellule(const unsigned int ind, const unsigned int &x, const unsigned int &y);
     friend class Reseau;
+    friend class RegleVoisinage;
+    friend class RegleVoisinageNeumann;
+    friend class RegleVoisinageMoore;
+
+
 };
 
 class Etat{
@@ -56,6 +61,9 @@ private:
     unsigned int hauteur;
     unsigned int largeur;
     Cellule** reseau;
+    friend class RegleVoisinage;
+    friend class RegleVoisinageNeumann;
+    friend class RegleVoisinageMoore;
 
 public:
     /* inline Reseau(const unsigned int &h, const unsigned int &l):hauteur(h),largeur(l){

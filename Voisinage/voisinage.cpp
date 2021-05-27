@@ -42,7 +42,7 @@ void RegleVoisinageMoore::setNbVoisins(unsigned int r) {
 }
 
 void RegleVoisinage::calculVoisinage(Voisinage& v, const Reseau& r) {
-	v.voisinage = new Cellule* [nbVoisin];
+	v.voisinage = std::vector<Cellule*>();
 	for (int k = 0; k < nbVoisin; k++) {
 		unsigned int i, j;
 		while (i >= r.hauteur || j >= r.largeur) {
@@ -59,7 +59,7 @@ void RegleVoisinage::calculVoisinage(Voisinage& v, const Reseau& r) {
 }
 
 void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) {
-	v.voisinage = new Cellule * [nbVoisin];
+    v.voisinage = std::vector<Cellule*>();
 	int nb = 0;
 	unsigned int abs = v.celluleCentre->abs;
 	unsigned int ord = v.celluleCentre->ord;
@@ -122,7 +122,7 @@ void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) {
 }
 
 void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r){
-	v.voisinage = new Cellule * [nbVoisin];
+    v.voisinage = std::vector<Cellule*>();
 	int nb = 0;
 	unsigned int abs = v.celluleCentre->abs;
 	unsigned int ord = v.celluleCentre->ord;
@@ -185,15 +185,5 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r){
 }
 
 Voisinage::~Voisinage() {
-	VoisinageIterator *cellules = creerIterator();
-	cellules->first();
-	int nb = 0;
-
-	while (!cellules->isDone()){
-		delete voisinage[nb];
-		nb++;
-	}
-
-	delete[] voisinage;
-
+    voisinage.clear();
 }
