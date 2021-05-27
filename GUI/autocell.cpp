@@ -1,5 +1,5 @@
 #include "autocell.h"
-#include "Reseau_Cellule_Etat/reseau_cellule_etats.h"
+#include "reseau_cellule_etats.h"
 
 #include <QApplication>
 #include <QPushButton>
@@ -21,6 +21,7 @@
 #include <string>
 #include <QBrush>
 
+#include <array>
 #include <iostream>
 #include <iomanip>
 
@@ -127,15 +128,16 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     general->addWidget(win_notice,0,2,3,1);
 };
 
-void AutoCell::afficherGrille(Reseau& Grille)
+void AutoCell::afficherGrille(Reseau* Grille)
 {
     win_grid = new QWidget;
 
-    unsigned int l = Grille.getLargeur();
-    unsigned int h = Grille.getHauteur();
+    unsigned int l = Grille->getLargeur();
+    unsigned int h = Grille->getHauteur();
 
     delete grid;
     grid = new QTableWidget(h,l,win_grid);
+
     int dim_pixels_h=32; //Taille en pixel.
     int dim_pixels_v=30;
 
@@ -146,7 +148,6 @@ void AutoCell::afficherGrille(Reseau& Grille)
     grid->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); //Pas de barre pour scroller.
     grid->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    QSize size(30, 30);
     QFont serifFont("Times", 8, QFont::DemiBold);
 
     for(unsigned int i=0; i<h; i++){
@@ -154,39 +155,39 @@ void AutoCell::afficherGrille(Reseau& Grille)
         {
             //vérifier si les cellules ont ou non été générés (!= nullptr)
 
-            QString indice; indice.setNum(Grille.getReseau()[i][j].getIndEtat());
+            QString indice; indice.setNum(Grille->getReseau()[i][j].getIndEtat());
 
             QString label; label = QString::fromStdString(enseEtats.getEtat(indice.toInt()).getLabel()); //label de la cellule
 
-            if (grid->item(i,j) == nullptr)
-                grid->setItem(i, j, new QTableWidgetItem(label));
+            //if (grid->item(i,j) == nullptr)
+            grid->setItem(i, j, new QTableWidgetItem(indice));
+            grid->item(i,j)->setFlags(Qt::ItemIsEnabled);
+
+
 
             //afficherCellule
 
             QColor color; color = enseEtats.getEtat(indice.toInt()).getColor();
-
-            //QColor color(236, 240, 21);
-
-            //QColor color = enseEtats.getEtat((Grille.getReseau()[i][j]).getIndEtat()).getColor(); //couleur de la cellule
 
             QBrush brush_color;
             brush_color.setColor(color);
 
             grid->item(i,j)->setBackground(brush_color.color());
             grid->item(i,j)->setForeground(Qt::black);
-            grid->item(i,j)->setSizeHint(size);
             grid->item(i,j)->setFont(serifFont);
 
             grid->setColumnWidth(j,25);
         }
     }
-
+    connect(grid,SIGNAL(clicked(const QModelIndex&)),this,SLOT(modifierCellule(const QModelIndex&)));
     general->addWidget(win_grid,1,1,2,2);
-
 };
 
 
 void AutoCell::initialiserGrille(){
+
+    delete Grille;
+
     bool ok;
 
     int l = (edit_largeur->text()).toInt(&ok, 10);
@@ -196,12 +197,13 @@ void AutoCell::initialiserGrille(){
     QString str_l; str_l.setNum(l);
     QString str_h; str_h.setNum(h);
 
-    Reseau Grille1(h,l);
-    //Reseau Grille1(12,12);
+    this->Grille = new Reseau(h,l);
 
-    this->afficherGrille(Grille1);
+    if (check_aleatoire->isChecked()) Grille->setAleatoire();
 
-}; //méthode à implémenter qui récupère les données du formulaire - penser à réinitialiser les données annexes
+    this->afficherGrille(this->Grille);
+
+};
 
 
 void AutoCell::RAZ(){
@@ -209,4 +211,45 @@ void AutoCell::RAZ(){
     grid = new QTableWidget(0,0,win_grid);
     edit_largeur->setText("");
     edit_hauteur->setText("");
+}
+
+void AutoCell::modifierCellule(const QModelIndex& index) {
+    unsigned int i = index.row();
+    unsigned int j = index.column();
+    //bool ok;
+
+    Grille->getReseau()[i][j].incrementerEtat();
+
+    unsigned int indice = (Grille->getReseau()[i][j].getIndEtat());
+
+    //QString str_indice0 ; str_indice0 = grid -> item(i,j)->text();
+    //QString inc = "1";
+
+    //unsigned int indice = (((grid -> item(i,j)))->text().toInt(&ok1,10));//enseEtats.getNbEtats();
+
+    //unsigned int* ind = const_cast<unsigned int*>(&indice);
+    //++*ind;
+
+    //unsigned int inc = 1;
+
+    //ind->operator+=(inc);
+
+    /// VISIBLEMENT LE PROGRAMME AJOUTE LA LARGEUR * HAUTEUR A L'INCREMENTATION ??? POURQUOI ???
+    //indice = ++inc; => problémé lié à la duplication du signal
+    //unsigned int n = enseEtats.getNbEtats();
+    QString str_indice ; str_indice.setNum(indice, 10);
+
+    QColor color; color = enseEtats.getEtat(indice).getColor();
+
+    //QString str_indice = str_indice0 + inc;
+
+    QBrush brush_color;
+    brush_color.setColor(color);
+
+    grid->item(i,j)->setBackground(brush_color.color());
+    grid->item(i,j)->setText(str_indice);
+
+    //afficherGrille(Grille);
+
+    //qApp->quit();
 }

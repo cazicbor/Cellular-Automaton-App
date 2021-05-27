@@ -1,8 +1,9 @@
 #ifndef AUTOCELL_H
 #define AUTOCELL_H
 
-#include "Reseau_Cellule_Etat/reseau_cellule_etats.h"
+#include "reseau_cellule_etats.h"
 
+#include <QObject>
 #include <QApplication>
 #include <QPushButton>
 #include <QWidget>
@@ -27,6 +28,8 @@ extern EnsembleEtat& enseEtats;
 class AutoCell : public QWidget
 
 {
+    Reseau* Grille = nullptr;
+
     Q_OBJECT
     QGridLayout* general;
 
@@ -73,12 +76,17 @@ class AutoCell : public QWidget
     //void chargerGrille();
     //void listerGrille(); //déjà réfléchir à la recopie
     //Reseau initialiserGrille(); //méthode à implémenter qui récupère les données du formulaire - penser à réinitialiser les données annexes
-    void afficherGrille(Reseau&); //affiche une grille
+    //void afficherGrille(Reseau&); //affiche une grille
+
+    void afficherGrille(Reseau* Grille);
+
     void initialiserGrille();
     void RAZ();
     //void faireSimulation();
     //void sauvegarderGrille();
-    //void modifierGrille();//à implémenter
+    //Reseau& modifierCellule(const QModelIndex&, Reseau& Grille);//à implémenter
+
+    void modifierCellule(const QModelIndex& index);
 
 };
 

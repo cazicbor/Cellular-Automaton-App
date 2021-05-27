@@ -1,6 +1,9 @@
 #include "reseau_cellule_etats.h"
 #include <iostream>
 #include <iomanip>
+#include <cstdlib>
+
+extern EnsembleEtat& enseEtats;
 
 using namespace std;
 
@@ -70,6 +73,9 @@ void Cellule::initCellule(const unsigned int ind, const unsigned int &x, const u
     this->ord = y;
 }
 
+void Cellule::incrementerEtat(){
+    indEtat = (indEtat+1) % enseEtats.getNbEtats();}
+
 //méthodes de la classe Reseau
 
 Reseau::Reseau(const unsigned int &h, const unsigned int &l):hauteur(h),largeur(l){
@@ -95,3 +101,29 @@ void Reseau::affiche(){
     std::cout<<"\n";
     }
 }
+
+Reseau& Reseau::setAleatoire(){
+    srand(time(NULL));
+    for(unsigned int i=0; i<hauteur; i++)
+        for(unsigned int j=0; j<largeur; j++)
+        {
+            unsigned int random_ind = rand() % (enseEtats.getNbEtats());
+            reseau[i][j].initCellule(random_ind,i,j);
+        };
+    return *this;
+}
+
+Reseau::Reseau(Reseau& init_grille){
+    hauteur = init_grille.hauteur;
+    largeur = init_grille.largeur;
+    reseau = new Cellule* [hauteur];
+    for(unsigned int i=0; i<hauteur; i++)
+        reseau[i] = new Cellule [largeur];
+
+    for(unsigned int i=0; i<hauteur; i++)
+        for(unsigned int j=0; j<largeur; j++)
+        {
+            reseau[i][j].initCellule(init_grille.reseau[i][j].getIndEtat(),i,j);
+        }
+
+};
