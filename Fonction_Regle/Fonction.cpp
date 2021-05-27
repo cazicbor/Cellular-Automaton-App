@@ -1,21 +1,21 @@
 #include "Fonction.h"
 
 bool RegleAvecEtatCourant::verify(const Voisinage& voisins, const Cellule& cellule) const {
-	if(cellule.getEtat() != etatCourant.getEtat())
+	if(cellule.getIndEtat() != etatCourant)
 		return false;
 
 	int nb[8];
 
-	VoisinageIterator *cellules = voisins.creerIterator();
-	cellules.first()
+	auto *cellules = voisins.creerIterator();
+	cellules->first();
 
-	while(!cellules.isDone())
-		nb[cellules.currentItem().getEtat()]++;
+	while(!cellules->isDone())
+		nb[cellules->currentItem()->getIndEtat()]++;
 
 	delete cellules;
 
 	for(int i = 0; i < 8; ++i)
-		if(nb[i] < seuilMin[i] || nb[i] > seuilMax[i])
+		if(nb[i] < seuilsMin[i] || nb[i] > seuilsMax[i])
 			return false;
 
 	return true;
@@ -24,16 +24,16 @@ bool RegleAvecEtatCourant::verify(const Voisinage& voisins, const Cellule& cellu
 bool Regle::verify(const Voisinage& voisins) const {
 	int nb[8];
 
-	VoisinageIterator *cellules = voisins.creerIterator();
-	cellules.first()
+	auto *cellules = voisins.creerIterator();
+	cellules->first();
 
-	while(!cellules.isDone())
-		nb[cellules.currentItem().getEtat()]++;
+	while(!cellules->isDone())
+		nb[cellules->currentItem()->getIndEtat()]++;
 
 	delete cellules;
 
 	for(int i = 0; i < 8; i++)
-		if(nb[i] < seuilMin[i] || nb[i] > seuilMax[i])
+		if(nb[i] < seuilsMin[i] || nb[i] > seuilsMax[i])
 			return false;
 
 	return true;
@@ -41,39 +41,39 @@ bool Regle::verify(const Voisinage& voisins) const {
 
 const Etat& Fonction::getEtatSuivant(const Voisinage& voisins) const {
 	for(int i = 0; i < nbRegles; ++i)
-		if (regles[i].verify(voisins))
-			return regles[i].getDestination;
+		if (regles[i]->verify(voisins))
+			return regles[i]->getDestination();
 
 	return etatDefaut;
 }
 
 const Etat& FonctionAvecEtatCourant::getEtatSuivant(const Voisinage& voisins, const Cellule& cellule) const {
 	for(int i = 0; i < nbRegles; ++i)
-		if (regles[i].verify(voisins, cellule))
-			return regles[i].getDestination;
+		if (regles[i]->verify(voisins, cellule))
+			return regles[i]->getDestination();
 
 	return etatDefaut;
 }
 
-void Fonction::ajouterRegle(const Etat& destination, const int seuilsMax[8], const int seuilsMax[8]) {
-	Regle** nouveau = new *Regles[nbRegles + 1];
+void Fonction::ajouterRegle(const Etat& destination, const int seuilsMin[8], const int seuilsMax[8]) {
+	Regle** nouveau = new Regle*[nbRegles + 1];
 
 	for(int i = 0; i < nbRegles; ++i)
 		nouveau[i] = regles[i];
 
-	nouveau[nbRegles] = new Regle(destination, seuilsMax, seuilsMax);
+	nouveau[nbRegles] = new Regle(destination, seuilsMin, seuilsMax);
 	++nbRegles;
 	delete[] regles;
 	regles = nouveau;
 }
 
-void FonctionAvecEtatCourant::ajouterRegle(const Etat& destination, const int seuilsMax[8], const int seuilsMax[8], const Cellule& cellule) {
-	RegleAvecEtatCourant** nouveau = new *ReglesAvecEtatCourant[nbRegles + 1];
+void FonctionAvecEtatCourant::ajouterRegle(const Etat& destination, const int seuilsMin[8], const int seuilsMax[8], const int etat) {
+	RegleAvecEtatCourant** nouveau = new RegleAvecEtatCourant*[nbRegles + 1];
 
 	for(int i = 0; i < nbRegles; ++i)
 		nouveau[i] = regles[i];
 
-	nouveau[nbRegles] = new RegleAvecEtatCourant(destination, seuilsMax, seuilsMax, cellule);
+	nouveau[nbRegles] = new RegleAvecEtatCourant(destination, seuilsMin, seuilsMax, etat);
 	++nbRegles;
 	delete[] regles;
 	regles = nouveau;
@@ -93,7 +93,7 @@ FonctionAvecEtatCourant::~FonctionAvecEtatCourant() {
 	delete[] regles;
 }
 
-Regle::Regle(const Etat& nDestination, const int nSeuilsMax[8], const int nSeuilsMax[8]): destination(dest) {
+Regle::Regle(const Etat& nDestination, const int nSeuilsMin[8], const int nSeuilsMax[8]): destination(nDestination) {
 	for(int i = 0; i < 8; ++i)
 		seuilsMin[i] = nSeuilsMin[i];
 
@@ -101,7 +101,5 @@ Regle::Regle(const Etat& nDestination, const int nSeuilsMax[8], const int nSeuil
 		seuilsMax[i] = nSeuilsMax[i];
 }
 
-RegleAvecEtatCourant::RegleAvecEtatCourant(const Etat& nDestination, const int nSeuilsMax[8], const int nSeuilsMax[8], const Cellule& cellule) {
-	Regle(nDestination, nSeuilsMin, nSeuilsMax);
-	etatCourant = cellule.getEtat;
+RegleAvecEtatCourant::RegleAvecEtatCourant(const Etat& nDestination, const int nSeuilsMin[8], const int nSeuilsMax[8], const int nEtat): Regle(nDestination, nSeuilsMin, nSeuilsMax), etatCourant(nEtat) {
 }

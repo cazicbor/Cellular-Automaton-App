@@ -64,8 +64,6 @@ public:
 
     Cellule getCelluleCentre()const {return *celluleCentre;}
 
-    const Cellule* getCelluleCentre()const {return celluleCentre;}
-
     void setr(unsigned int rayon);
     unsigned int getr() const {return r;}
     VoisinageIterator *creerIterator()const{

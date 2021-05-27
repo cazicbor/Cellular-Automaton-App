@@ -5,23 +5,25 @@
 #include "../Voisinage/voisinage.hpp"
 
 class Regle {
-	private:
+	protected:
 		int seuilsMin[8];
 		int seuilsMax[8];
+
+	private:
 		Etat destination;
 
 	public:
-		Regle(const Etat& nDestination, const int nSeuilsMax[8], const int nSeuilsMax[8]);
+		Regle(const Etat& nDestination, const int nSeuilsMax[8], const int nSeuilsMin[8]);
 		const Etat& getDestination() const { return destination; }
 		bool verify(const Voisinage& voisins) const;
 };
 
 class RegleAvecEtatCourant: public Regle {
 	private:
-		Etat etatCourant;
+		int etatCourant;
 
 	public:
-		RegleAvecEtatCourant(const Etat& nDestination, const int nSeuilsMax[8], const int nSeuilsMax[8], const Cellule& cellule);
+		RegleAvecEtatCourant(const Etat& nDestination, const int nSeuilsMax[8], const int nSeuilsMin[8], const int nEtat);
 		bool verify(const Voisinage& voisins, const Cellule& cellule) const;
 };
 
@@ -47,11 +49,11 @@ class FonctionAvecEtatCourant {
 		int nbRegles;
 	
 	public:
-		FonctionAvecEtatCourant():regles(nullptr),nbRegles(0),etatDefaut(etat){}
+		FonctionAvecEtatCourant(const Etat& etat):regles(nullptr),nbRegles(0),etatDefaut(etat){}
 		~FonctionAvecEtatCourant();
 		const Etat& getEtatDefaut() const { return etatDefaut; }
 		void setEtatDefaut(const Etat& nouveau) { etatDefaut = nouveau; }
-		void ajouterRegle(const Etat& destination, const int seuilsMin[8], const int seuilsMax[8], const Etat& courant);
+		void ajouterRegle(const Etat& destination, const int seuilsMin[8], const int seuilsMax[8], const int etat);
 		const Etat& getEtatSuivant(const Voisinage& voisins, const Cellule& cellule) const;
 };
 

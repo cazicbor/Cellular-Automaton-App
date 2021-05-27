@@ -1,4 +1,4 @@
-#include "autocell.h"
+#include "GUI/autocell.h"
 #include "reseau_cellule_etats.h"
 
 #include <QApplication>

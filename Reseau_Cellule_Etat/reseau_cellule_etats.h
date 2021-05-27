@@ -14,16 +14,12 @@ private:
     //inline Cellule():indEtat(0), abs(0), ord(0){};
     void initCellule(const unsigned int ind, const unsigned int &x, const unsigned int &y);
     friend class Reseau;
-<<<<<<< HEAD
     friend class RegleVoisinage;
     friend class RegleVoisinageNeumann;
     friend class RegleVoisinageMoore;
 
-
-=======
 public:
     inline unsigned int getIndEtat() const {return indEtat;}
->>>>>>> f7848295cdeed771bfc93a109c01fd440c2d61b7
 };
 
 class Etat{
