@@ -14,16 +14,9 @@ private:
     //inline Cellule():indEtat(0), abs(0), ord(0){};
     void initCellule(const unsigned int ind, const unsigned int &x, const unsigned int &y);
     friend class Reseau;
-<<<<<<< HEAD
-    friend class RegleVoisinage;
-    friend class RegleVoisinageNeumann;
-    friend class RegleVoisinageMoore;
-
-
-=======
 public:
-    inline unsigned int getIndEtat() const {return indEtat;}
->>>>>>> f7848295cdeed771bfc93a109c01fd440c2d61b7
+    unsigned int getIndEtat() const {return indEtat;}
+    void incrementerEtat();
 };
 
 class Etat{
@@ -31,15 +24,15 @@ private:
     unsigned int indice;
     std::string label;
     QColor color;
-    inline Etat(unsigned int ind, std::string lab, int r = 0, int g = 0, int b = 0):
+    Etat(unsigned int ind, std::string lab, int r = 0, int g = 0, int b = 0):
     indice(ind),label(lab),color(r,g,b){};
-    inline Etat(unsigned int ind, std::string lab, QColor col):
+    Etat(unsigned int ind, std::string lab, QColor col):
     indice(ind),label(lab),color(col){};//constructeur privé (l'utilisateur ne doit pas pouvoir créer un Etat par ce biais)
     friend class EnsembleEtat;
 
 public:
-    inline std::string getLabel(){return label;}
-    inline QColor getColor(){return color;}
+    std::string getLabel(){return label;}
+    QColor getColor(){return color;}
 };
 
 
@@ -65,7 +58,8 @@ public:
     static EnsembleEtat& getInstance();
     static void libererInstance();
     void initEtat(const Etat* init_etats = nullptr);//initialisation du tableau d'Etats à partir d'un tableau externe
-    inline Etat& getEtat(const unsigned int &ind){return *ensEtats[ind];}
+    Etat& getEtat(const unsigned int &ind){return *ensEtats[ind];}
+    unsigned int getNbEtats() const {return nbEtats;};
 };
 
 class Reseau{
@@ -73,23 +67,14 @@ private:
     unsigned int hauteur;
     unsigned int largeur;
     Cellule** reseau;
-    friend class RegleVoisinage;
-    friend class RegleVoisinageNeumann;
-    friend class RegleVoisinageMoore;
 
 public:
-    /* inline Reseau(const unsigned int &h, const unsigned int &l):hauteur(h),largeur(l){
-            reseau = new Cellule* [hauteur];
-                for(unsigned int i=0; i<hauteur; i++)
-                    reseau[i] = new Cellule [largeur];
-            for(unsigned int i=0; i<hauteur; i++) //initialisation des cellules dans un second temps car pas possible avec l'allocation dynamique
-                for(unsigned int j=0; j<largeur; j++)
-                    reseau[i][j].initCellule(0,i,j);
-    }*/
-    inline int getLargeur() const {return largeur;};
-    inline int getHauteur() const {return hauteur;};
-    inline Cellule** getReseau() const {return reseau;};
+    int getLargeur() const {return largeur;};
+    int getHauteur() const {return hauteur;};
+    Reseau& setAleatoire();
+    Cellule** getReseau() const {return reseau;};
     Reseau(const unsigned int &h, const unsigned int &l);
+    Reseau(Reseau&);
     ~Reseau();
     void affiche();
 };
