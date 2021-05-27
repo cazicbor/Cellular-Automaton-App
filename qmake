@@ -1,0 +1,15 @@
+QT += widgets
+
+SOURCES += GUI/autocell.cpp
+SOURCES += Voisinage/voisinage.cpp
+SOURCES += Reseau_Cellule_Etat/reseau_cellule_etats.cpp
+SOURCES += Reseau_Cellule_Etat/main.cpp
+SOURCES += Fonction_Regle/Fonction.cpp
+SOURCES += Automate/Automate.cpp
+
+HEADERS += ./GUI/autocell.h
+HEADERS += ./Cellulut/Cellulut/fonction.h
+HEADERS += ./Voisinage/voisinage.hpp
+HEADERS += ./Reseau_Cellule_Etat/reseau_cellule_etats.h
+HEADERS += ./Fonction_Regle/Fonction.h
+HEADERS += ./Automate/Automate.h

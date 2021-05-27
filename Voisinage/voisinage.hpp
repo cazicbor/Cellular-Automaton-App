@@ -13,6 +13,8 @@
 #include "../Reseau_Cellule_Etat/reseau_cellule_etats.h"
 #include <string.h>
 
+#include "Reseau_Cellule_Etat/reseau_cellule_etats.h"
+
 using namespace std;
 
 #include <vector>
@@ -59,7 +61,11 @@ public:
 
     Voisinage();
     ~Voisinage();
+
     Cellule getCelluleCentre()const {return *celluleCentre;}
+
+    const Cellule* getCelluleCentre()const {return celluleCentre;}
+
     void setr(unsigned int rayon);
     unsigned int getr() const {return r;}
     VoisinageIterator *creerIterator()const{

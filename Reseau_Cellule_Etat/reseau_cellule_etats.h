@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 #include <array>
+#include <QColor>
+
+using namespace std;
 
 class Cellule{
 private:
@@ -11,25 +14,34 @@ private:
     //inline Cellule():indEtat(0), abs(0), ord(0){};
     void initCellule(const unsigned int ind, const unsigned int &x, const unsigned int &y);
     friend class Reseau;
+<<<<<<< HEAD
     friend class RegleVoisinage;
     friend class RegleVoisinageNeumann;
     friend class RegleVoisinageMoore;
 
 
+=======
+public:
+    inline unsigned int getIndEtat() const {return indEtat;}
+>>>>>>> f7848295cdeed771bfc93a109c01fd440c2d61b7
 };
 
 class Etat{
 private:
     unsigned int indice;
     std::string label;
-    std::string color;
-    inline Etat(unsigned int ind, std::string lab, std::string col):
-    indice(ind),label(lab),color(col){}; //constructeur privé (l'utilisateur ne doit pas pouvoir créer un Etat par ce biais)
+    QColor color;
+    inline Etat(unsigned int ind, std::string lab, int r = 0, int g = 0, int b = 0):
+    indice(ind),label(lab),color(r,g,b){};
+    inline Etat(unsigned int ind, std::string lab, QColor col):
+    indice(ind),label(lab),color(col){};//constructeur privé (l'utilisateur ne doit pas pouvoir créer un Etat par ce biais)
     friend class EnsembleEtat;
 
 public:
-    inline std::string& getLabel(){return label;}
+    inline std::string getLabel(){return label;}
+    inline QColor getColor(){return color;}
 };
+
 
 class EnsembleEtat{ //singleton qui regroupe l'ensemble des états
 private:          //permet d'éviter que chaque cellule inclue une instance d'Etat
@@ -48,7 +60,7 @@ private:          //permet d'éviter que chaque cellule inclue une instance d'Et
     EnsembleEtat operator=(const EnsembleEtat&) = delete;
 
 public:
-    void ajouterEtat(unsigned int ind, std::string lab, std::string col);
+    void ajouterEtat(unsigned int ind, std::string lab,int r = 0, int g = 0, int b = 0);
     void supprimerEtat(const unsigned int ind);
     static EnsembleEtat& getInstance();
     static void libererInstance();
@@ -74,6 +86,9 @@ public:
                 for(unsigned int j=0; j<largeur; j++)
                     reseau[i][j].initCellule(0,i,j);
     }*/
+    inline int getLargeur() const {return largeur;};
+    inline int getHauteur() const {return hauteur;};
+    inline Cellule** getReseau() const {return reseau;};
     Reseau(const unsigned int &h, const unsigned int &l);
     ~Reseau();
     void affiche();

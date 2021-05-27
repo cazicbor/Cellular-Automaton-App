@@ -2,17 +2,10 @@
 #include<math.h>
 
 void Voisinage::setr(unsigned int rayon){
-    rayon = -1;
-
-	while (rayon< 0){
-		printf("Entrez le ratonde voisinage (0 pour le voisinage arbitraire):\n ");
-		scanf("%d", &rayon);
-
-		if(rayon >= 0){
-			r = rayon;
-		}
-		else printf("Rayon incorrect !\n");
+   if(rayon >= 0){
+		r = rayon;
 	}
+	else throw ("Rayon incorrect !\n");
 	 
 }
 
