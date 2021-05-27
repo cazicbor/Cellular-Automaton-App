@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
     Reseau Grille(hauteur, largeur);
 
     AutoCell autocell;
-    autocell.afficherGrille(Grille);
+    autocell.afficherGrille(&Grille);
     autocell.show();
 
     return app.exec();
