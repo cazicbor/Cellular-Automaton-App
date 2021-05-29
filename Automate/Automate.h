@@ -6,7 +6,8 @@
 class Automate {
 	private:
 		static std::unique_ptr<Automate> instance;
-		Automate() = default;
+		unsigned int delai;
+		Automate(): delai(500) {};
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
 
@@ -19,6 +20,9 @@ class Automate {
 			return *instance;
 		}
 		~Automate() = default;
+		void setFonction(Fonction& f);
+		void setRegleVoisinage(RegleVoisinage& r);
+		void setDelai(const unsigned int d) { delai = d; }
 };
 
 #endif
