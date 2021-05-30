@@ -2,6 +2,8 @@
 #define _AUTOMATE_H
 
 #include <memory>
+#include "../Fonction_Regle/Fonction.h"
+#include "../Voisinage/voisinage.hpp"
 
 class Automate {
 	private:
@@ -10,7 +12,6 @@ class Automate {
 		Fonction* fonction;
 		RegleVoisinage* regleVoisinage;
 		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr) {}
-		~Automate() { delete fonction; delete regleVoisinage; }
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
 
@@ -22,6 +23,7 @@ class Automate {
 
 			return *instance;
 		}
+		~Automate() { delete fonction; delete regleVoisinage; }
 		void setFonction(Fonction& f) { delete fonction; fonction = new Fonction(f); }
 		void setRegleVoisinage(RegleVoisinage& r) { delete regleVoisinage; regleVoisinage = new RegleVoisinage(r); }
 		void setDelai(const unsigned int d) { delai = d; }
