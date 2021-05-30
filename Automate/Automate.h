@@ -7,7 +7,10 @@ class Automate {
 	private:
 		static std::unique_ptr<Automate> instance;
 		unsigned int delai;
-		Automate(): delai(500) {};
+		Fonction* fonction;
+		RegleVoisinage* regleVoisinage;
+		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr) {}
+		~Automate() { delete fonction; delete regleVoisinage; }
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
 
@@ -19,9 +22,8 @@ class Automate {
 
 			return *instance;
 		}
-		~Automate() = default;
-		void setFonction(Fonction& f);
-		void setRegleVoisinage(RegleVoisinage& r);
+		void setFonction(Fonction& f) { delete fonction; fonction = new Fonction(f); }
+		void setRegleVoisinage(RegleVoisinage& r) { delete regleVoisinage; regleVoisinage = new RegleVoisinage(r); }
 		void setDelai(const unsigned int d) { delai = d; }
 };
 
