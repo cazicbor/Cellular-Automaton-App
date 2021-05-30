@@ -23,9 +23,9 @@ class Automate {
 
 			return *instance;
 		}
-		~Automate() { delete fonction; delete regleVoisinage; }
-		void setFonction(Fonction& f) { delete fonction; fonction = new Fonction(f); }
-		void setRegleVoisinage(RegleVoisinage& r) { delete regleVoisinage; regleVoisinage = new RegleVoisinage(r); }
+		~Automate() = default;
+		void setFonction(Fonction& f) { fonction = &f; }
+		void setRegleVoisinage(RegleVoisinage& r) { regleVoisinage = &r; }
 		void setDelai(const unsigned int d) { delai = d; }
 };
 
