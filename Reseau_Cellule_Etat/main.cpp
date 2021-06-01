@@ -1,5 +1,5 @@
-#include "GUI/autocell.h"
-#include "reseau_cellule_etats.h"
+#include "./Reseau_Cellule_Etat/reseau_cellule_etats.h"
+#include "./GUI/autocell.h"
 
 #include <QApplication>
 #include <QPushButton>
@@ -19,25 +19,30 @@ using namespace std;
 
 EnsembleEtat &enseEtats = EnsembleEtat::getInstance();
 
+
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
     EnsembleEtat &enseEtats = EnsembleEtat::getInstance();
 
-    enseEtats.ajouterEtat(0, "vivant", 100, 30, 22);
-    enseEtats.ajouterEtat(1, "mort", 236, 240, 21);
+    enseEtats.ajouterEtat(0, "vivant", 239, 239, 239);
+    enseEtats.ajouterEtat(1, "mort", 90, 94, 107);
+    enseEtats.ajouterEtat(2, "zombie", 131, 166, 151);
+    enseEtats.ajouterEtat(3, "fantôme", 22, 166, 151);
 
-    int largeur = 15;
-    int hauteur = 12;
 
-    Reseau Grille(hauteur, largeur);
+    //int largeur = 15;
+    //int hauteur = 12;
+
+    //Reseau Grille(hauteur, largeur);
+
+    //Grille.setAleatoire();
 
     AutoCell autocell;
-    autocell.afficherGrille(&Grille);
+    //autocell.afficherGrille(&Grille);
     autocell.show();
 
     return app.exec();
 }
-
 
