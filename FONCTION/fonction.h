@@ -3,7 +3,7 @@
 
 
 class Regle {
-	int* seuil[8]; //seuil : valeurs minimales pour chacun des états dans le voisinage pour valider la règle en question
+	int* seuil[8]; //seuil : valeurs minimales pour chacun des Ã©tats dans le voisinage pour valider la rÃ¨gle en question
 	Etat destination;
 public:
 	bool verify(Voisinage& voisins) const;
