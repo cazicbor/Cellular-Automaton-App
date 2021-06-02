@@ -1,4 +1,0 @@
-QT += core
-QT += sql
-
-
