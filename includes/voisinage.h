@@ -65,11 +65,10 @@ public:
 };
 
 class RegleVoisinage{
-    private :
+private :
     
-    
-    
-    public :
+
+public :
     unsigned int nbVoisin;
     void setNbVoisins(unsigned int r);
     unsigned int getNbVoisin() {return nbVoisin;}
@@ -77,6 +76,16 @@ class RegleVoisinage{
     
     
 };
+
+/*class RegleVoisinageRayon : public RegleVoisinage { //voisinage rayon hérite de voisinage puisque spécification
+protected:
+    unsigned int rayon;
+public:
+    unsigned int getRayon() const { return rayon; }
+    explicit RegleVoisinageRayon(unsigned int ray) : rayon(ray) {} //explicit car
+
+
+};*/
 
 
 
@@ -86,6 +95,7 @@ public:
     void calculVoisinage(Voisinage& v, const Reseau& r);
 
 };
+
 
 
 
