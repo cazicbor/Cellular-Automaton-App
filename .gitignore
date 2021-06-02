@@ -4,3 +4,4 @@ cellulut
 moc_*.cpp
 Makefile
 moc_*.h
+docs/*
