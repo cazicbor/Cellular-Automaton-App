@@ -46,7 +46,11 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     win_model_choice->setStyleSheet("background-color: rgb(204, 209, 209)");
     win_model_choice->setFixedSize(300, 100);
 
-    lab_model_choice = new QLabel("Choisir un modèle dans la liste :", win_model_choice);
+    lab_model_choice = new QLabel("Choisir un modèle dans la liste ou \nen paramétrer un nouveau :", win_model_choice);
+
+    button_add_model = new QPushButton("Ajouter un modèle");
+    button_add_model->setStyleSheet("background-color : rgb(251, 252, 252 )");
+    button_add_model->setFixedWidth(140);
 
     liste = new QComboBox(win_model_choice);
     liste->addItem("modèle 1");
@@ -54,12 +58,14 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     liste->addItem("modèle 3");
     liste->addItem("modèle 4");
     liste->setStyleSheet("background-color : rgb(251, 252, 252 )");
+    liste->setFixedWidth(140);
 
     connect(liste,SIGNAL(currentIndexChanged(int)),this,SLOT(RAZ()));
 
     grid_model_choice = new QGridLayout(win_model_choice);
     grid_model_choice->addWidget(lab_model_choice, 0, 0, 1, 2);
-    grid_model_choice->addWidget(liste, 1,0,3,1);
+    grid_model_choice->addWidget(liste, 1,0,1,1);
+    grid_model_choice->addWidget(button_add_model,1,1);
 
     general->addWidget(win_model_choice,0,0);
 
@@ -80,7 +86,6 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     list_grids = new QComboBox;
     check_load_grid = new QCheckBox;
 
-
     edit_largeur = new QLineEdit;
     edit_largeur->setFixedWidth(30);
     edit_hauteur= new QLineEdit;
@@ -99,15 +104,50 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     form_config->addRow(tr("Hauteur :"), edit_hauteur);
     form_config->addRow(tr("Remplissage aléatoire"), check_aleatoire);
 
-    form_init->addWidget(lab_init,0,0);
+    form_init->addWidget(lab_init,0,0,1,3);
 
     general->addWidget(win_init,0,1,1,2);
 
     //définition de la frame "panneau de contrôle de l'exécution"
 
     win_run_ctrl = new QWidget;
-    lab_run_crtl = new QLabel("Outils de contrôle :", win_run_ctrl);
+    win_run_ctrl->setFixedWidth(300);
+    lab_run_crtl = new QLabel("Outils de contrôle :");
     win_run_ctrl->setStyleSheet("background-color: rgb(174, 182, 191)");
+
+
+    grid_run_control = new QGridLayout(win_run_ctrl);
+
+    grid_run_control->setColumnMinimumWidth(1,100);
+    grid_run_control->setColumnMinimumWidth(2,100);
+    grid_run_control->setRowMinimumHeight(3,400);
+
+    grid_run_control->addWidget(lab_run_crtl, 0,0,1,3);
+
+    lab_time_step = new QLabel("Pas de temps : ");
+    edit_time_step = new QLineEdit;
+    edit_time_step->setStyleSheet("background-color: rgb(255,255,255)");
+    edit_time_step->setFixedWidth(30);
+    edit_time_step->setText("1"); //valeur par défaut pour le pas de temps
+    button_prev = new QPushButton("<<");
+    button_prev->setStyleSheet("background-color: rgb(255,255,255)");
+    button_prev->setFixedSize(40,40);
+    button_run = new QPushButton("RUN");
+    button_run->setFixedSize(40,40);
+    button_run->setStyleSheet("background-color: rgb(255,255,255)");
+    button_next = new QPushButton(">>");
+    button_next->setFixedSize(40,40);
+    button_next->setStyleSheet("background-color: rgb(255,255,255)");
+
+    grid_run_control->addWidget(lab_time_step, 1, 0);
+    grid_run_control->addWidget(edit_time_step, 1, 1);
+    grid_run_control->addWidget(button_prev, 2, 0);
+    grid_run_control->addWidget(button_run, 2, 1);
+    grid_run_control->addWidget(button_next, 2, 2);
+
+    button_save_grid = new QPushButton("sauvegarder la grille");
+
+    grid_run_control->addWidget(button_save_grid,3,1,4,3,Qt::AlignBottom);
 
     general->addWidget(win_run_ctrl,1,0,2,1);
 
@@ -211,7 +251,8 @@ void AutoCell::RAZ(){
     grid = new QTableWidget(0,0,win_grid);
     edit_largeur->setText("");
     edit_hauteur->setText("");
-}
+    edit_time_step->setText("1");
+;}
 
 void AutoCell::modifierCellule(const QModelIndex& index) {
     unsigned int i = index.row();
