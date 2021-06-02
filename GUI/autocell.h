@@ -36,8 +36,9 @@ class AutoCell : public QWidget
     //définition de la frame choix du modèle
     QWidget* win_model_choice;
     QLabel* lab_model_choice;
-    QComboBox *liste;
-    QGridLayout *grid_model_choice;
+    QComboBox* liste;
+    QGridLayout* grid_model_choice;
+    QPushButton* button_add_model;
 
     //définition de la frame initialisation
     QWidget* win_init;
@@ -58,6 +59,16 @@ class AutoCell : public QWidget
     //définition de la frame "panneau de contrôle de l'exécution"
     QWidget* win_run_ctrl;
     QLabel* lab_run_crtl;
+
+    QGridLayout* grid_run_control;
+
+    QLabel* lab_time_step;
+    QLineEdit* edit_time_step;
+    QPushButton* button_prev;
+    QPushButton* button_run;
+    QPushButton* button_next;
+
+    QPushButton* button_save_grid;
 
     //définition de la frame affichage de la grille
     QWidget* win_grid;

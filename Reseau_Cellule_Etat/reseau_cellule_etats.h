@@ -29,9 +29,9 @@ private:
     std::string label;
     QColor color;
     Etat(unsigned int ind, std::string lab, int r = 0, int g = 0, int b = 0):
-    indice(ind),label(lab),color(r,g,b){};
+    indice(ind),label(lab),color(r,g,b){}
     Etat(unsigned int ind, std::string lab, QColor col):
-    indice(ind),label(lab),color(col){};//constructeur privé (l'utilisateur ne doit pas pouvoir créer un Etat par ce biais)
+    indice(ind),label(lab),color(col){} //constructeur privé (l'utilisateur ne doit pas pouvoir créer un Etat par ce biais)
     friend class EnsembleEtat;
 
 public:
