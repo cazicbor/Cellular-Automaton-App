@@ -8,19 +8,16 @@
 #ifndef voisinage_h
 #define voisinage_h
 
+#include "reseau_cellule_etats.h"
 #include <stdio.h>
 #include <iostream>
-#include "reseau_cellule_etats.h"
 #include <string.h>
 #include <vector>
 
 using namespace std;
 
-
-
 class Voisinage {
 private :
-    
     const Cellule* celluleCentre;
     vector<Cellule*> voisinage;
     unsigned int r;
@@ -50,16 +47,13 @@ public:
             return (vsn->voisinage.size() <= i);
         }
         Cellule* currentItem(){
-            
             return vsn->voisinage[i];
-            
         }
         
     };
 
-    Voisinage();
+    Voisinage(const Cellule* centre, vector<Cellule*> v) : celluleCentre(centre), voisinage(v) {}
     ~Voisinage();
-
     Cellule getCelluleCentre()const {return *celluleCentre;}
 
     void setr(unsigned int rayon);
