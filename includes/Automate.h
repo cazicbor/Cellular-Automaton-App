@@ -14,7 +14,13 @@ class Automate {
 		unsigned int delai;
 		Fonction* fonction;
 		RegleVoisinage* regleVoisinage;
-		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr) {}
+		std::list<Reseau> buffer; //ajouté
+        std::list<Reseau>::iterator itBuffer; //ajouté
+        unsigned int h; //ajouté pour construire des réseaux
+        unsigned int l; //de même
+        bool isRunning; //ajouté
+
+		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), isRunning(false) {} //modifié
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
 
@@ -30,6 +36,21 @@ class Automate {
 		void setFonction(Fonction& f) { fonction = &f; }
 		void setRegleVoisinage(RegleVoisinage& r) { regleVoisinage = &r; }
 		void setDelai(const unsigned int d) { delai = d; }
+
+		//nouvelles fonctions
+
+        void setHauteur(unsigned int hauteur) { h = hauteur; }
+        void setLargeur(unsigned int largeur) { l = largeur; }
+
+        void previous() { itBuffer--; }
+        void next() { itBuffer++; }
+        void reset() { itBuffer = buffer.begin(); }
+
+        void step() { if(isRunning) {nextTimer(); itBuffer++;} }
+        void run(int n) { for(int i=0;i<n;i++) step(); }
+
+        void start() { isRunning = true; }
+        void pause() { isRunning = false; }
 };
 
 #endif
