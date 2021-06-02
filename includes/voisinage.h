@@ -1,23 +1,21 @@
 //
-//  voisinnage.hpp
+//  voisinage.h
 //  LO21-Projet
 //
 //  Created by Maxime Goret on 20/04/2021.
 //
 
-#ifndef voisinnage_hpp
-#define voisinnage_hpp
+#ifndef voisinage_h
+#define voisinage_h
 
 #include <stdio.h>
 #include <iostream>
-#include <reseau_cellule_etats.h>
+#include "reseau_cellule_etats.h"
 #include <string.h>
-
-#include <reseau_cellule_etats.h>
+#include <vector>
 
 using namespace std;
 
-#include <vector>
 
 
 class Voisinage {
@@ -108,4 +106,4 @@ public:
 
 
 
-#endif /* voisinnage_hpp */
+#endif /* voisinage_h */
