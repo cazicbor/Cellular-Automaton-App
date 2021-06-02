@@ -1,2 +1,6 @@
 *.o
-projetLO21
+cellulut
+.qmake.stash
+moc_*.cpp
+Makefile
+moc_*.h

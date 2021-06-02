@@ -2,8 +2,8 @@
 #define _AUTOMATE_H
 
 #include <memory>
-#include "../Fonction_Regle/Fonction.h"
-#include "../Voisinage/voisinage.hpp"
+#include <Fonction.h>
+#include <voisinage.h>
 
 class Automate {
 	private:

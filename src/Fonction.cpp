@@ -1,4 +1,4 @@
-#include "Fonction.h"
+#include <Fonction.h>
 
 bool RegleAvecEtatCourant::verify(const Voisinage& voisins, const Cellule& cellule) const {
 	if(cellule.getIndEtat() != etatCourant)

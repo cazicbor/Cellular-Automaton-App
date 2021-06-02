@@ -2,8 +2,8 @@
 #define _FONCTION_H
 
 #include <memory>
-#include "../Reseau_Cellule_Etat/reseau_cellule_etats.h"
-#include "../Voisinage/voisinage.hpp"
+#include <reseau_cellule_etats.h>
+#include <voisinage.h>
 
 class Regle {
 	protected:

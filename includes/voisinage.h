@@ -10,10 +10,10 @@
 
 #include <stdio.h>
 #include <iostream>
-#include "../Reseau_Cellule_Etat/reseau_cellule_etats.h"
+#include <reseau_cellule_etats.h>
 #include <string.h>
 
-#include "Reseau_Cellule_Etat/reseau_cellule_etats.h"
+#include <reseau_cellule_etats.h>
 
 using namespace std;
 

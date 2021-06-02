@@ -1,5 +1,5 @@
 #include <iostream>
-#include "autosql.h"
+#include <autosql.h>
 
 Database::Database(std::string path): db(QSqlDatabase::addDatabase("QSQLITE")) {
 	db.setDatabaseName(path.c_str());
@@ -21,15 +21,4 @@ std::vector<QString> Database::getAutomates() const {
 	}
 
 	return names;
-}
-
-int main() {
-	Database db("test.sqlite");
-
-	auto automates = db.getAutomates();
-	for(auto& automate: automates) {
-		std::cout << automate.toStdString() << std::endl;
-	}
-
-	return 0;
 }
