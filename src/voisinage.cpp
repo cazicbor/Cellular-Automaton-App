@@ -1,18 +1,19 @@
-#include <voisinage.h>
-#include<math.h>
+#include"voisinage.h"
+#include"reseau_cellule_etats.h"
+#include<cmath>
+#include<iostream>
 
 void Voisinage::setr(unsigned int rayon){
-   if(rayon >= 0){
-		r = rayon;
-	}
+   if(rayon >= 0)
+        r = rayon;
 	else throw ("Rayon incorrect !\n");
 	 
 }
 
 void RegleVoisinage::setNbVoisins(unsigned int r) {
 	if (r == 0) { //voisinage arbitraire
-		printf("Entrez le nombre de voisins.\n");
-		scanf("%u", &nbVoisin);
+        cout << "Entrez le nombre de voisins.\n";
+        cin >> nbVoisin;
 	}
 }
 
@@ -39,12 +40,12 @@ void RegleVoisinage::calculVoisinage(Voisinage& v, const Reseau& r) {
 	for (int k = 0; k < nbVoisin; k++) {
 		unsigned int i, j;
 		while (i >= r.getHauteur() || j >= r.getLargeur()) {
-			printf("Entrez l'abscisse de la %d ième cellule.\n", k);
-			scanf("%u", &i);
-			printf("Entrez l'ordonnée de la %d ième cellule.\n", k);
-			scanf("%u", &j);
+            cout << "Entrez l'abscisse de la" << k << "ième cellule.\n";
+            cin >> i;
+            cout << "Entrez l'ordonnée de la "<< k << "ième cellule.\n";
+            cin >> j;
 			if (i >= r.getHauteur() || j >= r.getLargeur())
-				printf("Coordonnées incorrecte!\n");
+                cout << "Coordonnées incorrecte !\n";
 		}
 		if (i < r.getHauteur() && j < r.getLargeur())
 			v.voisinage[k] = &r.getReseau()[i][j];

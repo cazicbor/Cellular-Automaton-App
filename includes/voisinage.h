@@ -8,11 +8,12 @@
 #ifndef voisinage_h
 #define voisinage_h
 
-#include "reseau_cellule_etats.h"
-#include <stdio.h>
-#include <iostream>
-#include <string.h>
-#include <vector>
+#include"reseau_cellule_etats.h"
+#include"coordonnees.h"
+#include<stdio.h>
+#include<iostream>
+#include<string>
+#include<vector>
 
 using namespace std;
 
@@ -77,17 +78,6 @@ public :
     
 };
 
-/*class RegleVoisinageRayon : public RegleVoisinage { //voisinage rayon hérite de voisinage puisque spécification
-protected:
-    unsigned int rayon;
-public:
-    unsigned int getRayon() const { return rayon; }
-    explicit RegleVoisinageRayon(unsigned int ray) : rayon(ray) {} //explicit car
-
-
-};*/
-
-
 
 class RegleVoisinageNeumann : public RegleVoisinage {
 public:
@@ -97,15 +87,23 @@ public:
 };
 
 
-
-
-
-
 class RegleVoisinageMoore : public RegleVoisinage {
 public:
     void setNbVoisins(unsigned int r);
     void calculVoisinage(Voisinage& v, const Reseau& r);
 
+};
+
+
+struct VoisinageFormat { //Format possible de voisinage pouvant être renvoyé par RegleVoisinage
+    std::vector<Coordonnees> positions;
+};
+
+
+class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle pour le voisinage arbitraire
+public:
+    Voisinage getVoisinage(const Reseau& reseau, Coordonnees position) const;
+    std::vector<VoisinageFormat> getFormat() const;
 };
 
 
