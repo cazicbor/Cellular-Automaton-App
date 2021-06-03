@@ -14,6 +14,7 @@ Database::Database(std::string path): db(QSqlDatabase::addDatabase("QSQLITE")) {
 	db.exec("CREATE TABLE IF NOT EXISTS regles_voisinage (id VARCHAR(30) PRIMARY KEY REFERENCES automates(nom), type INTEGER NOT NULL, rayon INTEGER)");
 	db.exec("CREATE TABLE IF NOT EXISTS coord_voisinage (id VARCHAR(30) REFERENCES automates(nom) NOT NULL, x INTEGER NOT NULL, y INTEGER NOT NULL)");
 }
+	db.exec("CREATE TABLE IF NOT EXISTS reseaux (id INTEGER PRIMARY KEY, nom VARCHAR(30), h INTEGER, l INTEGER, nbEtats INTEGER, reseau JSON)");
 
 std::vector<QString> Database::getAutomates() const {
 	QSqlQuery query = db.exec("SELECT nom FROM automates");
