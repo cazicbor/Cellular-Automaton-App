@@ -182,6 +182,6 @@ Voisinage::~Voisinage() {
     voisinage.clear();
 }
 
-Voisinage RegleVoisinageArbitraire::getVoisinage(const Reseau& reseau, Coordonnees position) const {
+Voisinage RegleVoisinageArbitraire::getVoisinage(const Reseau& reseau, Coordonnees position) const {}
 
-}
+void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) {}

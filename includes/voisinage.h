@@ -98,6 +98,7 @@ class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle po
 public:
     Voisinage getVoisinage(const Reseau& reseau, Coordonnees position) const;
     //à compléter
+    void calculVoisinage(Voisinage &v, const Reseau& r);
 };
 
 
