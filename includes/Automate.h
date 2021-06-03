@@ -14,7 +14,7 @@ class Automate {
 		unsigned int delai;
 		Fonction* fonction;
 		RegleVoisinage* regleVoisinage;
-		std::list<Reseau> buffer; //ajouté
+		std::list<Reseau> buffer; //ajouté : faut-il appeler buffer.clear() dans le destructeur ?
         std::list<Reseau>::iterator itBuffer; //ajouté
         unsigned int h; //ajouté pour construire des réseaux
         unsigned int l; //de même
@@ -42,11 +42,11 @@ class Automate {
         void setHauteur(unsigned int hauteur) { h = hauteur; }
         void setLargeur(unsigned int largeur) { l = largeur; }
 
-        void previous() { itBuffer--; }
-        void next() { itBuffer++; }
+        void previous() { if(itBuffer!=buffer.begin()) itBuffer--; }
+        void next() { if(itBuffer!=buffer.end()) itBuffer++; }
         void reset() { itBuffer = buffer.begin(); }
 
-        void step() { if(isRunning) {nextTimer(); itBuffer++;} }
+        void step() { if(isRunning) { if(itBuffer==buffer.end()) nextTimer(); itBuffer++;} }
         void run(int n) { for(int i=0;i<n;i++) step(); }
 
         void start() { isRunning = true; }
