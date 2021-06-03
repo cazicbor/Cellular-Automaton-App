@@ -40,12 +40,12 @@ void RegleVoisinage::calculVoisinage(Voisinage& v, const Reseau& r) {
 	for (int k = 0; k < nbVoisin; k++) {
 		unsigned int i, j;
 		while (i >= r.getHauteur() || j >= r.getLargeur()) {
-            cout << "Entrez l'abscisse de la" << k << "ième cellule.\n";
+            cout << "Entrez l'abscisse de la" << k << "ieme cellule.\n";
             cin >> i;
-            cout << "Entrez l'ordonnée de la "<< k << "ième cellule.\n";
+            cout << "Entrez l'ordonnee de la "<< k << "ieme cellule.\n";
             cin >> j;
 			if (i >= r.getHauteur() || j >= r.getLargeur())
-                cout << "Coordonnées incorrecte !\n";
+                cout << "Coordonnees incorrectes !\n";
 		}
 		if (i < r.getHauteur() && j < r.getLargeur())
 			v.voisinage[k] = &r.getReseau()[i][j];
@@ -180,4 +180,8 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r){
 
 Voisinage::~Voisinage() {
     voisinage.clear();
+}
+
+Voisinage RegleVoisinageArbitraire::getVoisinage(const Reseau& reseau, Coordonnees position) const {
+
 }

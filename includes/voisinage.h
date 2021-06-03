@@ -10,7 +10,7 @@
 
 #include"reseau_cellule_etats.h"
 #include"coordonnees.h"
-#include<stdio.h>
+#include<cstdio>
 #include<iostream>
 #include<string>
 #include<vector>
@@ -94,16 +94,10 @@ public:
 
 };
 
-
-struct VoisinageFormat { //Format possible de voisinage pouvant être renvoyé par RegleVoisinage
-    std::vector<Coordonnees> positions;
-};
-
-
 class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle pour le voisinage arbitraire
 public:
     Voisinage getVoisinage(const Reseau& reseau, Coordonnees position) const;
-    std::vector<VoisinageFormat> getFormat() const;
+    //à compléter
 };
 
 
