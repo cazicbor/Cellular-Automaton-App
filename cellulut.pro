@@ -12,7 +12,8 @@ SOURCES += src/autosql.cpp
 SOURCES += src/Fonction.cpp
 SOURCES += src/Automate.cpp
 
-HEADERS += includes/autocell.h
+HEADERS += includes/autocell.h \
+    includes/coordonnees.h
 HEADERS += includes/fonction.h
 HEADERS += includes/autosql.h
 HEADERS += includes/voisinage.h
