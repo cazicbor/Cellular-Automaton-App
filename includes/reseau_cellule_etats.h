@@ -37,6 +37,7 @@ private:
 public:
     std::string getLabel(){return label;}
     QColor getColor(){return color;}
+    unsigned int getIndice() { return indice; }
 };
 
 
@@ -78,7 +79,7 @@ public:
     Reseau& setAleatoire();
     Cellule** getReseau() const {return reseau;};
     Reseau(const unsigned int &h, const unsigned int &l);
-    Reseau(Reseau&);
+    Reseau(const Reseau&);
     ~Reseau();
     void affiche();
 };

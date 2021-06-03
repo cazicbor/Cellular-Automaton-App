@@ -49,6 +49,8 @@ class Automate {
         void step() { if(isRunning) { if(itBuffer==buffer.end()) nextTimer(); itBuffer++;} }
         void run(int n) { for(int i=0;i<n;i++) step(); }
 
+	void nextTimer();
+
         void start() { isRunning = true; }
         void pause() { isRunning = false; }
 };

@@ -113,7 +113,7 @@ Reseau& Reseau::setAleatoire(){
     return *this;
 }
 
-Reseau::Reseau(Reseau& init_grille){
+Reseau::Reseau(const Reseau& init_grille){
     hauteur = init_grille.hauteur;
     largeur = init_grille.largeur;
     reseau = new Cellule* [hauteur];

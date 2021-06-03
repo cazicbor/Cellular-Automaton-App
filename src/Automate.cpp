@@ -2,6 +2,7 @@
 
 std::unique_ptr<Automate> Automate::instance = nullptr;
 
+/// La méthode nextTimer calcule un nouveau pas de temps, elle s'occupe également de la taille du buffer des réseaux qui est pour le moment hardcodé mais qui peut très facilement devenir un attribut modifiable par accesseur si besoin
 void Automate::nextTimer()
 {
     if((l!=0)&&(h!=0)) //il faut que l et h aient été initialisés autrement que nuls
@@ -20,6 +21,9 @@ void Automate::nextTimer()
                 }
             }
             buffer.push_back(r);
+	    if(buffer.size() > 15) { // taille maximum du buffer : 15
+		    buffer.erase(buffer.begin());
+	    }
         }
     }
 }
