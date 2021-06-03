@@ -17,6 +17,7 @@ private:
     friend class RegleVoisinage;
     friend class RegleVoisinageNeumann;
     friend class RegleVoisinageMoore;
+    friend class RegleVoisinageArbitraire;
 
 public:
     inline unsigned int getIndEtat() const {return indEtat;}

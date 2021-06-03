@@ -1,5 +1,5 @@
-#include <autocell.h>
-#include <reseau_cellule_etats.h>
+#include "autocell.h"
+#include "reseau_cellule_etats.h"
 
 #include <QApplication>
 #include <QPushButton>
