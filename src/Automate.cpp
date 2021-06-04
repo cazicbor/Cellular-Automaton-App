@@ -15,7 +15,9 @@ void Automate::nextTimer()
             {
                 for(size_t j = 0; j<l; j++)
                 {
-                    Etat& e = fonction->getEtatSuivant(, r.getReseau()[i][j]); //besoin d'un voisinage
+			Voisinage voisinage((*buffer.end()).getReseau[i][j], /*c'est quoi ce paramètre ?*/);
+			regleVoisinage.calculVoisinage(voisinage, *buffer.end());
+                    Etat& e = fonction->getEtatSuivant(voisinage, r.getReseau()[i][j]); //besoin d'un voisinage
                     while(r.getReseau()[i][j].getIndEtat()!=e.getIndice()) //besoin de getIndice
                         r.getReseau()[i][j].incrementerEtat();
                 }
