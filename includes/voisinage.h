@@ -73,7 +73,7 @@ public :
     unsigned int nbVoisin;
     void setNbVoisins(unsigned int r);
     unsigned int getNbVoisin() {return nbVoisin;}
-    void calculVoisinage(Voisinage& v, const Reseau& r);
+    virtual void calculVoisinage(Voisinage& v, const Reseau& r);
     
     
 };
