@@ -184,4 +184,20 @@ Voisinage::~Voisinage() {
 
 Voisinage RegleVoisinageArbitraire::getVoisinage(const Reseau& reseau, Coordonnees position) const {}
 
-void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) {}
+void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) {
+	v.voisinage = std::vector<Cellule*>();
+
+	for (int k = 0; k < nbVoisin; k++) {
+		unsigned int i, j;
+		while (i >= r.getHauteur() || j >= r.getLargeur()) {
+			cout << "Entrez l'abscisse de la" << k << "ieme cellule.\n";
+			cin >> i;
+			cout << "Entrez l'ordonnee de la " << k << "ieme cellule.\n";
+			cin >> j;
+			if (i >= r.getHauteur() || j >= r.getLargeur())
+				cout << "Coordonnees incorrectes !\n";
+		}
+		if (i < r.getHauteur() && j < r.getLargeur())
+			v.voisinage[k] = &r.getReseau()[i][j];
+	}
+}
