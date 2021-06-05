@@ -21,6 +21,7 @@ class Database {
 		std::vector<QString> getAutomates() const;
 		Fonction* getFonction(const QString& name) const;
 		RegleVoisinage* getRegleVoisinage(const QString& name) const;
+		std::vector<QString> getListeReseaux(const QString& name) const;
 };
 
 #endif
