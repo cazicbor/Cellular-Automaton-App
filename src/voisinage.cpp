@@ -50,7 +50,7 @@ void RegleVoisinage::calculVoisinage(Voisinage& v, const Reseau& r) {
 		if (i < r.getHauteur() && j < r.getLargeur())
 			v.voisinage[k] = &r.getReseau()[i][j];
 	}
-}
+
 
 void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r, const unsigned int rayon) {
     v.voisinage = std::vector<Cellule*>();
@@ -242,8 +242,8 @@ coordonnes RegleVoisinageArbitraire::getVoisinage(const Reseau& r) {
 
 	return coordonnees;
 	// While (!utilisateur clique sur bouton valider){
-		//recupérer abs et ord de Cellule sélectionnée;
-		//rentrer la différence des coordonnes dans le vecteur co
+		//recuprer abs et ord de Cellule slectionne;
+		//rentrer la diffrence des coordonnes dans le vecteur co
 	//}
 
 }
