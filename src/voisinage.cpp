@@ -199,8 +199,12 @@ Voisinage::~Voisinage() {
 }
 
 
+<<<<<<< HEAD
 void calculVoisinage(Voisinage& v, const Reseau r, Coordonnees co){  
 	
+=======
+void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) { //définir get?
+>>>>>>> d78cce4e7d49623a3ddb5aa18db685438295923d
 	v.voisinage = std::vector<Cellule*>();
 	
 	unsigned int abs = v.celluleCentre->abs;
