@@ -170,3 +170,25 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 
 	return regle;
 }
+
+/// Retourne un descriptif des réseaux ("id", "nom", "id", "nom", etc.) liés à un automate
+std::vector<QString> Database::getListeReseaux(const QString& name) const
+{
+    QSqlQuery query(db);
+
+    query.prepare("SELECT id, nom FROM reseaux WHERE nom = ':nom'");
+    query.bindValue(":nom", name);
+    query.exec();
+
+    std::vector<QString> names;
+    if(query.first()) {
+        names.push_back(query.value("id").toString());
+        names.push_back(query.value("nom").toString());
+    }
+    while(query.next()) {
+        names.push_back(query.value("id").toString());
+        names.push_back(query.value("nom").toString());
+    }
+
+    return names;
+}
