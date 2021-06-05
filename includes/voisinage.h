@@ -81,16 +81,16 @@ public :
 
 class RegleVoisinageNeumann : public RegleVoisinage {
 public:
-    void setNbVoisins(unsigned int r);
-    void calculVoisinage(Voisinage& v, const Reseau& r);
+    //void setNbVoisins(unsigned int r);
+    void calculVoisinage(Voisinage& v, const Reseau& r, const unsigned int rayon);
 
 };
 
 
 class RegleVoisinageMoore : public RegleVoisinage {
 public:
-    void setNbVoisins(unsigned int r);
-    void calculVoisinage(Voisinage& v, const Reseau& r);
+    //void setNbVoisins(unsigned int r);
+    void calculVoisinage(Voisinage& v, const Reseau& r, const unsigned int rayon);
 
 };
 

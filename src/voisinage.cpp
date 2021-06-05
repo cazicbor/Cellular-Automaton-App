@@ -17,23 +17,23 @@ void RegleVoisinage::setNbVoisins(unsigned int r) {
 	}
 }
 
-void RegleVoisinageNeumann::setNbVoisins(unsigned int r) {
-	if (r == 1) { // voisinage de von Neumann
-		nbVoisin = 4;
-	}
-	else { // voisiange de von Neumann avec un rayon
-		nbVoisin = 2 * r * (1 + r);
-	}
+//void RegleVoisinageNeumann::setNbVoisins(unsigned int r) {
+//	if (r == 1) { // voisinage de von Neumann
+//		nbVoisin = 4;
+//	}
+//	else { // voisiange de von Neumann avec un rayon
+		//nbVoisin = 2 * r * (1 + r);
+	//}
 }
 
-void RegleVoisinageMoore::setNbVoisins(unsigned int r) {
-	if (r == 1) { // voisinage de Moore
-		nbVoisin = 8;
-	}
-	else { // voisiange de Moore avec un rayon
-		nbVoisin = pow((2 * r + 1), 2) - 1;
-	}
-}
+//void RegleVoisinageMoore::setNbVoisins(unsigned int r) {
+//	if (r == 1) { // voisinage de Moore
+	//	nbVoisin = 8;
+	//}
+	//else { // voisiange de Moore avec un rayon
+	//	nbVoisin = pow((2 * r + 1), 2) - 1;
+	//}
+//}
 
 void RegleVoisinage::calculVoisinage(Voisinage& v, const Reseau& r) {
 	v.voisinage = std::vector<Cellule*>();
@@ -52,13 +52,21 @@ void RegleVoisinage::calculVoisinage(Voisinage& v, const Reseau& r) {
 	}
 }
 
-void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) {
+void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r, const unsigned int rayon) {
     v.voisinage = std::vector<Cellule*>();
 	int nb = 0;
 	unsigned int abs = v.celluleCentre->abs;
 	unsigned int ord = v.celluleCentre->ord;
 	unsigned int hauteur = r.getHauteur();
 	unsigned int largeur = r.getLargeur();
+	
+	if (rayon == 1) { // voisinage de von Neumann
+		nbVoisin = 4;
+	}
+	else { // voisiange de von Neumann avec un rayon
+		nbVoisin = 2 * r * (1 + r);
+	}
+
 
 	for (int i = 0; i < v.r; i++) {
 		for (int j = 0; j < v.r; j++) {
@@ -115,13 +123,21 @@ void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) {
 	}
 }
 
-void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r){
+void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r, const unsigned int rayon){
     v.voisinage = std::vector<Cellule*>();
 	int nb = 0;
 	unsigned int abs = v.celluleCentre->abs;
 	unsigned int ord = v.celluleCentre->ord;
 	unsigned int hauteur = r.getHauteur();
 	unsigned int largeur = r.getLargeur();
+
+	if (rayon == 1) { // voisinage de Moore
+		nbVoisin = 8;
+	}
+	else { // voisiange de Moore avec un rayon
+		nbVoisin = pow((2 * r + 1), 2) - 1;
+	}
+
 
 	for (int i = 1; i <= v.r; i++) {
 		for (int j = 1; j <= i; j++) {
