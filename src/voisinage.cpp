@@ -50,7 +50,7 @@ void RegleVoisinage::calculVoisinage(Voisinage& v, const Reseau& r) {
 		if (i < r.getHauteur() && j < r.getLargeur())
 			v.voisinage[k] = &r.getReseau()[i][j];
 	}
-
+}
 
 void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r, const unsigned int rayon) {
     v.voisinage = std::vector<Cellule*>();
