@@ -200,7 +200,7 @@ Voisinage::~Voisinage() {
 
 Voisinage RegleVoisinageArbitraire::getVoisinage(const Reseau& reseau, Coordonnees position) const {}
 
-void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) {
+void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) { //définir get?
 	v.voisinage = std::vector<Cellule*>();
 
 	for (int k = 0; k < nbVoisin; k++) {
