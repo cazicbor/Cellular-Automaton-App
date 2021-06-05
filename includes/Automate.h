@@ -83,10 +83,12 @@ class Automate {
 			step();
 	}
 
-	void nextTimer();
+		void nextTimer();
 
         void start() { timer.install(delai); }
         void pause() { timer.destroy(); }
+
+		Reseau getReseauCourant() { return *itBuffer; }
 };
 
 #endif
