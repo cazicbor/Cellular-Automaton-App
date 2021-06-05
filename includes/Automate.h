@@ -18,11 +18,37 @@ class Automate {
         std::list<Reseau>::iterator itBuffer; //ajouté
         unsigned int h; //ajouté pour construire des réseaux
         unsigned int l; //de même
-        bool isRunning; //ajouté
 
 		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), isRunning(false) {} //modifié
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
+		class Timer: public QObject {
+			private:
+				int timerID;
+				Automate *automate;
+				Timer(Automate *a): timerID(0), automate(a) {}
+				~Timer() { destroy(); }
+
+			protected:
+				void timerEvent(QTimerEvent *event) { automate->step(); }
+
+			public:
+				void install(const int delai) {
+					if(timerID != 0)
+						destroy();
+
+					timerID = startTimer(delai);
+					if(timerID == 0)
+						throw "Unable to install timer";
+				}
+				void destroy() {
+					if(timerID != 0)
+						killTimer(timerID);
+				}
+
+			friend class Automate;
+		};
+		Timer timer(this);
 
 	public:
 		static Automate& getInstance() {
@@ -47,13 +73,20 @@ class Automate {
         void reset() { itBuffer = buffer.begin(); } /// L'automate revient au premier état du buffer
         void reset(const Reseau& r) { buffer.clear(); buffer.push_back(r); } /// On vide la buffer et on l'initialise avec une première grille
 
-        void step() { if(isRunning) { if(itBuffer==buffer.end()) nextTimer(); itBuffer++;} }
-        void run(int n) { for(int i=0;i<n;i++) step(); }
+        void step() {
+		if(itBuffer==buffer.end())
+			nextTimer();
+		itBuffer++;
+	}
+        void run(int n) {
+		for(int i=0;i<n;i++)
+			step();
+	}
 
 	void nextTimer();
 
-        void start() { isRunning = true; }
-        void pause() { isRunning = false; }
+        void start() { timer.install(delai); }
+        void pause() { timer.destroy(); }
 };
 
 #endif
