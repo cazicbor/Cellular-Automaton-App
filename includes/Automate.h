@@ -44,7 +44,8 @@ class Automate {
 
         void previous() { if(itBuffer!=buffer.begin()) itBuffer--; }
         void next() { if(itBuffer!=buffer.end()) itBuffer++; }
-        void reset() { itBuffer = buffer.begin(); }
+        void reset() { itBuffer = buffer.begin(); } /// L'automate revient au premier état du buffer
+        void reset(const Reseau& r) { buffer.clear(); buffer.push_back(r); } /// On vide la buffer et on l'initialise avec une première grille
 
         void step() { if(isRunning) { if(itBuffer==buffer.end()) nextTimer(); itBuffer++;} }
         void run(int n) { for(int i=0;i<n;i++) step(); }
