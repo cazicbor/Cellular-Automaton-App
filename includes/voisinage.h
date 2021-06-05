@@ -15,6 +15,7 @@
 #include<string>
 #include<vector>
 
+
 using namespace std;
 
 class Voisinage {
@@ -96,9 +97,11 @@ public:
 
 class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle pour le voisinage arbitraire
 public:
-    Voisinage getVoisinage(const Reseau& reseau, Coordonnees position) const;
-    //à compléter
-    void calculVoisinage(Voisinage &v, const Reseau& r);
+
+    vector<Coordonnees> coordonnees;
+
+    void calculVoisinage(Voisinage& v, const Reseau& r, const Coordonnes co) const; // Calcul du voisinage en fonction de la cellule centre
+    coordonnees getVoisinage(const Reseau& r); // Dééfinition des coordonnées relatives pour le calcul du voisinage
 };
 
 
