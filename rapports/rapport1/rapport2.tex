@@ -1,0 +1,57 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+\pagestyle{fancy}
+\fancyhf{}
+\chead{\includegraphics[height=1cm]{utc.jpg}}
+\cfoot{Page \thepage}
+
+\title{LO21 - Rapport intermédiaire 2}
+\author{Romain de Laage, Victor Blanchet, Maxime Goret, Luning Yang, Boris Cazic, Léon Do Castelo}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\section{Introduction}
+
+Suite à la répartition précédente, nous avons fait une nouvelle réunion afin de faire le point sur notre avancée. Nous avons mis en commun de nouvelles idées pour peaufiner les attendus de modularité du programme. Nous avons ensuite mis à jour la liste des tâches avant de nous les répartir dans un délai de deux semaines.
+
+\section{Avancée des tâches et répartition}
+
+\begin{itemize}
+    \item Conceptualisation et implémentation d'une cellule et d'une grille : terminé en environ 10h.
+    \bigskip
+    \item Conceptualisation et implémentation d'une règle ainsi que celle d'une fonction : terminé en environ 9h.
+    \bigskip
+    \item Conceptualisation et implémentation d'un voisinage : terminé en environ 10h.
+    \bigskip
+    \item Conceptualisation et implémentation d'un automate : à commencer. Temps estimé 5h : Leon et possiblement Romain. Cette tâche s'appuie sur les travaux des tâches précédentes. Elle est essentielle à la réalisation de notre programme.
+    \bigskip
+    \item Conceptualisation et début d'implémentation de l'interface : à commencer. L'idée est de produire un prototype d'interface, de commencer à l'imaginer. Il ne devrait pas être totalement fonctionnel d'ici deux semaines. Temps estimé 10h : Victor et Boris.
+    \bigskip
+    \item Définir un format de sauvegarde des données (bibliothèque d'automates, règles, voisinages, structures, grilles, ...) et une manière de les importer dans l'application. Temps estimé 10h : pas de répartition pour le moment.
+    \bigskip
+    \item Tâches optionnelles, à voir éventuellement après les tâches précédentes.
+\end{itemize}
+
+\section{Conclusion}
+
+La conceptualisation a bien avancé depuis le dernier rapport mais il reste encore à terminer son implémentation. Les tâches se précisent pour les groupes qui en ont la charge et le projet prend forme petit à petit. 
+
+\bigskip
+
+Le but avant le prochain rapport est d'avoir terminé l'implémentation des différentes classes, de l'avoir testée, et d'avoir une idée plus précise de l'agencement de notre interface.
+
+\bigskip
+
+Il ne nous restera ensuite plus qu'à connecter l'interface à notre implémentation, et à penser à un format de stockage pour stocker des automates pré-définis.
+
+\end{document}
