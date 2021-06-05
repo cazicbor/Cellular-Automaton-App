@@ -198,10 +198,31 @@ Voisinage::~Voisinage() {
     voisinage.clear();
 }
 
-Voisinage RegleVoisinageArbitraire::getVoisinage(const Reseau& reseau, Coordonnees position) const {}
 
+<<<<<<< HEAD
+void calculVoisinage(Voisinage& v, const Reseau r, Coordonnees co){  
+	
+=======
 void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) { //dÃ©finir get?
+>>>>>>> d78cce4e7d49623a3ddb5aa18db685438295923d
 	v.voisinage = std::vector<Cellule*>();
+	
+	unsigned int abs = v.celluleCentre->abs;
+	unsigned int ord = v.celluleCentre->ord;
+	unsigned int hauteur = r.getHauteur();
+	unsigned int largeur = r.getLargeur();
+
+	while (nb = 0, nb < coordonnees.size(), nb++){
+		v.voisinage[nb] = &r.getReseau()[abs - co[nb].getx()] [ord - co[nb].gety()];
+	}
+}
+
+coordonnes RegleVoisinageArbitraire::getVoisinage(const Reseau& r) {
+	
+	vector<Coordonnees> coordonnees;
+
+	Cellule* cellulecentre = getCelluleCentre();
+	
 
 	for (int k = 0; k < nbVoisin; k++) {
 		unsigned int i, j;
@@ -213,7 +234,16 @@ void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) { 
 			if (i >= r.getHauteur() || j >= r.getLargeur())
 				cout << "Coordonnees incorrectes !\n";
 		}
-		if (i < r.getHauteur() && j < r.getLargeur())
-			v.voisinage[k] = &r.getReseau()[i][j];
+		if (i < r.getHauteur() && j < r.getLargeur()) {
+			coordonnees[k].x = cellulecentre.abs - i;
+			coordonnees[k].y = cellulecentre.ord - j;
+		}
 	}
+
+	return coordonnees;
+	// While (!utilisateur clique sur bouton valider){
+		//recupérer abs et ord de Cellule sélectionnée;
+		//rentrer la différence des coordonnes dans le vecteur co
+	//}
+
 }
