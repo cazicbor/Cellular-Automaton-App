@@ -24,7 +24,7 @@ void RegleVoisinage::setNbVoisins(unsigned int r) {
 //	else { // voisiange de von Neumann avec un rayon
 		//nbVoisin = 2 * r * (1 + r);
 	//}
-}
+//}
 
 //void RegleVoisinageMoore::setNbVoisins(unsigned int r) {
 //	if (r == 1) { // voisinage de Moore
