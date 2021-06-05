@@ -89,6 +89,8 @@ class Automate {
         void pause() { timer.destroy(); }
 
 		Reseau getReseauCourant() { return *itBuffer; }
+
+		void initialiserBuffer(Reseau& r) { if(buffer.begin()==buffer.end()) buffer.push_front(r); }
 };
 
 #endif
