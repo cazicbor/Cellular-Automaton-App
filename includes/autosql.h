@@ -22,6 +22,7 @@ class Database {
 		Fonction* getFonction(const QString& name) const;
 		RegleVoisinage* getRegleVoisinage(const QString& name) const;
 		std::vector<QString> getListeReseaux(const QString& name) const;
+		Reseau& getReseau(int idReseau) const;
 };
 
 #endif
