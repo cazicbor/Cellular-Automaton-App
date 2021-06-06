@@ -2,6 +2,7 @@
 #include "reseau_cellule_etats.h"
 #include "autosql.h"
 #include "Automate.h"
+#include "parametragemodele.h"
 
 #include <QApplication>
 #include <QPushButton>
@@ -51,8 +52,11 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     lab_model_choice = new QLabel("Choisir un modèle dans la liste ou \nen paramétrer un nouveau :", win_model_choice);
 
     button_add_model = new QPushButton("Ajouter un modèle");
+    button_add_model->setToolTip("Configurer un nouveau modèle");
     button_add_model->setStyleSheet("background-color : rgb(251, 252, 252 )");
     button_add_model->setFixedWidth(140);
+
+    connect(button_add_model, SIGNAL(clicked()), this, SLOT(defNouveauModele());
 
     liste = new QComboBox(win_model_choice);
     liste->setPlaceholderText("--- select ---");
@@ -290,6 +294,11 @@ void AutoCell::RAZ(){
     check_aleatoire->setCheckState(Qt::Unchecked);
     check_load_grid->setCheckState(Qt::Unchecked);
 ;}
+
+void AutoCell::defNouveauModele() {
+    NouveauModele* nouveaumodele = new NouveauModele;
+    nouveaumodele->show();
+}
 
 void AutoCell::modifierCellule(const QModelIndex& index) {
     unsigned int i = index.row();
