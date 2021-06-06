@@ -4,6 +4,7 @@
 #include <memory>
 #include <reseau_cellule_etats.h>
 #include <voisinage.h>
+#include <list>
 
 class Regle {
 	protected:
