@@ -26,7 +26,9 @@ private :
     friend class RegleVoisinage;
     friend class RegleVoisinageMoore;
     friend class RegleVoisinageNeumann;
+    friend class RegleVoisinageArbitraire;
     friend class VoisinageIterator;
+    
 public:
     
     class VoisinageIterator {
