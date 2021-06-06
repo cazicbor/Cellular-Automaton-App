@@ -60,6 +60,15 @@ void EnsembleEtat::initEtat(const Etat* init_etats){
     nbEtats = sizeof (init_etats);
 }
 
+void EnsembleEtat::reset(){
+    if (ensEtats != nullptr){
+        for(auto it : ensEtats){
+            delete it;
+        }
+        nbEtats=0;
+    }
+};
+
 //méthodes de la classe Etat
 
 
