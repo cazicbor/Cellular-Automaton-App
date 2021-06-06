@@ -235,8 +235,8 @@ Coordonnees RegleVoisinageArbitraire::getVoisinage(const Reseau& r) {
 				cout << "Coordonnees incorrectes !\n";
 		}
 		if (i < r.getHauteur() && j < r.getLargeur()) {
-			coordonnees[k].x = cellulecentre.abs - i;
-			coordonnees[k].y = cellulecentre.ord - j;
+			coordonnees[k].x = cellulecentre->abs - i;
+			coordonnees[k].y = cellulecentre->ord - j;
 		}
 	}
 
