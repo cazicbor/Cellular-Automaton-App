@@ -1,7 +1,7 @@
 #include "autocell.h"
 #include "reseau_cellule_etats.h"
 #include "autosql.h"
-#include "automate.h"
+#include "Automate.h"
 
 #include <QApplication>
 #include <QPushButton>
