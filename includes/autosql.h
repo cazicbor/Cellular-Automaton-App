@@ -23,6 +23,7 @@ class Database {
 		RegleVoisinage* getRegleVoisinage(const QString& name) const;
 		std::vector<QString> getListeReseaux(const QString& name) const;
 		Reseau& getReseau(int idReseau) const;
+		void stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutomate) const;
 };
 
 #endif
