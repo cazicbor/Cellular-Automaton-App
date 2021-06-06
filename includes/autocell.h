@@ -28,7 +28,7 @@ extern EnsembleEtat& enseEtats;
 class AutoCell : public QWidget
 
 {
-     Reseau* Grille = nullptr;
+    Reseau* Grille = nullptr;
 
     Q_OBJECT
     QGridLayout* general;
@@ -79,7 +79,7 @@ class AutoCell : public QWidget
     //notice
     QWidget* win_notice;
     QLabel* lab_notice;
-    
+
     public:
     explicit AutoCell(QWidget* parent=nullptr);
 
@@ -90,12 +90,13 @@ class AutoCell : public QWidget
     //void listerGrille(); //déjà réfléchir à la recopie
     //Reseau initialiserGrille(); //méthode à implémenter qui récupère les données du formulaire - penser à réinitialiser les données annexes
     //void afficherGrille(Reseau&); //affiche une grille
+    void chargerGrilles(const QString &text);
 
     void afficherGrille(Reseau* Grille);
 
     void initialiserGrille();
     void RAZ();
-    //void faireSimulation();
+    void gererSimulation();
     //void sauvegarderGrille();
     //Reseau& modifierCellule(const QModelIndex&, Reseau& Grille);//à implémenter
 
