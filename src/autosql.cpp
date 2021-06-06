@@ -248,3 +248,76 @@ Reseau& Database::getReseau(int idReseau) const
     return *r;
 }
 
+
+///Cette fonction permet de stocker un réseau dans la BDD
+///@param reseau est le réseau à stocker
+///@param nomReseau est le nom du réseau à stocker
+///@param nomAutomate est le nom de l'automate en cours
+void Database::stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutomate) const
+{
+    //Tout d'abord, on a besoin de créer un tuple dans la table reseaux :
+    //toutes les autres tables l'ont en clé étrangère !
+    //Il nous faut donc : id, nom, h, l, automate --> tout est en paramètre ou dans reseau (avec getH, getL) sauf l'id à recréer
+
+    //Création de l'id du nouveau réseau
+    QSqlQuery query(db);
+    query.prepare("SELECT COUNT(*) FROM reseaux");
+    query.exec();
+    int idReseau = query.value(0).toInt() + 1;
+
+    //Insertion du tuple dans reseaux
+    query.prepare("INSERT INTO reseaux VALUES (:id, ':nom', :h, :l, ':automate')");
+    query.bindValue(":id", idReseau);
+    query.bindValue(":nom", nomReseau);
+    query.bindValue(":h", reseau.getHauteur());
+    query.bindValue(":l", reseau.getLargeur());
+    query.bindValue(":automate", nomAutomate);
+    query.exec();
+
+    //On passe à la création du tuple de l'ensemble d'état :
+    //les tuples de Cellules prennent une clé étrangère d'EnsembleEtats (car elle appartient à la clé d'Etats) !
+    //Il nous faut donc : id, reseau --> on a la clé étrangère vers reseaux (idReseau), il faut créer l'id
+
+    //Création de l'id du nouvel ensemble d'états
+    query.prepare("SELECT COUNT(*) FROM EnsembleEtats");
+    query.exec();
+    int idEns = query.value(0).toInt() + 1;
+
+    //Insertion du tuple dans EnsembleEtats
+    query.prepare("INSERT INTO EnsembleEtats VALUES (:id, :reseau)");
+    query.bindValue(":id", idEns);
+    query.bindValue(":reseau", idReseau);
+    query.exec();
+
+    //On passe au stockage des états de l'ensemble :
+    //les tuples de Cellules prennent une clé étrangère d'Etats !
+    //Il nous faut prendre de chaque état : ensemble (idEns), indice, label, r, g, b
+    for(unsigned int i = 0 ; i < enseEtats.getNbEtats() ; i++)
+    {
+        query.prepare("INSERT INTO Etats VALUES (:ensemble, :indice, ':label', :r, :g, :b)");
+        query.bindValue(":ensemble", idEns);
+        query.bindValue(":indice", enseEtats.getEtat(i).getIndice());
+        query.bindValue(":label", QString::fromStdString(enseEtats.getEtat(i).getLabel()));
+        query.bindValue(":r", enseEtats.getEtat(i).getColor().red());
+        query.bindValue(":g", enseEtats.getEtat(i).getColor().green());
+        query.bindValue(":b", enseEtats.getEtat(i).getColor().blue());
+        query.exec();
+    }
+
+    //On termine avec les Cellules.
+    //Il nous faut : reseau (idReseau), ensemble (idEns), etat (indice de la cellule), x, y
+    for(int i = 0 ; i < reseau.getHauteur() ; i++)
+    {
+        for(int j = 0 ; j < reseau.getLargeur() ; j++)
+        {
+            query.prepare("INSERT INTO Cellules VALUES (:reseau, :ensemble, :etat, :x, :y)");
+            query.bindValue(":reseau", idReseau);
+            query.bindValue(":ensemble", idEns);
+            query.bindValue(":etat", reseau.getReseau()[i][j].getIndEtat());
+            query.bindValue(":x", i);
+            query.bindValue(":x", j);
+            query.exec();
+        }
+    }
+}
+
