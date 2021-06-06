@@ -217,7 +217,7 @@ void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) { 
 	}
 }
 
-coordonnees RegleVoisinageArbitraire::getVoisinage(const Reseau& r) {
+Coordonnees RegleVoisinageArbitraire::getVoisinage(const Reseau& r) {
 	
 	vector<Coordonnees> coordonnees;
 
