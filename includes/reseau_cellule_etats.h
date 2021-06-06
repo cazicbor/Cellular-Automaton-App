@@ -66,6 +66,7 @@ public:
     void initEtat(const Etat* init_etats = nullptr);//initialisation du tableau d'Etats à partir d'un tableau externe
     Etat& getEtat(const unsigned int &ind){return *ensEtats[ind];}
     unsigned int getNbEtats() const {return nbEtats;};
+    void reset();
 };
 
 class Reseau{
