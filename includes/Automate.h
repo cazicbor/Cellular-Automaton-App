@@ -4,6 +4,7 @@
 #include <memory>
 #include <Fonction.h>
 #include <voisinage.h>
+#include <QObject>
 
 /// La classe automate se charge de gérer les informations d'un automate (fonction de transition, règle de voisinage, réseau, ...) et joue également le rôle de simulateur
 ///
@@ -18,6 +19,7 @@ class Automate {
 		std::list<Reseau>::iterator itBuffer;
 		unsigned int h;
 		unsigned int l;
+		bool isRunning;
 
 		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), isRunning(false) {} //modifié
 		~Automate() = default;
