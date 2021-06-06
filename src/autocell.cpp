@@ -1,5 +1,6 @@
 #include "autocell.h"
 #include "reseau_cellule_etats.h"
+#include"parametragemodele.h"
 
 #include <QApplication>
 #include <QPushButton>
@@ -54,6 +55,8 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     button_add_model->setToolTip("Configurer un nouveau modèle");
     button_add_model->setStyleSheet("background-color : rgb(251, 252, 252 )");
     button_add_model->setFixedWidth(140);
+
+    connect(button_add_model, SIGNAL(clicked()), this, SLOT(defNouveauModele()));
 
     liste = new QComboBox(win_model_choice);
     liste->addItem("modèle 1");
@@ -256,6 +259,11 @@ void AutoCell::RAZ(){
     edit_hauteur->setText("");
     edit_time_step->setText("1");
 ;}
+
+void AutoCell::defNouveauModele() {
+    NouveauModele* nouveaumodele = new NouveauModele;
+    nouveaumodele->show();
+}
 
 void AutoCell::modifierCellule(const QModelIndex& index) {
     unsigned int i = index.row();
