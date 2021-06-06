@@ -64,11 +64,9 @@ class AutoCell : public QWidget
 
     QLabel* lab_time_step;
     QLineEdit* edit_time_step;
-    QPushButton* button_valider_delai;
     QPushButton* button_prev;
     QPushButton* button_run;
     QPushButton* button_next;
-    QPushButton* button_reinitialiser;
 
     QPushButton* button_save_grid;
 
@@ -90,17 +88,17 @@ class AutoCell : public QWidget
     //void listerGrille(); //déjà réfléchir à la recopie
     //Reseau initialiserGrille(); //méthode à implémenter qui récupère les données du formulaire - penser à réinitialiser les données annexes
     //void afficherGrille(Reseau&); //affiche une grille
-    void chargerGrilles(const QString &text);
 
     void afficherGrille(Reseau* Grille);
 
     void initialiserGrille();
     void RAZ();
-    void gererSimulation();
+    //void faireSimulation();
     //void sauvegarderGrille();
     //Reseau& modifierCellule(const QModelIndex&, Reseau& Grille);//à implémenter
 
     void modifierCellule(const QModelIndex& index);
+    void defNouveauModele();
 
 };
 
