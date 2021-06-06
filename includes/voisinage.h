@@ -102,8 +102,8 @@ public:
 
     vector<Coordonnees> coordonnees;
 
-    void calculVoisinage(Voisinage& v, const Reseau& r, const Coordonnes co) const; // Calcul du voisinage en fonction de la cellule centre
-    coordonnees getVoisinage(const Reseau& r); // Dééfinition des coordonnées relatives pour le calcul du voisinage
+    void calculVoisinage(Voisinage& v, const Reseau& r, const Coordonnees co) const; // Calcul du voisinage en fonction de la cellule centre
+    Coordonnees getVoisinage(const Reseau& r); // Dééfinition des coordonnées relatives pour le calcul du voisinage
 };
 
 
