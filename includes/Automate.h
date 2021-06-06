@@ -14,12 +14,13 @@ class Automate {
 		unsigned int delai;
 		Fonction* fonction;
 		RegleVoisinage* regleVoisinage;
-		std::list<Reseau> buffer; //ajouté : faut-il appeler buffer.clear() dans le destructeur ?
-        std::list<Reseau>::iterator itBuffer; //ajouté
-        unsigned int h; //ajouté pour construire des réseaux
-        unsigned int l; //de même
+		std::list<Reseau> buffer;
+		std::list<Reseau>::iterator itBuffer;
+		unsigned int h;
+		unsigned int l;
 
 		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), isRunning(false) {} //modifié
+		~Automate() = default;
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
 		class Timer: public QObject {
@@ -51,6 +52,7 @@ class Automate {
 		Timer timer(this);
 
 	public:
+		/// récupérer une référence sur l'instance unique du singleton Automate
 		static Automate& getInstance() {
 			if(instance == nullptr) {
 				instance.reset(new Automate);
@@ -58,38 +60,51 @@ class Automate {
 
 			return *instance;
 		}
-		~Automate() = default;
+		/// Définir la fonction de transition de l'automate, le cycle de vie de la focntion est géré par l'utilisateur
 		void setFonction(Fonction& f) { fonction = &f; }
+		/// Définir une règle de voisinage, le cycle de vie de la règle est géré par l'utilisateur
 		void setRegleVoisinage(RegleVoisinage& r) { regleVoisinage = &r; }
+		/// Définir le délai entre 2 itérations de l'automate en mode Timer
 		void setDelai(const unsigned int d) { delai = d; }
 
-		//nouvelles fonctions
+		/// définir la hauteur de la grille
+		void setHauteur(unsigned int hauteur) { h = hauteur; }
+		/// définir la largheur de la grille
+		void setLargeur(unsigned int largeur) { l = largeur; }
 
-        void setHauteur(unsigned int hauteur) { h = hauteur; }
-        void setLargeur(unsigned int largeur) { l = largeur; }
+		/// Se placer sur l'état précédent si disponible
+		void previous() { if(itBuffer!=buffer.begin()) itBuffer--; }
+		/// Se placer sur l'état suivant si disponible
+		void next() { if(itBuffer!=buffer.end()) itBuffer++; }
+		/// L'automate revient au premier état du buffer
+		void reset() { itBuffer = buffer.begin(); }
+		/// On vide la buffer et on l'initialise avec une première grille
+		void reset(const Reseau& r) { buffer.clear(); buffer.push_back(r); }
 
-        void previous() { if(itBuffer!=buffer.begin()) itBuffer--; }
-        void next() { if(itBuffer!=buffer.end()) itBuffer++; }
-        void reset() { itBuffer = buffer.begin(); } /// L'automate revient au premier état du buffer
-        void reset(const Reseau& r) { buffer.clear(); buffer.push_back(r); } /// On vide la buffer et on l'initialise avec une première grille
+		/// Se placer sur l'état suivant du buffer et le calculer s'il n'y en a plus de disponible
+		void step() {
+			if(itBuffer==buffer.end())
+				nextTimer();
+			itBuffer++;
+		}
+		/// Execution multiple de la méthode step
+		void run(int n) {
+			for(int i=0;i<n;i++)
+				step();
+		}
 
-        void step() {
-		if(itBuffer==buffer.end())
-			nextTimer();
-		itBuffer++;
-	}
-        void run(int n) {
-		for(int i=0;i<n;i++)
-			step();
-	}
-
+		/// Calcule d'une nouvelle étape à partir de la dernière
 		void nextTimer();
 
-        void start() { timer.install(delai); }
-        void pause() { timer.destroy(); }
+		/// Démarre l'exécution automatique de l'automate avec une vitesse selon l'attribut delai s'il n'est pas déjà en route
+		void start() { timer.install(delai); }
+		/// Supprime le timer s'il est en route
+		void pause() { timer.destroy(); }
 
+		/// Récupérer un réseau correspondant à l'état courant de l'automate
 		Reseau getReseauCourant() { return *itBuffer; }
 
+		/// initialiser le buffer s'il est vide avec un réseau
 		void initialiserBuffer(Reseau& r) { if(buffer.begin()==buffer.end()) buffer.push_front(r); }
 };
 
