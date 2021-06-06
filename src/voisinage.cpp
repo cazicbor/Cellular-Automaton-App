@@ -212,7 +212,7 @@ void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) { 
 	unsigned int hauteur = r.getHauteur();
 	unsigned int largeur = r.getLargeur();
 
-	while (nb = 0, nb < coordonnees.size(), nb++){
+	for (int nb = 0; nb < coordonnees.size(); nb++){
 		v.voisinage[nb] = &r.getReseau()[abs - co[nb].getx()] [ord - co[nb].gety()];
 	}
 }
