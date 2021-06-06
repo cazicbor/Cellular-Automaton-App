@@ -28,7 +28,7 @@ extern EnsembleEtat& enseEtats;
 class AutoCell : public QWidget
 
 {
-    Reseau* Grille = nullptr;
+     Reseau* Grille = nullptr;
 
     Q_OBJECT
     QGridLayout* general;
@@ -64,9 +64,11 @@ class AutoCell : public QWidget
 
     QLabel* lab_time_step;
     QLineEdit* edit_time_step;
+    QPushButton* button_valider_delai;
     QPushButton* button_prev;
     QPushButton* button_run;
     QPushButton* button_next;
+    QPushButton* button_reinitialiser;
 
     QPushButton* button_save_grid;
 
@@ -77,7 +79,7 @@ class AutoCell : public QWidget
     //notice
     QWidget* win_notice;
     QLabel* lab_notice;
-
+    
     public:
     explicit AutoCell(QWidget* parent=nullptr);
 
