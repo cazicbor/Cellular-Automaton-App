@@ -192,3 +192,59 @@ std::vector<QString> Database::getListeReseaux(const QString& name) const
 
     return names;
 }
+
+
+/// Cette fonction réinitialise le singleton EnsembleEtat avec des valeurs contenues dans la BDD, afin de retourner un réseau à partir des valeurs stockées dans la BDD.
+/// @param idReseau correspond à la clé primaire du réseau dans la BDD, il est conseillé de l'avoir récupérée avec getListeReseaux() auparavant
+Reseau& Database::getReseau(int idReseau) const
+{
+    QSqlQuery ensemble(db);
+    ensemble.prepare("SELECT * FROM EnsembleEtats WHERE reseau = :id");
+    ensemble.bindValue(":id", idReseau);
+    ensemble.exec();
+
+    //récuperation de l'identifiant de l'ensemble d'états lié au réseau
+    int idEnsemble = ensemble.value("id").toInt();
+
+    //récupération des états de l'ensemble
+    QSqlQuery etats(db);
+    etats.prepare("SELECT * FROM Etats WHERE ensemble = :id");
+    etats.bindValue(":id", idEnsemble);
+    etats.exec();
+
+    //reset et remplissage du singleton de l'ensemble d'état
+    enseEtats.reset();
+    if(etats.first()) {
+        enseEtats.ajouterEtat(etats.value("indice").toUInt(), etats.value("label").toString().toStdString(), etats.value("r").toInt(), etats.value("g").toInt(), etats.value("b").toInt());
+    }
+    while(etats.next()) {
+        enseEtats.ajouterEtat(etats.value("indice").toUInt(), etats.value("label").toString().toStdString(), etats.value("r").toInt(), etats.value("g").toInt(), etats.value("b").toInt());
+    }
+
+    //initialisation du réseau de retour
+    QSqlQuery reseau(db);
+    reseau.prepare("SELECT * FROM reseaux WHERE id = :id");
+    reseau.bindValue(":id", idReseau);
+    reseau.exec();
+    Reseau* r = new Reseau(reseau.value("h").toUInt(), reseau.value("l").toUInt());
+
+    //remplissage du réseau
+    for(size_t i = 0; i<reseau.value("h").toUInt(); i++)
+    {
+        for(size_t j = 0; j<reseau.value("l").toUInt(); j++)
+        {
+            QSqlQuery cellule(db);
+            cellule.prepare("SELECT etat FROM Cellules WHERE (reseau = :id AND ensemble = :idE AND x = :i AND y = :j)");
+            cellule.bindValue(":id", idReseau);
+            cellule.bindValue(":idE", idEnsemble);
+            cellule.bindValue(":i", i);
+            cellule.bindValue(":j", j);
+            cellule.exec();
+            while(r->getReseau()[i][j].getIndEtat() != cellule.value("etat").toInt())
+                r->getReseau()[i][j].incrementerEtat();
+        }
+    }
+
+    return *r;
+}
+
