@@ -28,6 +28,8 @@ extern EnsembleEtat& enseEtats;
 class AutoCell : public QWidget
 
 {
+    static std::unique_ptr<AutoCell> instance;
+
     Reseau* Grille = nullptr;
 
     Q_OBJECT
@@ -80,8 +82,17 @@ class AutoCell : public QWidget
     QWidget* win_notice;
     QLabel* lab_notice;
 
-    public:
     explicit AutoCell(QWidget* parent=nullptr);
+
+    public:
+
+    static AutoCell& getInstance() {
+        if(instance == nullptr) {
+            instance.reset(new AutoCell);
+        }
+
+        return *instance;
+    }
 
     public slots:
     //void chargerModele();
@@ -101,6 +112,7 @@ class AutoCell : public QWidget
     //Reseau& modifierCellule(const QModelIndex&, Reseau& Grille);//à implémenter
 
     void modifierCellule(const QModelIndex& index);
+    void sauvegarderGrille();
     void defNouveauModele();
 
 };
