@@ -23,6 +23,7 @@
 #include <QObject>
 #include <string>
 #include <QBrush>
+#include <QWindow>
 
 #include <array>
 #include <iostream>
@@ -56,7 +57,7 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     button_add_model->setStyleSheet("background-color : rgb(251, 252, 252 )");
     button_add_model->setFixedWidth(140);
 
-    connect(button_add_model, SIGNAL(clicked()), this, SLOT(defNouveauModele());
+    connect(button_add_model, SIGNAL(clicked()), this, SLOT(defNouveauModele()));
 
     liste = new QComboBox(win_model_choice);
     liste->setPlaceholderText("--- select ---");
@@ -176,6 +177,7 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     grid_run_control->addWidget(button_reinitialiser, 3, 0, Qt::AlignCenter);
 
     button_save_grid = new QPushButton("sauvegarder la grille");
+    connect(button_save_grid,SIGNAL(clicked()),this,SLOT(sauvergarderGrille()));
 
     grid_run_control->addWidget(button_save_grid,4,1,4,3,Qt::AlignBottom);
 
@@ -321,6 +323,26 @@ void AutoCell::modifierCellule(const QModelIndex& index) {
     //réitnitialiser l'automate ou modif du buffer d
 }
 
+void AutoCell::sauvegarderGrille(){
+    /*QWindow window_dialogue;
+    QSize taille(450,100);
+    window_dialogue.setTitle("Enregistrer une grille");
+    window_dialogue.setMaximumSize(taille);
+    QFormLayout form;
+    QLineEdit edit_nom;
+    edit_nom.setFixedWidth(200);
+    QPushButton button_valider("Valider");
+    form.addRow("Entrez un nom :", &edit_nom);
+    form.addWidget(&button_valider);
+    form.setParent(&window_dialogue);
+    window_dialogue.show();
+    connect(button_valider, SIGNAL(clicked(edit_nom.text())), this, SLOT(sauvergarderGrille(edit_nom.text())));
+    //stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutomate);
+    
+    Créer une nouvelle classe dans AutoCell.h sauvegardeGrille, avec un constructeur qui prend en argument nom_modèle et le Reseau Courant.
+*/
+};
+
 void AutoCell::chargerGrilles(const QString& text){
     list_grids->clear();
     /*vector<QString> noms = database.getListesReseaux(text);
@@ -337,3 +359,4 @@ void AutoCell::gererSimulation(){
         //Automate::getInstance().pause();
     }
 }
+
