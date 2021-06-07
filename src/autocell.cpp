@@ -24,6 +24,7 @@
 #include <string>
 #include <QBrush>
 #include <QWindow>
+#include <QMessageBox>
 
 #include <array>
 #include <iostream>
@@ -255,9 +256,6 @@ void AutoCell::afficherGrille(Reseau* Grille)
 
 
 void AutoCell::initialiserGrille(){
-
-    delete Grille;
-
     bool ok;
 
     int l = (edit_largeur->text()).toInt(&ok, 10);
@@ -265,6 +263,16 @@ void AutoCell::initialiserGrille(){
 
     QString str_l; str_l.setNum(l);
     QString str_h; str_h.setNum(h);
+
+    if(0>=h || h>21 || 0>=l || l>41){
+        QString msg("erreur dimensions");
+        afficherErreur(msg);
+        edit_largeur->setText("");
+        edit_hauteur->setText("");
+        return;
+    }
+
+    delete Grille;
 
     this->Grille = new Reseau(h,l);
 
@@ -338,8 +346,6 @@ void AutoCell::sauvegarderGrille(){
     window_dialogue.show();
     connect(button_valider, SIGNAL(clicked(edit_nom.text())), this, SLOT(sauvergarderGrille(edit_nom.text())));
     //stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutomate);
-    
-    Créer une nouvelle classe dans AutoCell.h sauvegardeGrille, avec un constructeur qui prend en argument nom_modèle et le Reseau Courant.
 */
 };
 
@@ -360,3 +366,8 @@ void AutoCell::gererSimulation(){
     }
 }
 
+void AutoCell::afficherErreur(QString& msg){
+    QMessageBox messageBox;
+    messageBox.critical(0,"Error",msg);
+    messageBox.setFixedSize(500,200);
+}
