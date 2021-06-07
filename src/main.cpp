@@ -31,18 +31,9 @@ int main(int argc, char* argv[])
     enseEtats.ajouterEtat(2, "zombie", 131, 166, 151);
     enseEtats.ajouterEtat(3, "fantôme", 22, 166, 151);
 
-
-    //int largeur = 15;
-    //int hauteur = 12;
-
-    //Reseau Grille(hauteur, largeur);
-
-    //Grille.setAleatoire();
-
-    AutoCell autocell;
-    //autocell.afficherGrille(&Grille);
-    autocell.show();
+    AutoCell::getInstance().show();
 
     return app.exec();
 }
+
 
