@@ -8,7 +8,7 @@ INSERT INTO EnsembleEtats VALUES(
 	"Brian's brain"
 );
 
-//3 états : on, dying and off --> vivant (blanc), mourant (gris), mort (noir)
+-- 3 états : on, dying and off --> vivant (blanc), mourant (gris), mort (noir)
 
 INSERT INTO Etats VALUES(
 	1,
@@ -37,7 +37,7 @@ INSERT INTO Etats VALUES(
 	0
 );
 
-//utilise un voisinage de Moore
+-- utilise un voisinage de Moore
 
 INSERT INTO regles_voisinage VALUES(
 	"Brian's brain",
@@ -45,9 +45,9 @@ INSERT INTO regles_voisinage VALUES(
 	1
 );
 
-//règles transition : 
+-- règles transition : 
 
-//	cellule devient vivante si elle est morte et a 2 voisins vivants
+-- cellule devient vivante si elle est morte et a 2 voisins vivants
 
 INSERT INTO regles_transition VALUES(
 	"Brian's brain",
@@ -71,7 +71,7 @@ INSERT INTO regles_transition VALUES(
 	0
 );
 
-//	cellule vivante devient mourante
+-- cellule vivante devient mourante
 
 INSERT INTO regles_transition VALUES(
 	"Brian's brain",
@@ -95,7 +95,7 @@ INSERT INTO regles_transition VALUES(
 	1
 );
 
-//	cellule mourante devient morte
+-- cellule mourante devient morte
 
 INSERT INTO regles_transition VALUES(
 	"Brian's brain",
@@ -119,7 +119,7 @@ INSERT INTO regles_transition VALUES(
 	2
 );
 
-//Grille de test
+-- Grille de test
 
 INSERT INTO reseaux VALUES(
 	0,  
