@@ -14,7 +14,7 @@ Database::Database(std::string path): db(QSqlDatabase::addDatabase("QSQLITE")) {
 	db.exec("CREATE TABLE IF NOT EXISTS regles_voisinage (id VARCHAR(30) PRIMARY KEY REFERENCES automates(nom), type INTEGER NOT NULL, rayon INTEGER)");
 	db.exec("CREATE TABLE IF NOT EXISTS coord_voisinage (id VARCHAR(30) REFERENCES automates(nom) NOT NULL, x INTEGER NOT NULL, y INTEGER NOT NULL)");
 	db.exec("CREATE TABLE IF NOT EXISTS reseaux (id INTEGER PRIMARY KEY, nom VARCHAR(30) NOT NULL, h INTEGER NOT NULL, l INTEGER NOT NULL, automate VARCHAR(30) REFERENCES automates(nom) NOT NULL)");
-    db.exec("CREATE TABLE IF NOT EXISTS EnsembleEtats (id INTEGER PRIMARY KEY, reseau INTEGER REFERENCES reseau(id) NOT NULL,UNIQUE(reseau))");
+    db.exec("CREATE TABLE IF NOT EXISTS EnsembleEtats (id INTEGER PRIMARY KEY, automate VARCHAR(30) REFERENCES automates(nom) NOT NULL, UNIQUE(automate));");
     db.exec("CREATE TABLE IF NOT EXISTS Etats (ensemble INTEGER REFERENCES EnsembleEtats(id) NOT NULL, indice INTEGER NOT NULL, label VARCHAR NOT NULL, r INTEGER NOT NULL, g INTEGER NOT NULL, b INTEGER NOT NULL, CHECK(indice>=0), CHECK(r>=0), CHECK(r<=255), CHECK(g>=0), CHECK(g<=255), CHECK(b>=0), CHECK(b<=255), PRIMARY KEY (ensemble, indice))");
     db.exec("CREATE TABLE IF NOT EXISTS Cellules (reseau INTEGER REFERENCES reseau(id) NOT NULL,  ensemble INTEGER REFERENCES EnsembleEtats(id) NOT NULL, etat INTEGER REFERENCES Etats(indice) NOT NULL, x INTEGER NOT NULL, y INTEGER NOT NULL);");
 }
@@ -276,7 +276,7 @@ void Database::stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutom
 
     //On passe à la création du tuple de l'ensemble d'état :
     //les tuples de Cellules prennent une clé étrangère d'EnsembleEtats (car elle appartient à la clé d'Etats) !
-    //Il nous faut donc : id, reseau --> on a la clé étrangère vers reseaux (idReseau), il faut créer l'id
+    //Il nous faut donc : id, automate --> on a la clé étrangère vers automate (nomAutomate), il faut créer l'id
 
     //Création de l'id du nouvel ensemble d'états
     query.prepare("SELECT COUNT(*) FROM EnsembleEtats");
@@ -284,9 +284,9 @@ void Database::stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutom
     int idEns = query.value(0).toInt() + 1;
 
     //Insertion du tuple dans EnsembleEtats
-    query.prepare("INSERT INTO EnsembleEtats VALUES (:id, :reseau)");
+    query.prepare("INSERT INTO EnsembleEtats VALUES (:id, :automate)");
     query.bindValue(":id", idEns);
-    query.bindValue(":reseau", idReseau);
+    query.bindValue(":automate", nomAutomate);
     query.exec();
 
     //On passe au stockage des états de l'ensemble :
