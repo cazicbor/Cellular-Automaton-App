@@ -24,6 +24,7 @@ class Database {
 		std::vector<QString> getListeReseaux(const QString& name) const;
 		Reseau& getReseau(int idReseau) const;
 		void stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutomate) const;
+		void initEnsEtat(const QString& name) const;
 };
 
 #endif
