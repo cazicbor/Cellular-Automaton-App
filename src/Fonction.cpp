@@ -15,7 +15,7 @@ bool RegleAvecEtatCourant::verify(const Voisinage& voisins, const Cellule& cellu
 	delete cellules;
 
 	for(int i = 0; i < 8; ++i)
-		if(nb[i] < seuilsMin[i] || nb[i] > seuilsMax[i])
+		if((seuilsMin[i] != -1 && nb[i] < seuilsMin[i]) || (seuilsMax[i] != -1 && nb[i] > seuilsMax[i]))
 			return false;
 
 	return true;
@@ -33,7 +33,7 @@ bool Regle::verify(const Voisinage& voisins, const Cellule& cellule) const {
 	delete cellules;
 
 	for(int i = 0; i < 8; i++)
-		if(nb[i] < seuilsMin[i] || nb[i] > seuilsMax[i])
+		if((seuilsMin[i] != -1 && nb[i] < seuilsMin[i]) || (seuilsMax[i] != -1 && nb[i] > seuilsMax[i]))
 			return false;
 
 	return true;
