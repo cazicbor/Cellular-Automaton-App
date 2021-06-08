@@ -92,10 +92,10 @@ void NouveauModele::paramVoisinage(const QString& choix_voisinage){
     else if(choix_voisinage == "Voisinage arbitraire") {
         this->affGrille();
     }
-    //else if(choix_voisinage == "--- select ---"){
+    else if(choix_voisinage == "--- select ---"){
         //delete form_rayon;
         //delete grid;
-    //}
+    }
 
 }
 
@@ -114,9 +114,33 @@ void NouveauModele::affGrille() {
         {
             grid->setRowHeight(j,80);
             grid->setColumnWidth(j, 80);
+
+            /*
+            int x = i-3;
+            int y = -1*(j-2);
+            std::string co = "(";
+            co += x;
+            co += ",";
+            co += y;
+            co += ")";
+            QString coordonnees = co;
+            */
+
+            grid->setItem(i, j, new QTableWidgetItem);
+            grid->item(i, j)->setFlags(Qt::ItemIsEnabled);
+
+
         }
     }
+    connect(grid, SIGNAL(clicked(const QModelIndex&)), this, SLOT(modifGrille(const QModelIndex&)));
+}
 
+void NouveauModele::modifGrille(const QModelIndex& index){
+    unsigned int i = index.row();
+    unsigned int j = index.column();
+
+    QColor rouge = Qt::red;
+    grid->item(i,j)->setBackground(rouge);
 }
 
 
