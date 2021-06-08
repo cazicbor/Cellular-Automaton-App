@@ -28,7 +28,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     //choisir un voisinage
     liste_voisinage = new QComboBox;
-    liste_voisiange->setPlaceholderText("--- select ---");
+    liste_voisinage->setPlaceholderText("--- select ---");
     liste_voisinage->setCurrentIndex(-1);
 
     //liste_voisinage->addItem("--- select ---");
