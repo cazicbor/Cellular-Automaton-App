@@ -1,6 +1,9 @@
 INSERT INTO automates VALUES (
 	"Brian's brain",
-	500
+	500,
+	"Comparable à un cerveau, dont les cellules seraient des neurones qui peuvent être dans trois états.",
+	"Brian Silverman",
+	1996
 );
 
 INSERT INTO EnsembleEtats VALUES(
