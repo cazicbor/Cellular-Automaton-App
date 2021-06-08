@@ -40,6 +40,30 @@ std::vector<QString> Database::getAutomates() const {
 	return names;
 }
 
+void Database::initEnsEtat(const QString& name) const {
+	QSqlQuery query(db);
+
+	query.prepare("SELECT indice, label, r, g, b FROM Etats INNER JOIN EnsembleEtats ON Etats.ensemble = EnsembleEtats.id WHERE automate = :nom");
+	query.bindValue(":nom", name);
+	query.exec();
+
+	if(!query.first())
+		throw "Unable to select this object";
+
+	EnsembleEtat& ens = EnsembleEtat::getInstance();
+	ens.reset()
+
+	do {
+		unsigned int ind = static_cast<unsigned int>(query.value("indice").toInt());
+		int r = query.value("r").toInt();
+		int g = query.value("g").toInt();
+		int b = query.value("b").toInt();
+		std::string label = query.value("label").toString().toStdString();
+
+		ens.ajouterEtat(ind, label, r, g, b);
+	} while(query.next());
+}
+
 /// Retourne la fonction de transition d'un automate par son nom
 ///
 /// Une règle prend en compte l'état courant seulement s'il est défini à non nul dans la BDD
