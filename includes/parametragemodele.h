@@ -30,27 +30,33 @@ class NouveauModele : public QWidget {
 
     //définition de la frame paramétrage du modèle
     QWidget* fenetre_init;
+    QLabel* label_init;
     QGridLayout* form_init;
-    QFormLayout* form_param;
+
+    QFormLayout* form_choix;
 
     QSpinBox* nb_etats;
     QComboBox* liste_voisinage;
     QComboBox* liste_regle_transition;
     QPushButton* bouton_valide;
 
+    //définition de la frame paramétrage du choix
+    QWidget* fenetre_param;
+    QGridLayout* form_param;
+    QLabel* label_param;
+
+    //Voisiange non arbitraire
+    QFormLayout* form_rayon;
+    QSpinBox* rayon;
 
     //définition de la frame contenant la grille de sélection du voisinage
-    QLabel* label_init;
-
-    QWidget* fenetre_grid;
     QTableWidget* grid;
+
 public:
     NouveauModele(QWidget* parent = nullptr);
 public slots:
-    void affGrille(Reseau* Grille);
-
-
-
+    void paramVoisinage(const QString& choix_voisinage);
+    void affGrille();
 
 
 };
