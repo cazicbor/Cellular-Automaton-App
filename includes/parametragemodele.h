@@ -21,6 +21,7 @@
 #include <QPushButton>
 #include <QCheckBox>
 #include <QFormLayout>
+#include <QBrush>
 
 using namespace std;
 
@@ -57,6 +58,7 @@ public:
 public slots:
     void paramVoisinage(const QString& choix_voisinage);
     void affGrille();
+    void modifGrille(const QModelIndex& index);
 
 
 };
