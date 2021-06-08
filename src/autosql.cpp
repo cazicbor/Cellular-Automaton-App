@@ -51,7 +51,7 @@ void Database::initEnsEtat(const QString& name) const {
 		throw "Unable to select this object";
 
 	EnsembleEtat& ens = EnsembleEtat::getInstance();
-	ens.reset()
+	ens.reset();
 
 	do {
 		unsigned int ind = static_cast<unsigned int>(query.value("indice").toInt());

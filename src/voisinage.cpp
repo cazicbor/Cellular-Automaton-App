@@ -3,9 +3,16 @@
 #include<cmath>
 #include<iostream>
 
-void Voisinage::setr(unsigned int rayon){
-	if(rayon >= 0)
-		r = rayon;
+void RegleVoisinageNeumann::setr(unsigned int r){
+	if(r >= 0)
+		rayon = r;
+	else
+		throw ("Rayon incorrect !\n");
+}
+
+void RegleVoisinageMoore::setr(unsigned int r){
+	if(r >= 0)
+		rayon = r;
 	else
 		throw ("Rayon incorrect !\n");
 }
@@ -18,9 +25,9 @@ void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) {
 	unsigned int hauteur = r.getHauteur();
 	unsigned int largeur = r.getLargeur();
 
-	for (int i = -v.r; i <= v.r; i++)
-		for (int j = -v.r; j <= v.r; j++)
-			if (abs(i) + abs(j) <= v.r && i != 0 && j != 0)
+	for (int i = -rayon; i <= rayon; i++)
+		for (int j = -rayon; j <= rayon; j++)
+			if (abs(i) + abs(j) <= rayon && i != 0 && j != 0)
 				v.voisinage.push_back(&r.getReseau()[(cellY+i)%hauteur][(cellX+j)%largeur]);
 }
 
@@ -32,9 +39,9 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r) {
 	unsigned int hauteur = r.getHauteur();
 	unsigned int largeur = r.getLargeur();
 
-	for (int i = -v.r; i <= v.r; i++)
-		for (int j = -v.r; j <= v.r; j++)
-			if (abs(i) <= v.r && abs(j) <= v.r && i != 0 && j != 0)
+	for (int i = -rayon; i <= rayon; i++)
+		for (int j = -rayon; j <= rayon; j++)
+			if (abs(i) <= rayon && abs(j) <= rayon && i != 0 && j != 0)
 				v.voisinage.push_back(&r.getReseau()[(cellY+i)%hauteur][(cellX+j)%largeur]);
 }
 

@@ -22,7 +22,6 @@ class Voisinage {
 private :
     const Cellule* celluleCentre;
     vector<Cellule*> voisinage;
-    unsigned int r;
     friend class RegleVoisinage;
     friend class RegleVoisinageMoore;
     friend class RegleVoisinageNeumann;
@@ -60,8 +59,6 @@ public:
     ~Voisinage();
     Cellule getCelluleCentre()const {return *celluleCentre;}
 
-    void setr(unsigned int rayon);
-    unsigned int getr() const {return r;}
     VoisinageIterator *creerIterator()const{
         return new VoisinageIterator(this);
     }
@@ -74,13 +71,21 @@ class RegleVoisinage{
 };
 
 class RegleVoisinageNeumann : public RegleVoisinage {
+	private:
+		unsigned int rayon;
 	public:
 		void calculVoisinage(Voisinage& v, const Reseau& r) override;
+		void setr(unsigned int r);
+		unsigned int getr() const { return rayon; }
 };
 
 class RegleVoisinageMoore : public RegleVoisinage {
+	private:
+		unsigned int rayon;
 	public:
 		void calculVoisinage(Voisinage& v, const Reseau& r) override;
+		void setr(unsigned int r);
+		unsigned int getr() const { return rayon; }
 };
 
 class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle pour le voisinage arbitraire
