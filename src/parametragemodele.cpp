@@ -92,10 +92,10 @@ void NouveauModele::paramVoisinage(const QString& choix_voisinage){
     else if(choix_voisinage == "Voisinage arbitraire") {
         this->affGrille();
     }
-    else if(choix_voisinage == "--- select ---"){
+    //else if(choix_voisinage == "--- select ---"){
         //delete form_rayon;
         //delete grid;
-    }
+    //}
 
 }
 
