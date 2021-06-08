@@ -1,6 +1,9 @@
 CREATE TABLE IF NOT EXISTS automates (
 	nom VARCHAR(30) PRIMARY KEY, 
-	defaut INTEGER NOT NULL
+	defaut INTEGER NOT NULL,
+	description TEXT NOT NULL,
+	auteur VARCHAR(30),
+	annee DATE
 );
 
 CREATE TABLE IF NOT EXISTS reseaux (
