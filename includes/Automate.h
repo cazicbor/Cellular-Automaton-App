@@ -20,8 +20,10 @@ class Automate {
 		std::list<Reseau>::iterator itBuffer;
 		unsigned int h;
 		unsigned int l;
+		Reseau reseauInit;
 
-		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), title("") { timer.automate = this; }
+		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), title(""), reseauInit(Reseau(0, 0)) { timer.automate = this; }
+
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
 		std::string getTitle() const { return title; }
@@ -80,10 +82,8 @@ class Automate {
 		void previous() { if(itBuffer!=buffer.begin()) itBuffer--; }
 		/// Se placer sur l'état suivant si disponible
 		void next() { if(itBuffer!=buffer.end()) itBuffer++; }
-		/// L'automate revient au premier état du buffer
-		void reset() { itBuffer = buffer.begin(); }
 		/// On vide la buffer et on l'initialise avec une première grille
-		void reset(const Reseau& r) { buffer.clear(); buffer.push_back(r); }
+		void reset() { buffer.clear(); buffer.push_back(reseauInit); }
 
 		/// Se placer sur l'état suivant du buffer et le calculer s'il n'y en a plus de disponible
 		void step() {
@@ -109,7 +109,10 @@ class Automate {
 		Reseau getReseauCourant() { return *itBuffer; }
 
 		/// initialiser le buffer s'il est vide avec un réseau
-		void initialiserBuffer(Reseau& r) { if(buffer.begin()==buffer.end()) buffer.push_front(r); }
+		void initialiserBuffer() { if(buffer.begin()==buffer.end()) buffer.push_front(reseauInit); }
+
+        void setReseauInit(Reseau& r) { reseauInit = r; }
+		Reseau& getReseauInit() { return reseauInit; }
 };
 
 #endif
