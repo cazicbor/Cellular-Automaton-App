@@ -69,43 +69,29 @@ public:
 };
 
 class RegleVoisinage{
-private :
-    
-
-public :
-    unsigned int nbVoisin;
-    void setNbVoisins(unsigned int r);
-    unsigned int getNbVoisin() {return nbVoisin;}
-    virtual void calculVoisinage(Voisinage& v, const Reseau& r);
-    
-    
+	public :
+		virtual void calculVoisinage(Voisinage& v, const Reseau& r) = 0;
 };
-
 
 class RegleVoisinageNeumann : public RegleVoisinage {
-public:
-    //void setNbVoisins(unsigned int r);
-    void calculVoisinage(Voisinage& v, const Reseau& r, const unsigned int rayon);
-
+	public:
+		void calculVoisinage(Voisinage& v, const Reseau& r) override;
 };
 
-
 class RegleVoisinageMoore : public RegleVoisinage {
-public:
-    //void setNbVoisins(unsigned int r);
-    void calculVoisinage(Voisinage& v, const Reseau& r, const unsigned int rayon);
-
+	public:
+		void calculVoisinage(Voisinage& v, const Reseau& r) override;
 };
 
 class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle pour le voisinage arbitraire
-public:
-
-    vector<Coordonnees> coordonnees;
-
-    void calculVoisinage(Voisinage& v, const Reseau& r, const Coordonnees co) const; // Calcul du voisinage en fonction de la cellule centre
-    Coordonnees getVoisinage(const Reseau& r); // Dééfinition des coordonnées relatives pour le calcul du voisinage
+	private:
+		unsigned int nbVoisin;
+	public:
+		void setNbVoisins(unsigned int r) { nbVoisin = r; }
+		unsigned int getNbVoisin() { return nbVoisin; }
+		vector<Coordonnees> coordonnees;
+		void calculVoisinage(Voisinage& v, const Reseau& r, const Coordonnees co) const; // Calcul du voisinage en fonction de la cellule centre
+		Coordonnees getVoisinage(const Reseau& r); // Dééfinition des coordonnées relatives pour le calcul du voisinage
 };
-
-
 
 #endif /* voisinage_h */
