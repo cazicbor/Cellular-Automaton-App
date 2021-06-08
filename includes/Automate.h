@@ -12,6 +12,7 @@
 class Automate {
 	private:
 		static std::unique_ptr<Automate> instance;
+		std::string title;
 		unsigned int delai;
 		Fonction* fonction;
 		RegleVoisinage* regleVoisinage;
@@ -21,10 +22,12 @@ class Automate {
 		unsigned int l;
 		bool isRunning;
 
-		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), isRunning(false) {} //modifié
+		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), isRunning(false), title("") {} //modifié
 		~Automate() = default;
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
+		std::string getTitle() const { return title; }
+		std::string setTitle(const std::string& t) { title = t; }
 		class Timer: public QObject {
 			private:
 				int timerID;
