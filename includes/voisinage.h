@@ -90,8 +90,8 @@ class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle po
 		void setNbVoisins(unsigned int r) { nbVoisin = r; }
 		unsigned int getNbVoisin() { return nbVoisin; }
 		vector<Coordonnees> coordonnees;
-		void calculVoisinage(Voisinage& v, const Reseau& r, const Coordonnees co) const; // Calcul du voisinage en fonction de la cellule centre
-		Coordonnees getVoisinage(const Reseau& r); // Dééfinition des coordonnées relatives pour le calcul du voisinage
+		void calculVoisinage(Voisinage& v, const Reseau& r) const; // Calcul du voisinage en fonction de la cellule centre
+//		Coordonnees getVoisinage(const Reseau& r); // Dééfinition des coordonnées relatives pour le calcul du voisinage
 };
 
 #endif /* voisinage_h */

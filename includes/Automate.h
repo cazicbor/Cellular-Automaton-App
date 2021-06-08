@@ -22,8 +22,7 @@ class Automate {
 		unsigned int l;
 		bool isRunning;
 
-		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), isRunning(false), title("") {} //modifié
-		~Automate() = default;
+		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), isRunning(false), title("") { timer.automate = this; }
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
 		std::string getTitle() const { return title; }
@@ -32,7 +31,7 @@ class Automate {
 			private:
 				int timerID;
 				Automate *automate;
-				Timer(Automate *a): timerID(0), automate(a) {}
+				Timer(): timerID(0) {}
 				~Timer() { destroy(); }
 
 			protected:
@@ -54,9 +53,10 @@ class Automate {
 
 			friend class Automate;
 		};
-		Timer timer(this);
+		Timer timer;
 
 	public:
+		~Automate() = default;
 		/// récupérer une référence sur l'instance unique du singleton Automate
 		static Automate& getInstance() {
 			if(instance == nullptr) {
