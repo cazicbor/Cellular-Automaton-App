@@ -20,9 +20,8 @@ class Automate {
 		std::list<Reseau>::iterator itBuffer;
 		unsigned int h;
 		unsigned int l;
-		bool isRunning;
 
-		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), isRunning(false), title("") { timer.automate = this; }
+		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), title("") { timer.automate = this; }
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
 		std::string getTitle() const { return title; }
