@@ -170,16 +170,16 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 		if(query.isNull("rayon"))
 			throw "Error: r can't be undefined here";
 
-		RegleVoisinage *regle = new RegleVoisinageNeumann;
-		regle->setNbVoisins(query.value("rayon").toInt());
+		RegleVoisinageNeumann *regle = new RegleVoisinageNeumann;
+		regle->setr(query.value("rayon").toInt());
 
 		return regle;
 	} else if(type == 2) {
 		if(query.isNull("rayon"))
 			throw "Error: r can't be undefined here";
 
-		RegleVoisinage *regle = new RegleVoisinageMoore;
-		regle->setNbVoisins(query.value("rayon").toInt());
+		RegleVoisinageMoore *regle = new RegleVoisinageMoore;
+		regle->setr(query.value("rayon").toInt());
 
 		return regle;
 	} else if(type != 3) // n'existe pas
@@ -192,7 +192,7 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 	if(!query.first())
 		throw "There must be at least one coord in this rule";
 
-	RegleVoisinage *regle = new RegleVoisinage;
+	RegleVoisinageArbitraire *regle = new RegleVoisinageArbitraire;
 
 	do {
 		/// @todo voisinage arbitraire
@@ -269,8 +269,8 @@ Reseau& Database::getReseau(int idReseau) const
             cellule.prepare("SELECT etat FROM Cellules WHERE (reseau = :id AND ensemble = :idE AND x = :i AND y = :j)");
             cellule.bindValue(":id", idReseau);
             cellule.bindValue(":idE", idEnsemble);
-            cellule.bindValue(":i", i);
-            cellule.bindValue(":j", j);
+            cellule.bindValue(":i", static_cast<int>(i));
+            cellule.bindValue(":j", static_cast<int>(j));
             cellule.exec();
             while(r->getReseau()[i][j].getIndEtat() != cellule.value("etat").toInt())
                 r->getReseau()[i][j].incrementerEtat();

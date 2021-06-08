@@ -17,7 +17,7 @@ void RegleVoisinageMoore::setr(unsigned int r){
 		throw ("Rayon incorrect !\n");
 }
 
-void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) {
+void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) const {
 	v.voisinage = std::vector<Cellule*>();
 	int nb = 0;
 	unsigned int cellX = v.celluleCentre->abs;
@@ -31,7 +31,7 @@ void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) {
 				v.voisinage.push_back(&r.getReseau()[(cellY+i)%hauteur][(cellX+j)%largeur]);
 }
 
-void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r) {
+void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r) const {
 	v.voisinage = std::vector<Cellule*>();
 	int nb = 0;
 	unsigned int cellX = v.celluleCentre->abs;

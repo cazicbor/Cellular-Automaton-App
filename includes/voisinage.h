@@ -67,14 +67,14 @@ public:
 
 class RegleVoisinage{
 	public :
-		virtual void calculVoisinage(Voisinage& v, const Reseau& r) = 0;
+		virtual void calculVoisinage(Voisinage& v, const Reseau& r) const = 0;
 };
 
 class RegleVoisinageNeumann : public RegleVoisinage {
 	private:
 		unsigned int rayon;
 	public:
-		void calculVoisinage(Voisinage& v, const Reseau& r) override;
+		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
 		void setr(unsigned int r);
 		unsigned int getr() const { return rayon; }
 };
@@ -83,7 +83,7 @@ class RegleVoisinageMoore : public RegleVoisinage {
 	private:
 		unsigned int rayon;
 	public:
-		void calculVoisinage(Voisinage& v, const Reseau& r) override;
+		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
 		void setr(unsigned int r);
 		unsigned int getr() const { return rayon; }
 };
