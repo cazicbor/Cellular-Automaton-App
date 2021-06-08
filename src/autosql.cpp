@@ -63,8 +63,8 @@ Fonction* Database::getFonction(const QString& name) const {
 		throw "No rule defined for this object";
 
 	do {
-		int min[8] = {0};
-		int max[8] = {0};
+		int min[8] = {-1};
+		int max[8] = {-1};
 
 		if(!query.isNull("min1")) {
 			min[0] = query.value("min1").toInt();
