@@ -70,6 +70,8 @@ class AutoCell : public QWidget
     QPushButton* button_next;
     QPushButton* button_reinitialiser;
 
+    QLabel* lab_sauv_grille;
+    QLineEdit* edit_nom_grille;
     QPushButton* button_save_grid;
 
     //définition de la frame affichage de la grille
