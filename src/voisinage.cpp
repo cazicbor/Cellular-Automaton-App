@@ -50,45 +50,33 @@ Voisinage::~Voisinage() {
 }
 
 void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) const { //définir get?
-	v.voisinage = std::vector<Cellule*>();
-	
-	unsigned int abs = v.celluleCentre->abs;
-	unsigned int ord = v.celluleCentre->ord;
-	unsigned int hauteur = r.getHauteur();
-	unsigned int largeur = r.getLargeur();
+    v.voisinage = std::vector<Cellule*>();
 
-	for (int nb = 0; nb < coordonnees.size(); nb++){
-		v.voisinage[nb] = &r.getReseau()[abs - coordonnees[nb].x] [ord - coordonnees[nb].y];
-	}
+    unsigned int abs = v.celluleCentre->abs;
+    unsigned int ord = v.celluleCentre->ord;
+    unsigned int hauteur = r.getHauteur();
+    unsigned int largeur = r.getLargeur();
+
+    for (size_t nb = 0; nb < coordonnees.size(); nb++){
+        v.voisinage[nb] = &r.getReseau()[(abs - coordonnees[nb].x)%hauteur] [(ord - coordonnees[nb].y)%largeur];
+    }
 }
 
-//Coordonnees RegleVoisinageArbitraire::getVoisinage(const Reseau& r) {
-//	
-//	vector<Coordonnees> coordonnees;
-//
-//	Cellule* cellulecentre = celluleCentre;
-//	
-//
-//	for (int k = 0; k < nbVoisin; k++) {
-//		unsigned int i, j;
-//		while (i >= r.getHauteur() || j >= r.getLargeur()) {
-//			cout << "Entrez l'abscisse de la" << k << "ieme cellule.\n";
-//			cin >> i;
-//			cout << "Entrez l'ordonnee de la " << k << "ieme cellule.\n";
-//			cin >> j;
-//			if (i >= r.getHauteur() || j >= r.getLargeur())
-//				cout << "Coordonnees incorrectes !\n";
-//		}
-//		if (i < r.getHauteur() && j < r.getLargeur()) {
-//			coordonnees[k].x = cellulecentre->abs - i;
-//			coordonnees[k].y = cellulecentre->ord - j;
-//		}
-//	}
-//
-//	return coordonnees;
-//	// While (!utilisateur clique sur bouton valider){
-//		//recuprer abs et ord de Cellule slectionne;
-//		//rentrer la diffrence des coordonnes dans le vecteur co
-//	//}
-//
-//}
+vector<Coordonnees> RegleVoisinageArbitraire::getVoisinage(const Reseau& r,const QTableWidget* grid)
+{
+    vector<Coordonnees> coordonnees;
+    int k = 0;
+
+    for (unsigned int i = 0; i < 5; i++) {
+        for (unsigned int j = 0; j < 5; j++){
+            if (grid->item(i,j)->background() == Qt::red){
+               coordonnees[k].x = (2-i);
+               coordonnees[k].y = (2-j);
+               k += 1;
+            }
+        }
+
+      }
+
+    return coordonnees;
+}
