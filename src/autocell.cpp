@@ -71,17 +71,11 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
         liste->addItem(noms_modeles[i]);
     }
 
-    liste->addItem("modèle 1");
-    liste->addItem("modèle 2");
-    liste->addItem("modèle 3");
-    liste->addItem("modèle 4");
-
-
     liste->setStyleSheet("background-color : rgb(251, 252, 252 )");
     liste->setFixedWidth(140);
 
     connect(liste,SIGNAL(currentIndexChanged(int)),this,SLOT(RAZ()));
-    connect(liste,SIGNAL(currentTextChanged(const QString &text)),this,SLOT(chargerGrilles(const QString &text)));
+    connect(liste,SIGNAL(currentIndexChanged(int)),this,SLOT(chargerGrilles()));
 
 
     grid_model_choice = new QGridLayout(win_model_choice);
@@ -355,10 +349,20 @@ void AutoCell::sauvegarderGrille(){
     Database::getInstance().stockerReseau(*Grille, nom_grille, nom_automate);
 };
 
-void AutoCell::chargerGrilles(const QString& text){
+void AutoCell::chargerGrilles(){
+    QString text;
+    QString nb;
+    text = liste->currentText();
+
+    edit_hauteur->setText(text);
     list_grids->clear();
-    /*vector<QString> noms = database.getListesReseaux(text);
-    for(auto nom : noms) list_grids->addItem(nom);*/
+    vector<QString> noms = Database::getInstance().getListeReseaux(text);
+    nb.setNum(noms.size());
+        edit_largeur->setText(nb);
+
+    for(size_t i=0 ; i<noms.size() ; i++)
+        list_grids->addItem(noms[i]);
+
 }
 
 void AutoCell::gererSimulation(){
