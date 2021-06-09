@@ -23,8 +23,6 @@
 
 using namespace std;
 
-extern EnsembleEtat& enseEtats;
-
 class AutoCell : public QWidget
 
 {

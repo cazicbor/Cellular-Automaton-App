@@ -1,8 +1,8 @@
-#include "autocell.h"
-#include "reseau_cellule_etats.h"
-#include "autosql.h"
-#include "Automate.h"
-#include "parametragemodele.h"
+#include <autocell.h>
+#include <reseau_cellule_etats.h>
+#include <autosql.h>
+#include <Automate.h>
+#include <parametragemodele.h>
 
 #include <QApplication>
 #include <QPushButton>
@@ -29,8 +29,6 @@
 #include <array>
 #include <iostream>
 #include <iomanip>
-
-extern EnsembleEtat& enseEtats;
 
 using namespace std;
 
@@ -233,14 +231,14 @@ void AutoCell::afficherGrille(Reseau* Grille)
             //vérifier si les cellules ont ou non été générés (!= nullptr)
             QString indice; indice.setNum(Grille->getReseau()[i][j].getIndEtat());
 
-            QString label; label = QString::fromStdString(enseEtats.getEtat(indice.toInt()).getLabel()); //label de la cellule
+            QString label; label = QString::fromStdString(Automate::getInstance().getEnsemble().getEtat(indice.toInt()).getLabel()); //label de la cellule
 
             grid->setItem(i, j, new QTableWidgetItem(indice));
             grid->item(i,j)->setFlags(Qt::ItemIsEnabled);
 
             //afficherCellule
 
-            QColor color; color = enseEtats.getEtat(indice.toInt()).getColor();
+            QColor color; color = Automate::getInstance().getEnsemble().getEtat(indice.toInt()).getColor();
 
             QBrush brush_color;
             brush_color.setColor(color);
@@ -322,7 +320,7 @@ void AutoCell::modifierCellule(const QModelIndex& index) {
 
     QString str_indice ; str_indice.setNum(indice, 10);
 
-    QColor color; color = enseEtats.getEtat(indice).getColor();
+    QColor color; color = Automate::getInstance().getEnsemble().getEtat(indice).getColor();
 
     QBrush brush_color;
     brush_color.setColor(color);

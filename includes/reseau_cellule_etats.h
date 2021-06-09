@@ -47,22 +47,14 @@ private:          //permet d'éviter que chaque cellule inclue une instance d'Et
     size_t nbEtats = 0;
     static const size_t nbEtatsMax = 10;
     Etat* ensEtats[nbEtatsMax];
-    struct Handler {
-        EnsembleEtat* instance=nullptr;
-        ~Handler() { delete instance; }
-    };
-    static Handler handler;
-    friend struct Handler;
-    EnsembleEtat();
-    ~EnsembleEtat();
     EnsembleEtat(const EnsembleEtat&) = delete;
     EnsembleEtat operator=(const EnsembleEtat&) = delete;
 
 public:
+    EnsembleEtat();
+    ~EnsembleEtat();
     void ajouterEtat(unsigned int ind, std::string lab,int r = 0, int g = 0, int b = 0);
     void supprimerEtat(const unsigned int ind);
-    static EnsembleEtat& getInstance();
-    static void libererInstance();
     void initEtat(const Etat* init_etats = nullptr);//initialisation du tableau d'Etats à partir d'un tableau externe
     Etat& getEtat(const unsigned int &ind){return *ensEtats[ind];}
     unsigned int getNbEtats() const {return nbEtats;};
@@ -83,5 +75,4 @@ public:
     Reseau(const unsigned int &h, const unsigned int &l);
     Reseau(const Reseau&);
     ~Reseau();
-    void affiche();
 };

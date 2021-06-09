@@ -20,15 +20,16 @@ class Database {
 		Database(std::string path);
 		~Database() { db.close(); }
 		std::vector<QString> getAutomates() const;
-		Fonction* getFonction(const QString& name) const;
+		Fonction* getFonction(Automate& a) const;
 		RegleVoisinage* getRegleVoisinage(const QString& name) const;
 		std::vector<QString> getListeReseaux(const QString& name) const;
 		Reseau& getReseau(int idReseau) const;
 		void stockerReseau(const Reseau& reseau, const QString& nomReseau, const QString& nomAutomate) const;
-		void initEnsEtat(const QString& name) const;
+		void initEnsEtat(Automate& a) const;
 		void saveAutomaton(const Automate& a) const;
 		void saveFunction(const QString& name, const Fonction& f) const;
 		void saveVoisinage(const QString& name, const RegleVoisinage& r) const;
+		void saveEnsemble(Automate& a) const;
 };
 
 #endif

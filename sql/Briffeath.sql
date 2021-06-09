@@ -263,7 +263,6 @@ INSERT INTO reseaux VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	0,
 	0,
 	0
@@ -271,7 +270,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	2,
 	1,
 	0
@@ -279,7 +277,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	1,
 	2,
 	0
@@ -287,7 +284,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	1,
 	3,
 	0
@@ -295,7 +291,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	0,
 	4,
 	0
@@ -303,7 +298,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	2,
 	0,
 	1
@@ -312,14 +306,12 @@ INSERT INTO Cellules VALUES(
 INSERT INTO Cellules VALUES(
 	2,
 	3,
-	3,
 	1,
 	1
 );
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	1,
 	2,
 	1
@@ -329,13 +321,11 @@ INSERT INTO Cellules VALUES(
 	2,
 	3,
 	3,
-	3,
 	1
 );
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	2,
 	4,
 	1
@@ -343,7 +333,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	2,
 	0,
 	2
@@ -351,7 +340,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	1,
 	1,
 	2
@@ -359,7 +347,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	1,
 	2,
 	2
@@ -367,7 +354,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	2,
 	3,
 	2
@@ -375,7 +361,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	2,
 	4,
 	2
@@ -384,14 +369,12 @@ INSERT INTO Cellules VALUES(
 INSERT INTO Cellules VALUES(
 	2,
 	3,
-	3,
 	0,
 	3
 );
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	0,
 	1,
 	3
@@ -399,7 +382,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	1,
 	2,
 	3
@@ -407,7 +389,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	1,
 	3,
 	3
@@ -415,7 +396,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	3,
 	4,
 	3
@@ -423,7 +403,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	0,
 	0,
 	4
@@ -431,7 +410,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	1,
 	1,
 	4
@@ -439,7 +417,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	0,
 	2,
 	4
@@ -447,7 +424,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	2,
 	3,
 	4
@@ -455,7 +431,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	2,
-	3,
 	3,
 	3,
 	4

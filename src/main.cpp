@@ -17,14 +17,12 @@
 
 using namespace std;
 
-EnsembleEtat &enseEtats = EnsembleEtat::getInstance();
-
 
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    EnsembleEtat &enseEtats = EnsembleEtat::getInstance();
+    EnsembleEtat enseEtats;
 
     enseEtats.ajouterEtat(0, "vivant", 239, 239, 239);
     enseEtats.ajouterEtat(1, "mort", 90, 94, 107);

@@ -303,7 +303,6 @@ INSERT INTO reseaux VALUES(
 );
 
 INSERT INTO Cellules VALUES(
-	1,  
 	1, 
 	2, 
 	0,
@@ -311,7 +310,6 @@ INSERT INTO Cellules VALUES(
 );
 
 INSERT INTO Cellules VALUES(
-	1,  
 	1, 
 	2, 
 	0,
@@ -319,7 +317,6 @@ INSERT INTO Cellules VALUES(
 );
 
 INSERT INTO Cellules VALUES(
-	1,  
 	1, 
 	2, 
 	0,
@@ -327,7 +324,6 @@ INSERT INTO Cellules VALUES(
 );
 
 INSERT INTO Cellules VALUES(
-	1,  
 	1, 
 	2, 
 	0,
@@ -335,7 +331,6 @@ INSERT INTO Cellules VALUES(
 );
 
 INSERT INTO Cellules VALUES(
-	1,  
 	1, 
 	2, 
 	1,
@@ -343,7 +338,6 @@ INSERT INTO Cellules VALUES(
 );
 
 INSERT INTO Cellules VALUES(
-	1,  
 	1, 
 	0, 
 	1,
@@ -352,7 +346,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	1,  
-	1, 
 	0, 
 	1,
 	2
@@ -360,7 +353,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	1,  
-	1, 
 	2, 
 	1,
 	3
@@ -368,7 +360,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	1,  
-	1, 
 	2, 
 	2,
 	0
@@ -376,7 +367,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	1,  
-	1, 
 	0, 
 	2,
 	1
@@ -384,7 +374,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	1,  
-	1, 
 	0, 
 	2,
 	2
@@ -392,7 +381,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	1,  
-	1, 
 	2, 
 	2,
 	3
@@ -400,7 +388,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	1,  
-	1, 
 	2, 
 	3,
 	0
@@ -408,7 +395,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	1,  
-	1, 
 	2, 
 	3,
 	1
@@ -416,7 +402,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	1,  
-	1, 
 	2, 
 	3,
 	2
@@ -424,7 +409,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	1,  
-	1, 
 	2, 
 	3,
 	3

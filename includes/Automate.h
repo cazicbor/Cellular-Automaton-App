@@ -24,6 +24,7 @@ class Automate {
 		int year;
 		std::string author;
 		std::string desc;
+		EnsembleEtat ensemble;
 
 		Automate(): title(""), delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), reseauInit(Reseau(0, 0)), year(2000), author("Anonym"), desc("") { timer.automate = this; }
 		Automate(const Automate& a) = delete;
@@ -77,6 +78,10 @@ class Automate {
 		/// Définir le délai entre 2 itérations de l'automate en mode Timer
 		void setDelai(const unsigned int d) { delai = d; }
 
+		/// Accesseur ensemble états
+		EnsembleEtat& getEnsemble() { return ensemble; }
+		/// Accesseur ensemble états
+		const EnsembleEtat& getEnsemble() const { return ensemble; }
 		/// définir la hauteur de la grille
 		void setHauteur(unsigned int hauteur) { h = hauteur; }
 		/// définir la largheur de la grille

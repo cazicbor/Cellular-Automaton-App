@@ -1,8 +1,6 @@
 #include <iostream>
 #include <autosql.h>
 
-extern EnsembleEtat& enseEtats;
-
 Database::Database(std::string path): db(QSqlDatabase::addDatabase("QSQLITE")) {
 	db.setDatabaseName(path.c_str());
 	if (!db.open()) {
@@ -40,17 +38,17 @@ std::vector<QString> Database::getAutomates() const {
 	return names;
 }
 
-void Database::initEnsEtat(const QString& name) const {
+void Database::initEnsEtat(Automate& a) const {
 	QSqlQuery query(db);
 
 	query.prepare("SELECT indice, label, r, g, b FROM Etats INNER JOIN EnsembleEtats ON Etats.ensemble = EnsembleEtats.id WHERE automate = :nom");
-	query.bindValue(":nom", name);
+	query.bindValue(":nom", a.getTitle().c_str());
 	query.exec();
 
 	if(!query.first())
 		throw "Unable to select this object";
 
-	EnsembleEtat& ens = EnsembleEtat::getInstance();
+	EnsembleEtat& ens = a.getEnsemble();
 	ens.reset();
 
 	do {
@@ -67,20 +65,20 @@ void Database::initEnsEtat(const QString& name) const {
 /// Retourne la fonction de transition d'un automate par son nom
 ///
 /// Une règle prend en compte l'état courant seulement s'il est défini à non nul dans la BDD
-Fonction* Database::getFonction(const QString& name) const {
+Fonction* Database::getFonction(Automate& a) const {
 	QSqlQuery query(db);
 
 	query.prepare("SELECT defaut FROM automates WHERE nom = :nom");
-	query.bindValue(":nom", name);
+	query.bindValue(":nom", a.getTitle().c_str());
 	query.exec();
 
 	if(!query.first())
 		throw "Unable to select this object";
 
-	Fonction* fonction = new Fonction(enseEtats.getEtat(query.value("defaut").toInt()));
+	Fonction* fonction = new Fonction(a.getEnsemble().getEtat(query.value("defaut").toInt()));
 
 	query.prepare("SELECT * FROM regles_transition WHERE id = :id");
-	query.bindValue(":id", name);
+	query.bindValue(":id", a.getTitle().c_str());
 	query.exec();
 
 	if(!query.first())
@@ -140,9 +138,9 @@ Fonction* Database::getFonction(const QString& name) const {
 		}
 
 		if(query.isNull("courant")) { // on ne prend pas en compte l'état courant
-			fonction->ajouterRegle(enseEtats.getEtat(query.value("destination").toInt()), min, max);
+			fonction->ajouterRegle(a.getEnsemble().getEtat(query.value("destination").toInt()), min, max);
 		} else {
-			fonction->ajouterRegle(enseEtats.getEtat(query.value("destination").toInt()), min, max, query.value("courant").toInt());
+			fonction->ajouterRegle(a.getEnsemble().getEtat(query.value("destination").toInt()), min, max, query.value("courant").toInt());
 		}
 	} while (query.next());
 
@@ -228,31 +226,7 @@ std::vector<QString> Database::getListeReseaux(const QString& name) const
 
 /// Cette fonction réinitialise le singleton EnsembleEtat avec des valeurs contenues dans la BDD, afin de retourner un réseau à partir des valeurs stockées dans la BDD.
 /// @param idReseau correspond à la clé primaire du réseau dans la BDD, il est conseillé de l'avoir récupérée avec getListeReseaux() auparavant
-Reseau& Database::getReseau(int idReseau) const
-{
-    QSqlQuery ensemble(db);
-    ensemble.prepare("SELECT * FROM EnsembleEtats WHERE reseau = :id");
-    ensemble.bindValue(":id", idReseau);
-    ensemble.exec();
-
-    //récuperation de l'identifiant de l'ensemble d'états lié au réseau
-    int idEnsemble = ensemble.value("id").toInt();
-
-    //récupération des états de l'ensemble
-    QSqlQuery etats(db);
-    etats.prepare("SELECT * FROM Etats WHERE ensemble = :id");
-    etats.bindValue(":id", idEnsemble);
-    etats.exec();
-
-    //reset et remplissage du singleton de l'ensemble d'état
-    enseEtats.reset();
-    if(etats.first()) {
-        enseEtats.ajouterEtat(etats.value("indice").toUInt(), etats.value("label").toString().toStdString(), etats.value("r").toInt(), etats.value("g").toInt(), etats.value("b").toInt());
-    }
-    while(etats.next()) {
-        enseEtats.ajouterEtat(etats.value("indice").toUInt(), etats.value("label").toString().toStdString(), etats.value("r").toInt(), etats.value("g").toInt(), etats.value("b").toInt());
-    }
-
+Reseau& Database::getReseau(int idReseau) const {
     //initialisation du réseau de retour
     QSqlQuery reseau(db);
     reseau.prepare("SELECT * FROM reseaux WHERE id = :id");
@@ -266,9 +240,8 @@ Reseau& Database::getReseau(int idReseau) const
         for(size_t j = 0; j<reseau.value("l").toUInt(); j++)
         {
             QSqlQuery cellule(db);
-            cellule.prepare("SELECT etat FROM Cellules WHERE (reseau = :id AND ensemble = :idE AND x = :i AND y = :j)");
+            cellule.prepare("SELECT etat FROM Cellules WHERE (reseau = :id AND x = :i AND y = :j)");
             cellule.bindValue(":id", idReseau);
-            cellule.bindValue(":idE", idEnsemble);
             cellule.bindValue(":i", static_cast<int>(i));
             cellule.bindValue(":j", static_cast<int>(j));
             cellule.exec();
@@ -430,6 +403,41 @@ void Database::saveVoisinage(const QString& name, const RegleVoisinage& r) const
 	}
 }
 
+void Database::saveEnsemble(Automate& a) const {
+    //On passe à la création du tuple de l'ensemble d'état :
+    //les tuples de Cellules prennent une clé étrangère d'EnsembleEtats (car elle appartient à la clé d'Etats) !
+    //Il nous faut donc : id, automate --> on a la clé étrangère vers automate (nomAutomate), il faut créer l'id
+
+    //Création de l'id du nouvel ensemble d'états
+	QSqlQuery query(db);
+    query.prepare("SELECT COUNT(*) FROM EnsembleEtats");
+    query.exec();
+    int idEns = query.value(0).toInt() + 1;
+
+    //Insertion du tuple dans EnsembleEtats
+    query.prepare("INSERT INTO EnsembleEtats VALUES (:id, :automate)");
+    query.bindValue(":id", idEns);
+    query.bindValue(":automate", a.getTitle().c_str());
+    query.exec();
+
+    EnsembleEtat& enseEtats = a.getEnsemble();
+
+    //On passe au stockage des états de l'ensemble :
+    //les tuples de Cellules prennent une clé étrangère d'Etats !
+    //Il nous faut prendre de chaque état : ensemble (idEns), indice, label, r, g, b
+    for(unsigned int i = 0 ; i < enseEtats.getNbEtats() ; i++)
+    {
+        query.prepare("INSERT INTO Etats VALUES (:ensemble, :indice, ':label', :r, :g, :b)");
+        query.bindValue(":ensemble", idEns);
+        query.bindValue(":indice", enseEtats.getEtat(i).getIndice());
+        query.bindValue(":label", QString::fromStdString(enseEtats.getEtat(i).getLabel()));
+        query.bindValue(":r", enseEtats.getEtat(i).getColor().red());
+        query.bindValue(":g", enseEtats.getEtat(i).getColor().green());
+        query.bindValue(":b", enseEtats.getEtat(i).getColor().blue());
+        query.exec();
+    }
+}
+
 ///Cette fonction permet de stocker un réseau dans la BDD
 ///@param reseau est le réseau à stocker
 ///@param nomReseau est le nom du réseau à stocker
@@ -454,46 +462,14 @@ void Database::stockerReseau(const Reseau& reseau, const QString& nomReseau, con
     query.bindValue(":l", reseau.getLargeur());
     query.bindValue(":automate", nomAutomate);
     query.exec();
-
-    //On passe à la création du tuple de l'ensemble d'état :
-    //les tuples de Cellules prennent une clé étrangère d'EnsembleEtats (car elle appartient à la clé d'Etats) !
-    //Il nous faut donc : id, automate --> on a la clé étrangère vers automate (nomAutomate), il faut créer l'id
-
-    //Création de l'id du nouvel ensemble d'états
-    query.prepare("SELECT COUNT(*) FROM EnsembleEtats");
-    query.exec();
-    int idEns = query.value(0).toInt() + 1;
-
-    //Insertion du tuple dans EnsembleEtats
-    query.prepare("INSERT INTO EnsembleEtats VALUES (:id, :automate)");
-    query.bindValue(":id", idEns);
-    query.bindValue(":automate", nomAutomate);
-    query.exec();
-
-    //On passe au stockage des états de l'ensemble :
-    //les tuples de Cellules prennent une clé étrangère d'Etats !
-    //Il nous faut prendre de chaque état : ensemble (idEns), indice, label, r, g, b
-    for(unsigned int i = 0 ; i < enseEtats.getNbEtats() ; i++)
-    {
-        query.prepare("INSERT INTO Etats VALUES (:ensemble, :indice, ':label', :r, :g, :b)");
-        query.bindValue(":ensemble", idEns);
-        query.bindValue(":indice", enseEtats.getEtat(i).getIndice());
-        query.bindValue(":label", QString::fromStdString(enseEtats.getEtat(i).getLabel()));
-        query.bindValue(":r", enseEtats.getEtat(i).getColor().red());
-        query.bindValue(":g", enseEtats.getEtat(i).getColor().green());
-        query.bindValue(":b", enseEtats.getEtat(i).getColor().blue());
-        query.exec();
-    }
-
     //On termine avec les Cellules.
     //Il nous faut : reseau (idReseau), ensemble (idEns), etat (indice de la cellule), x, y
     for(int i = 0 ; i < reseau.getHauteur() ; i++)
     {
         for(int j = 0 ; j < reseau.getLargeur() ; j++)
         {
-            query.prepare("INSERT INTO Cellules VALUES (:reseau, :ensemble, :etat, :x, :y)");
+            query.prepare("INSERT INTO Cellules VALUES (:reseau, :etat, :x, :y)");
             query.bindValue(":reseau", idReseau);
-            query.bindValue(":ensemble", idEns);
             query.bindValue(":etat", reseau.getReseau()[i][j].getIndEtat());
             query.bindValue(":x", i);
             query.bindValue(":x", j);

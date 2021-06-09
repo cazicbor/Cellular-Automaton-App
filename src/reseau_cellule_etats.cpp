@@ -1,15 +1,12 @@
-#include "reseau_cellule_etats.h"
+#include <reseau_cellule_etats.h>
+#include <Automate.h>
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
 
-extern EnsembleEtat& enseEtats;
-
 using namespace std;
 
 //méthodes de la classe EnsembleEtat
-
-EnsembleEtat::Handler EnsembleEtat::handler;
 
 EnsembleEtat::EnsembleEtat() {
     for (size_t i = 0; i < nbEtatsMax; i++) ensEtats[i] = nullptr;
@@ -19,19 +16,8 @@ EnsembleEtat::~EnsembleEtat() {
     for (size_t i = 0; i < nbEtats; i++) delete ensEtats[i];
 }
 
-EnsembleEtat& EnsembleEtat::getInstance() {
-    if (handler.instance == nullptr)
-        handler.instance = new EnsembleEtat;
-    return *handler.instance;
-}
-
-void EnsembleEtat::libererInstance() {
-    delete handler.instance;
-    handler.instance = nullptr;
-}
-
 void EnsembleEtat::ajouterEtat(unsigned int ind, std::string lab,int r, int g, int b){
-    handler.instance->ensEtats[nbEtats] = new Etat(ind, lab, r, g, b);
+    ensEtats[nbEtats] = new Etat(ind, lab, r, g, b);
     nbEtats++;
 }
 
@@ -83,7 +69,7 @@ void Cellule::initCellule(const unsigned int ind, const unsigned int &x, const u
 }
 
 void Cellule::incrementerEtat(){
-    indEtat = (indEtat+1) % enseEtats.getNbEtats();}
+    indEtat = (indEtat+1) % Automate::getInstance().getEnsemble().getNbEtats();}
 
 //méthodes de la classe Reseau
 
@@ -101,22 +87,12 @@ Reseau::~Reseau(){
     delete[] reseau;
 }
 
-void Reseau::affiche(){
-    for(unsigned int i=0; i<hauteur; i++)
-    {
-        for(unsigned int j=0; j<largeur; j++){
-            std::cout<<std::setw(9)<<EnsembleEtat::getInstance().getEtat((reseau[i][j]).indEtat).getLabel();
-        }
-    std::cout<<"\n";
-    }
-}
-
 Reseau& Reseau::setAleatoire(){
     srand(time(NULL));
     for(unsigned int i=0; i<hauteur; i++)
         for(unsigned int j=0; j<largeur; j++)
         {
-            unsigned int random_ind = rand() % (enseEtats.getNbEtats());
+            unsigned int random_ind = rand() % (Automate::getInstance().getEnsemble().getNbEtats());
             reseau[i][j].initCellule(random_ind,i,j);
         };
     return *this;
