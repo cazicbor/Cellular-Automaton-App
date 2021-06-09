@@ -208,7 +208,7 @@ std::vector<QString> Database::getListeReseaux(const QString& name) const
 {
     QSqlQuery query(db);
 
-    query.prepare("SELECT id, nom FROM reseaux WHERE nom = ':nom'");
+    query.prepare("SELECT id, nom FROM reseaux WHERE automate = ':nom'");
     query.bindValue(":nom", name);
     query.exec();
 
