@@ -55,7 +55,7 @@ public:
         
     };
 
-    Voisinage(const Cellule* centre, vector<Cellule*> v) : celluleCentre(centre), voisinage(v) {}
+    Voisinage(const Cellule* centre) : celluleCentre(centre) {}
     ~Voisinage();
     Cellule getCelluleCentre()const {return *celluleCentre;}
 
