@@ -44,10 +44,14 @@ class NouveauModele : public QWidget {
 
     //definition frame règle de transitions
     QWidget* fenetre_regle;
-    QLabel* seuilMax, seuilMin, destination, etatCourant;
+    QLabel* seuilMax;
+    QLabel* seuilMin;
+    QLabel* destination;
+    QLabel* etatCourant;
 
     QCheckBox* valid_Etat;
-    QSpinBox* nbEtatCourant, etatDest;
+    QSpinBox* numEtatCourant;
+    QSpinBox* etatDest;
 
     QPushButton* fin, next;
 
@@ -73,6 +77,7 @@ public slots:
     void changerVoisinage(const QString& choix_regle);
     void affGrille();
     void modifGrille(const QModelIndex& index);
+    //void choisirEtatCourant(QFormLayout* form_choix);
 
 
 };

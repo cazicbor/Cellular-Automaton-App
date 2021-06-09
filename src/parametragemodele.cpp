@@ -62,10 +62,36 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     //connect(bouton_valide, SIGNAL(clicked()), SLOT(affParametrage()));
 
+    //ajout regle :
+    seuilMax = new QLabel("Seuil Max : ");
+    seuilMin = new QLabel("Seuil Min : ");
+    destination = new QLabel("Destination : ");
+    etatCourant = new QLabel("Etat Courant : ");
+
+    valid_Etat = new QCheckBox;
+
+    etatDest = new QSpinBox;
+    etatDest->setRange(1,8);
+
+
+
+    //connect(etatDest, SIGNAL(toggled(bool)), this, SLOT(choisirEtatCourant(QFormLayout*)));
+
+
+
     form_choix->addRow("Nombre d'états :", nb_etats);
     form_choix->addRow("Règle de transition :", liste_regle_transition);
     form_choix->addRow("Voisinage :", liste_voisinage);
     form_choix->addWidget(bouton_valide);
+
+
+
+    form_choix->addRow(seuilMin);
+    form_choix->addRow(seuilMax);
+    form_choix->addRow(destination);
+    form_choix->addRow(etatCourant, valid_Etat);
+
+
 
     general->addWidget(fenetre_init, 0, 0, 9, 1);
 
@@ -199,3 +225,8 @@ void NouveauModele::changerVoisinage(const QString& choix_regle){
     connect(liste_voisinage, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramVoisinage(const QString&)));
 }
 
+/*void choisirEtatCourant(QFormLayout* form_choix){
+    QSpinBox* numEtatCourant = new QSpinBox;
+    numEtatCourant->setRange(1,8);
+    form_choix->addRow("Choisissez l'indice de l'tat courant : ", numEtatCourant);
+}*/
