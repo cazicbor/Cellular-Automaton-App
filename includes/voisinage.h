@@ -78,7 +78,7 @@ class RegleVoisinageNeumann : public RegleVoisinage {
 		unsigned int rayon;
 	public:
 		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
-		void setr(unsigned int r);
+		void setr(unsigned int r) { rayon = r; }
 		unsigned int getr() const { return rayon; }
 		int getType() const { return 1; }
 };
@@ -88,7 +88,7 @@ class RegleVoisinageMoore : public RegleVoisinage {
 		unsigned int rayon;
 	public:
 		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
-		void setr(unsigned int r);
+		void setr(unsigned int r) { rayon = r; }
 		unsigned int getr() const { return rayon; }
 		int getType() const { return 2; }
 };

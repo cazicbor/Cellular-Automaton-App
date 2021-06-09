@@ -247,7 +247,7 @@ Reseau& Database::getReseau(int idReseau) const {
             cellule.bindValue(":i", static_cast<int>(i));
             cellule.bindValue(":j", static_cast<int>(j));
             cellule.exec();
-            while(r->getReseau()[i][j].getIndEtat() != cellule.value("etat").toInt())
+            while(static_cast<int>(r->getReseau()[i][j].getIndEtat()) != cellule.value("etat").toInt())
                 r->getReseau()[i][j].incrementerEtat();
         }
     }

@@ -3,45 +3,29 @@
 #include<cmath>
 #include<iostream>
 
-void RegleVoisinageNeumann::setr(unsigned int r){
-	if(r >= 0)
-		rayon = r;
-	else
-		throw ("Rayon incorrect !\n");
-}
-
-void RegleVoisinageMoore::setr(unsigned int r){
-	if(r >= 0)
-		rayon = r;
-	else
-		throw ("Rayon incorrect !\n");
-}
-
 void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) const {
 	v.voisinage = std::vector<Cellule*>();
-	int nb = 0;
 	unsigned int cellX = v.celluleCentre->abs;
 	unsigned int cellY = v.celluleCentre->ord;
 	unsigned int hauteur = r.getHauteur();
 	unsigned int largeur = r.getLargeur();
 
-	for (int i = -rayon; i <= rayon; i++)
-		for (int j = -rayon; j <= rayon; j++)
-			if (abs(i) + abs(j) <= rayon && i != 0 && j != 0)
+	for (int i = -static_cast<int>(rayon); i <= static_cast<int>(rayon); i++)
+		for (int j = -static_cast<int>(rayon); j <= static_cast<int>(rayon); j++)
+			if (abs(i) + abs(j) <= static_cast<int>(rayon) && i != 0 && j != 0)
 				v.voisinage.push_back(&r.getReseau()[(cellY+i)%hauteur][(cellX+j)%largeur]);
 }
 
 void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r) const {
 	v.voisinage = std::vector<Cellule*>();
-	int nb = 0;
 	unsigned int cellX = v.celluleCentre->abs;
 	unsigned int cellY = v.celluleCentre->ord;
 	unsigned int hauteur = r.getHauteur();
 	unsigned int largeur = r.getLargeur();
 
-	for (int i = -rayon; i <= rayon; i++)
-		for (int j = -rayon; j <= rayon; j++)
-			if (abs(i) <= rayon && abs(j) <= rayon && i != 0 && j != 0)
+	for (int i = -static_cast<int>(rayon); i <= static_cast<int>(rayon); i++)
+		for (int j = -static_cast<int>(rayon); j <= static_cast<int>(rayon); j++)
+			if (abs(i) <= static_cast<int>(rayon) && abs(j) <= static_cast<int>(rayon) && i != 0 && j != 0)
 				v.voisinage.push_back(&r.getReseau()[(cellY+i)%hauteur][(cellX+j)%largeur]);
 }
 

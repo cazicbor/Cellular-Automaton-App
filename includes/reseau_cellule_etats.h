@@ -75,4 +75,5 @@ public:
     Reseau(const unsigned int &h, const unsigned int &l);
     Reseau(const Reseau&);
     ~Reseau();
+    Reseau& operator=(const Reseau& r);
 };
