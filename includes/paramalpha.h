@@ -6,6 +6,7 @@ class ParamAlpha: public QObject {
 	private:
 		EnsembleEtat ense;
 
+		int nb;
 		QGridLayout *general;
 		QFormLayout* form[8];
 		QLineEdit* label[8];
@@ -15,7 +16,7 @@ class ParamAlpha: public QObject {
 
 		QPushButton valider("Valider", this);
 	public slots:
-		void addEtats();
+		void addEtats(const int nbEtats);
 		void valide();
 };
 

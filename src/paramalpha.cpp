@@ -1,6 +1,11 @@
 #include <paramalpha.h>
 
-void ParamAlpha::addEtats() {
+void ParamAlpha::addEtats(const int nbEtats) {
+	if(nbEtats <= 0 || nbEtats > 8)
+		throw "Nombre invalide!";
+
+	nb = nbEtats;
+
 	this->setWindowTitle("Configuration des états");
 	this->setMinimumSize(900, 700);
 
@@ -9,7 +14,7 @@ void ParamAlpha::addEtats() {
 
 	valider = new QPushButton("Valider");
 
-	for(size_t i = 0; i < 8; ++i) {
+	for(size_t i = 0; i < nb; ++i) {
 		form[i] = new QFormLayout;
 		red[i] = new QSpinBox;
 		green[i] = new QSpinBox;
@@ -30,13 +35,20 @@ void ParamAlpha::addEtats() {
 	connect(valider, SIGNAL(clicked()), this, SLOT(valide()));
 
 	general->addWidget(form[0], 0, 0, 1, 1);
-	general->addWidget(form[0], 0, 1, 1, 1);
-	general->addWidget(form[0], 0, 2, 1, 1);
-	general->addWidget(form[0], 1, 0, 1, 1);
-	general->addWidget(form[0], 1, 1, 1, 1);
-	general->addWidget(form[0], 1, 2, 1, 1);
-	general->addWidget(form[0], 2, 0, 1, 1);
-	general->addWidget(form[0], 2, 1, 1, 1);
+	if(nb >= 2)
+		general->addWidget(form[0], 0, 1, 1, 1);
+	if(nb >= 3)
+		general->addWidget(form[0], 0, 2, 1, 1);
+	if(nb >= 4)
+		general->addWidget(form[0], 1, 0, 1, 1);
+	if(nb >= 5)
+		general->addWidget(form[0], 1, 1, 1, 1);
+	if(nb >= 6)
+		general->addWidget(form[0], 1, 2, 1, 1);
+	if(nb >= 7)
+		general->addWidget(form[0], 2, 0, 1, 1);
+	if(nb == 8)
+		general->addWidget(form[0], 2, 1, 1, 1);
 	general->addWidget(valider, 2, 1, 1, 1);
 }
 
@@ -44,7 +56,7 @@ void ParamAlpha::valide() {
 	EnsembleEtat& e = Automate::getInstance().getEnsemble();
 
 	e.reset();
-	for(size_t i = 0; i < 8; ++i) {
+	for(size_t i = 0; i < nb; ++i) {
 		e.ajouterEtat(i, label[i].text().toStdString(), red[i].value(), green[i].value(), blue[i].value());
 	}
 }
