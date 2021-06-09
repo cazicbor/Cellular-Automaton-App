@@ -1,6 +1,8 @@
 #include <iostream>
 #include <autosql.h>
 
+std::unique_ptr<Database> Database::instance = nullptr;
+
 Database::Database(std::string path): db(QSqlDatabase::addDatabase("QSQLITE")) {
 	db.setDatabaseName(path.c_str());
 	if (!db.open()) {
