@@ -25,6 +25,9 @@ class Database {
 		Reseau& getReseau(int idReseau) const;
 		void stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutomate) const;
 		void initEnsEtat(const QString& name) const;
+		void saveAutomaton(const Automate& a) const;
+		void saveFunction(const QString& name, const Fonction& f) const;
+		void saveVoisinage(const QString& name, const RegleVoisinage& r) const;
 };
 
 #endif

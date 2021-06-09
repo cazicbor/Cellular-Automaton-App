@@ -280,6 +280,155 @@ Reseau& Database::getReseau(int idReseau) const
     return *r;
 }
 
+void Database::saveAutomaton(const Automate& a) const {
+	QSqlQuery query(db);
+	query.prepare("INSERT INTO automates (nom, defaut, description, auteur, annee) VALUES (:nom, :etatDefaut, :description, :auteur, :annee)");
+	query.bind(":nom", a.getTitle());
+	query.bind(":etatDefaut", a.getFonction().getEtatDefaut());
+	query.bind(":description", a.getDescription());
+	query.bind(":auteur", a.getAuteur());
+	query.bind(":annee", a.getAnnee());
+	query.exec();
+
+	saveFunction(a.getTitle(), a.getFonction());
+	saveVoisinage(a.getTitle(), a.getRegleVoisinage());
+	stockerReseau(a.getReseauInit(), "To be determined", a.getTitle());
+}
+
+void Database::saveFunction(const QString& name, const Fonction& f) const {
+	QSqlQuery query(db);
+	for(auto rule: f.getRules()) {
+		query.prepare("INSERT INTO regles_transition VALUES (:name, :min1, :min2, :min3, :min4, :min5, :min6, :min7, :min8, :max1, :max2, :max3, :max4, :max5, :max6, :max7, :max8, :courant, :dest)");
+		query.bind(":name", name);
+		query.bind(":dest", static_cast<int>(rule->getDestination().getIndice()));
+		if(rule.getCourant() != -1) {
+			query.bind(":courant", rule.getCourant());
+		}
+		else { // NULL value
+			query.bind(":courant", QVariant(QVariant::Int));
+		}
+
+		if(rule.getMin(1) != -1) {
+			query.bind(":min1", rule.getMin(1));
+		}
+		else { // NULL value
+			query.bind(":min1", QVariant(QVariant::Int));
+		}
+		if(rule.getMin(2) != -1) {
+			query.bind(":min2", rule.getMin(2));
+		}
+		else { // NULL value
+			query.bind(":min2", QVariant(QVariant::Int));
+		}
+		if(rule.getMin(3) != -1) {
+			query.bind(":min3", rule.getMin(3));
+		}
+		else { // NULL value
+			query.bind(":min3", QVariant(QVariant::Int));
+		}
+		if(rule.getMin(4) != -1) {
+			query.bind(":min4", rule.getMin(4));
+		}
+		else { // NULL value
+			query.bind(":min4", QVariant(QVariant::Int));
+		}
+		if(rule.getMin(5) != -1) {
+			query.bind(":min5", rule.getMin(5));
+		}
+		else { // NULL value
+			query.bind(":min5", QVariant(QVariant::Int));
+		}
+		if(rule.getMin(6) != -1) {
+			query.bind(":min6", rule.getMin(6));
+		}
+		else { // NULL value
+			query.bind(":min6", QVariant(QVariant::Int));
+		}
+		if(rule.getMin(7) != -1) {
+			query.bind(":min7", rule.getMin(7));
+		}
+		else { // NULL value
+			query.bind(":min7", QVariant(QVariant::Int));
+		}
+		if(rule.getMin(8) != -1) {
+			query.bind(":min8", rule.getMin(8));
+		}
+		else { // NULL value
+			query.bind(":min8", QVariant(QVariant::Int));
+		}
+
+		if(rule.getMax(1) != -1) {
+			query.bind(":max1", rule.getMax(1));
+		}
+		else { // NULL value
+			query.bind(":max1", QVariant(QVariant::Int));
+		}
+		if(rule.getMax(2) != -1) {
+			query.bind(":max2", rule.getMax(2));
+		}
+		else { // NULL value
+			query.bind(":max2", QVariant(QVariant::Int));
+		}
+		if(rule.getMax(3) != -1) {
+			query.bind(":max3", rule.getMax(3));
+		}
+		else { // NULL value
+			query.bind(":max3", QVariant(QVariant::Int));
+		}
+		if(rule.getMax(4) != -1) {
+			query.bind(":max4", rule.getMax(4));
+		}
+		else { // NULL value
+			query.bind(":max4", QVariant(QVariant::Int));
+		}
+		if(rule.getMax(5) != -1) {
+			query.bind(":max5", rule.getMax(5));
+		}
+		else { // NULL value
+			query.bind(":max5", QVariant(QVariant::Int));
+		}
+		if(rule.getMax(6) != -1) {
+			query.bind(":max6", rule.getMax(6));
+		}
+		else { // NULL value
+			query.bind(":max6", QVariant(QVariant::Int));
+		}
+		if(rule.getMax(7) != -1) {
+			query.bind(":max7", rule.getMax(7));
+		}
+		else { // NULL value
+			query.bind(":max7", QVariant(QVariant::Int));
+		}
+		if(rule.getMax(8) != -1) {
+			query.bind(":max8", rule.getMax(8));
+		}
+		else { // NULL value
+			query.bind(":max8", QVariant(QVariant::Int));
+		}
+
+		query.exec();
+	}
+}
+
+void Database::saveVoisinage(const QString& name, const RegleVoisinage& r) const {
+	QSqlQuery query(db);
+	int type = r.getType();
+
+	if(type == 1 || type == 2) { //Von Neumann OR Moore (same structure)
+		query.prepare("INSERT INTO regles_voisinage (id, type, rayon) VALUES (:nom, :type, :rayon)");
+		query.bind(":nom", name);
+		query.bind(":type", type);
+		query.bind(":rayon", r.getr());
+
+		query.exec();
+	}
+	else if(type == 3) { //Arbitrary
+		throw "Unimplemented!";
+	}
+	else {
+		throw "Unknown type!";
+	}
+}
 
 ///Cette fonction permet de stocker un réseau dans la BDD
 ///@param reseau est le réseau à stocker
