@@ -80,8 +80,8 @@ class RegleVoisinageNeumann : public RegleVoisinage {
 	public:
 		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
 		void setr(unsigned int r) { rayon = r; }
-		unsigned int getr() const { return rayon; }
-		int getType() const { return 1; }
+        unsigned int getr() const override { return rayon; }
+        int getType() const override { return 1; }
 };
 
 class RegleVoisinageMoore : public RegleVoisinage {
@@ -90,8 +90,8 @@ class RegleVoisinageMoore : public RegleVoisinage {
 	public:
 		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
 		void setr(unsigned int r) { rayon = r; }
-		unsigned int getr() const { return rayon; }
-		int getType() const { return 2; }
+        unsigned int getr() const override { return rayon; }
+        int getType() const override { return 2; }
 };
 
 class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle pour le voisinage arbitraire
