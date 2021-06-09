@@ -284,21 +284,21 @@ void AutoCell::initialiserGrille(){
     if (check_aleatoire->isChecked()) Grille->setAleatoire();
 
     QString nom_grille = list_grids->currentText();
-    /*if (check_load_grid->isChecked()) {
+
+    if (check_load_grid->isChecked()) {
       delete Grille;
-      Grille = new Reseau(getGrilleFromDb(nom_grille)) /// Méthode à implémenter
+      Grille = new Reseau(Database::getInstance().getReseau(list_grids->currentIndex()*2)); /// Méthode à implémenter
       QString str_largeur;
       QString str_hauteur;
-      edit_largeur->setText(str_largeur.setNum(Grille.getLargeur,10);
-      edit_hauteur->setText(str_hauteur.setNum(Grille.getHauteur,10);
-      }*/
+      edit_largeur->setText(str_largeur.setNum(Grille->getLargeur(),10));
+      edit_hauteur->setText(str_hauteur.setNum(Grille->getHauteur(),10));
+      }
 
     //réinitialiser l'automate
 
     this->afficherGrille(this->Grille);
 
 };
-
 
 void AutoCell::RAZ(){
     delete grid;
