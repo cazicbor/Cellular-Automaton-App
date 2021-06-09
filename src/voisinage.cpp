@@ -46,7 +46,7 @@ void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) co
     }
 }
 
-vector<Coordonnees> RegleVoisinageArbitraire::getVoisinage(const Reseau& r,const QTableWidget* grid)
+vector<Coordonnees> RegleVoisinageArbitraire::getVoisinage(const QTableWidget* grid)
 {
     vector<Coordonnees> coordonnees;
     int k = 0;

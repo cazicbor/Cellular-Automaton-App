@@ -103,7 +103,7 @@ class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle po
         unsigned int getNbVoisin() { return nbVoisin; }
         vector<Coordonnees> coordonnees;
         void calculVoisinage(Voisinage& v, const Reseau& r) const override; // Calcul du voisinage en fonction de la cellule centre
-        vector<Coordonnees> getVoisinage(const Reseau& r, const QTableWidget* grid ); // Dééfinition des coordonnées relatives pour le calcul du voisinage
+        vector<Coordonnees> getVoisinage(const QTableWidget* grid ); // Dééfinition des coordonnées relatives pour le calcul du voisinage
 };
 
 #endif /* voisinage_h */
