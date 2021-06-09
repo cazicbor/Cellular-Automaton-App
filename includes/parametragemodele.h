@@ -46,6 +46,10 @@ class NouveauModele : public QWidget {
     QGridLayout* form_param;
     QLabel* label_param;
 
+    //définition de la frame de règle de transition
+    QIntValidator* seuilValidator;
+    QLineEdit* numSeuilMin[8];
+
     //Voisiange non arbitraire
     QFormLayout* form_rayon;
     QSpinBox* rayon;
@@ -59,6 +63,7 @@ public slots:
     void paramVoisinage(const QString& choix_voisinage);
     void affGrille();
     void modifGrille(const QModelIndex& index);
+    void paramRegle(const QString& choix_regle);
 
 
 };

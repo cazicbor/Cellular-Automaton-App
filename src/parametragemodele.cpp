@@ -1,4 +1,5 @@
 #include"parametragemodele.h"
+#include"fonction.h"
 
 
 NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
@@ -44,6 +45,9 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     liste_regle_transition->addItem("Brian's brain");
     liste_regle_transition->addItem("Circulaire de Griffeath");
     liste_regle_transition->addItem("Langston's Loop");
+    liste_regle_transition->addItem("Nouvelle fonction de transition");
+
+    connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));
 
     bouton_valide = new QPushButton("Valider");
     bouton_valide->setFixedWidth(50);
@@ -97,6 +101,23 @@ void NouveauModele::paramVoisinage(const QString& choix_voisinage){
         //delete grid;
     //}
 
+}
+
+void NouveauModele::paramRegle(const QString& choix_regle) {
+
+
+    if (choix_regle == "Nouvelle fonction de transition") {
+        seuilValidator=new QIntValidator;
+            seuilValidator->setRange(0,1);
+            for(unsigned int i=0; i<8; i++) {
+                numSeuilMin[i]=new QLineEdit;
+                numSeuilMin[i]->setFixedWidth(22);
+                numSeuilMin[i]->setMaxLength(1);
+                numSeuilMin[i]->setText("-1");
+                numSeuilMin[i]->setValidator(seuilValidator);
+                form_init->addWidget(numSeuilMin[i]);
+            }
+    }
 }
 
 void NouveauModele::affGrille() {
