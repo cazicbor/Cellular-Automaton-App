@@ -41,6 +41,18 @@ class NouveauModele : public QWidget {
     QComboBox* liste_regle_transition;
     QPushButton* bouton_valide;
 
+    //definition frame règle de transitions
+    QWidget* fenetre_regle;
+    QLabel* seuilMax, seuilMin, destination, etatCourant;
+
+    QCheckBox* valid_Etat;
+    QSpinBox* nbEtatCourant, etatDest;
+
+    QPushButton* fin, next;
+
+
+
+
     //définition de la frame paramétrage du choix
     QWidget* fenetre_param;
     QGridLayout* form_param;
