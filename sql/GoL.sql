@@ -1,6 +1,9 @@
 INSERT INTO automates VALUES (
 	"Game of Life",
-	1
+	1,
+	"Le jeu de la vie est un automate cellulaire imaginé par John Horton Conway en 1970 et qui est probablement le plus connu de tous les automates cellulaires. Malgré des règles très simples, le jeu de la vie est Turing-complet.",
+	"John Horton Conway",
+	1970
 );
 
 INSERT INTO EnsembleEtats VALUES(
