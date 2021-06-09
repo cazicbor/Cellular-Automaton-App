@@ -52,7 +52,7 @@ INSERT INTO Etats VALUES(
 -- utilise un voisinage de Von Neumann de rayon 2 (pas trouvé un voisinage universel dans la littérature)
 
 INSERT INTO regles_voisinage VALUES(
-	"Briffeath",
+	"Griffeath",
 	1,
 	2
 );

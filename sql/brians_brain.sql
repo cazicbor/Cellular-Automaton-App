@@ -134,7 +134,6 @@ INSERT INTO reseaux VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	0,
 	0
@@ -142,7 +141,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	0,
 	1
@@ -150,7 +148,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	0,
 	0,
 	2
@@ -158,7 +155,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	0,
 	0,
 	3
@@ -166,7 +162,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	0,
 	4
@@ -174,7 +169,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	0,
 	1,
 	0
@@ -182,7 +176,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	1,
 	1
@@ -190,7 +183,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	1,
 	2
@@ -198,7 +190,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	0,
 	1,
 	3
@@ -206,7 +197,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	0,
 	1,
 	4
@@ -214,7 +204,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	2,
 	0
@@ -222,7 +211,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	2,
 	1
@@ -230,7 +218,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	2,
 	2
@@ -238,7 +225,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	0,
 	2,
 	3
@@ -246,7 +232,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	2,
 	4
@@ -254,7 +239,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	4,
 	0
@@ -262,7 +246,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	4,
 	1
@@ -270,7 +253,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	4,
 	2
@@ -278,7 +260,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	4,
 	3
@@ -286,7 +267,6 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	0, 
-	1,
 	2,
 	4,
 	4
