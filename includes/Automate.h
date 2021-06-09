@@ -21,13 +21,13 @@ class Automate {
 		unsigned int h;
 		unsigned int l;
 		Reseau reseauInit;
+		int year;
+		std::string author;
+		std::string desc;
 
 		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), title(""), reseauInit(Reseau(0, 0)) { timer.automate = this; }
-
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
-		std::string getTitle() const { return title; }
-		std::string setTitle(const std::string& t) { title = t; }
 		class Timer: public QObject {
 			private:
 				int timerID;
@@ -68,8 +68,12 @@ class Automate {
 		}
 		/// Définir la fonction de transition de l'automate, le cycle de vie de la focntion est géré par l'utilisateur
 		void setFonction(Fonction& f) { fonction = &f; }
+		/// Récupérer la fonction de transition
+		const Fonction& getFonction() { return *fonction; }
 		/// Définir une règle de voisinage, le cycle de vie de la règle est géré par l'utilisateur
 		void setRegleVoisinage(RegleVoisinage& r) { regleVoisinage = &r; }
+		/// Récupérer la règle de voisinage
+		const RegleVoisinage& getRegleVoisinage() { return *regleVoisinage; }
 		/// Définir le délai entre 2 itérations de l'automate en mode Timer
 		void setDelai(const unsigned int d) { delai = d; }
 
@@ -111,8 +115,26 @@ class Automate {
 		/// initialiser le buffer s'il est vide avec un réseau
 		void initialiserBuffer() { if(buffer.begin()==buffer.end()) buffer.push_front(reseauInit); }
 
-        void setReseauInit(Reseau& r) { reseauInit = r; }
+		/// Définir le réseau initial de l'automate
+		void setReseauInit(Reseau& r) { reseauInit = r; }
+		/// Récupérer le réseau initial de l'automate
 		Reseau& getReseauInit() { return reseauInit; }
+		/// Récupérer le nom de l'automate
+		std::string getTitle() const { return title; }
+		/// Redéfinir le nom de l'automate
+		void setTitle(const std::string& t) { title = t; }
+		/// Récupérer le nom de l'auteur
+		std::string getAuthor() const { return author; }
+		/// Redéfinir le nom de l'auteur
+		void setAuthor(const std::string& a) { author = a; }
+		/// Récupérer la description
+		std::string getDesc() const { return desc; }
+		/// Redéfinir la description
+		void setDesc(const std::string& d) { desc = d; }
+		/// Récupérer l'année
+		int getYear() const { return year; }
+		/// Redéfinir le nom de l'automate
+		void setYear(const int y) { year = y; }
 };
 
 #endif
