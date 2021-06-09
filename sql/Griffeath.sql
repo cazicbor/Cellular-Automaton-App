@@ -1,5 +1,5 @@
 INSERT INTO automates VALUES (
-	"Automate circulaire de Griffeath",
+	"Griffeath",
 	0,
 	"",
 	"David Griffeath",

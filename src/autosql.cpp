@@ -208,19 +208,19 @@ std::vector<QString> Database::getListeReseaux(const QString& name) const
 {
     QSqlQuery query(db);
 
-    query.prepare("SELECT id, nom FROM reseaux WHERE nom = ':nom'");
+    query.prepare("SELECT id, nom FROM reseaux WHERE automate = :nom");
     query.bindValue(":nom", name);
     query.exec();
 
+    std::cout<<query.lastError().text().toStdString()<<std::endl;
     std::vector<QString> names;
-    if(query.first()) {
+
+    if(!query.first())
+        throw "There must be at least one coord in this rule";
+    do {
         names.push_back(query.value("id").toString());
         names.push_back(query.value("nom").toString());
-    }
-    while(query.next()) {
-        names.push_back(query.value("id").toString());
-        names.push_back(query.value("nom").toString());
-    }
+    } while(query.next());
 
     return names;
 }
