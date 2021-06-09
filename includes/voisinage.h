@@ -32,7 +32,7 @@ public:
     
     class VoisinageIterator {
         const Voisinage *vsn;
-        int i;
+        size_t i;
         public :
         
         VoisinageIterator(const Voisinage *v){
@@ -40,7 +40,7 @@ public:
         }
         
         void first(){
-            i=0;
+            i = 0;
         }
         
         void next(){
@@ -69,6 +69,8 @@ class RegleVoisinage{
 	public :
 		virtual void calculVoisinage(Voisinage& v, const Reseau& r) const = 0;
 		virtual int getType() const = 0;
+		/// Renvoie le rayon d'une règle de voisinage, 0 si ce n'est pas pertinant pour ce voisinage (arbitraire, ...)
+		virtual unsigned int getr() const { return 0; }
 };
 
 class RegleVoisinageNeumann : public RegleVoisinage {

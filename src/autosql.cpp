@@ -283,127 +283,127 @@ Reseau& Database::getReseau(int idReseau) const
 void Database::saveAutomaton(const Automate& a) const {
 	QSqlQuery query(db);
 	query.prepare("INSERT INTO automates (nom, defaut, description, auteur, annee) VALUES (:nom, :etatDefaut, :description, :auteur, :annee)");
-	query.bind(":nom", a.getTitle());
-	query.bind(":etatDefaut", a.getFonction().getEtatDefaut());
-	query.bind(":description", a.getDescription());
-	query.bind(":auteur", a.getAuteur());
-	query.bind(":annee", a.getAnnee());
+	query.bindValue(":nom", a.getTitle().c_str());
+	query.bindValue(":etatDefaut", a.getFonction().getEtatDefaut().getIndice());
+	query.bindValue(":description", a.getDesc().c_str());
+	query.bindValue(":auteur", a.getAuthor().c_str());
+	query.bindValue(":annee", a.getYear());
 	query.exec();
 
-	saveFunction(a.getTitle(), a.getFonction());
-	saveVoisinage(a.getTitle(), a.getRegleVoisinage());
-	stockerReseau(a.getReseauInit(), "To be determined", a.getTitle());
+	saveFunction(a.getTitle().c_str(), a.getFonction());
+	saveVoisinage(a.getTitle().c_str(), a.getRegleVoisinage());
+	stockerReseau(a.getReseauInit(), "To be determined", a.getTitle().c_str());
 }
 
 void Database::saveFunction(const QString& name, const Fonction& f) const {
 	QSqlQuery query(db);
 	for(auto rule: f.getRules()) {
 		query.prepare("INSERT INTO regles_transition VALUES (:name, :min1, :min2, :min3, :min4, :min5, :min6, :min7, :min8, :max1, :max2, :max3, :max4, :max5, :max6, :max7, :max8, :courant, :dest)");
-		query.bind(":name", name);
-		query.bind(":dest", static_cast<int>(rule->getDestination().getIndice()));
-		if(rule.getCourant() != -1) {
-			query.bind(":courant", rule.getCourant());
+		query.bindValue(":name", name);
+		query.bindValue(":dest", static_cast<int>(rule->getDestination().getIndice()));
+		if(rule->getCourant() != -1) {
+			query.bindValue(":courant", rule->getCourant());
 		}
 		else { // NULL value
-			query.bind(":courant", QVariant(QVariant::Int));
+			query.bindValue(":courant", QVariant(QVariant::Int));
 		}
 
-		if(rule.getMin(1) != -1) {
-			query.bind(":min1", rule.getMin(1));
+		if(rule->getMin(1) != -1) {
+			query.bindValue(":min1", rule->getMin(1));
 		}
 		else { // NULL value
-			query.bind(":min1", QVariant(QVariant::Int));
+			query.bindValue(":min1", QVariant(QVariant::Int));
 		}
-		if(rule.getMin(2) != -1) {
-			query.bind(":min2", rule.getMin(2));
-		}
-		else { // NULL value
-			query.bind(":min2", QVariant(QVariant::Int));
-		}
-		if(rule.getMin(3) != -1) {
-			query.bind(":min3", rule.getMin(3));
+		if(rule->getMin(2) != -1) {
+			query.bindValue(":min2", rule->getMin(2));
 		}
 		else { // NULL value
-			query.bind(":min3", QVariant(QVariant::Int));
+			query.bindValue(":min2", QVariant(QVariant::Int));
 		}
-		if(rule.getMin(4) != -1) {
-			query.bind(":min4", rule.getMin(4));
-		}
-		else { // NULL value
-			query.bind(":min4", QVariant(QVariant::Int));
-		}
-		if(rule.getMin(5) != -1) {
-			query.bind(":min5", rule.getMin(5));
+		if(rule->getMin(3) != -1) {
+			query.bindValue(":min3", rule->getMin(3));
 		}
 		else { // NULL value
-			query.bind(":min5", QVariant(QVariant::Int));
+			query.bindValue(":min3", QVariant(QVariant::Int));
 		}
-		if(rule.getMin(6) != -1) {
-			query.bind(":min6", rule.getMin(6));
-		}
-		else { // NULL value
-			query.bind(":min6", QVariant(QVariant::Int));
-		}
-		if(rule.getMin(7) != -1) {
-			query.bind(":min7", rule.getMin(7));
+		if(rule->getMin(4) != -1) {
+			query.bindValue(":min4", rule->getMin(4));
 		}
 		else { // NULL value
-			query.bind(":min7", QVariant(QVariant::Int));
+			query.bindValue(":min4", QVariant(QVariant::Int));
 		}
-		if(rule.getMin(8) != -1) {
-			query.bind(":min8", rule.getMin(8));
+		if(rule->getMin(5) != -1) {
+			query.bindValue(":min5", rule->getMin(5));
 		}
 		else { // NULL value
-			query.bind(":min8", QVariant(QVariant::Int));
+			query.bindValue(":min5", QVariant(QVariant::Int));
+		}
+		if(rule->getMin(6) != -1) {
+			query.bindValue(":min6", rule->getMin(6));
+		}
+		else { // NULL value
+			query.bindValue(":min6", QVariant(QVariant::Int));
+		}
+		if(rule->getMin(7) != -1) {
+			query.bindValue(":min7", rule->getMin(7));
+		}
+		else { // NULL value
+			query.bindValue(":min7", QVariant(QVariant::Int));
+		}
+		if(rule->getMin(8) != -1) {
+			query.bindValue(":min8", rule->getMin(8));
+		}
+		else { // NULL value
+			query.bindValue(":min8", QVariant(QVariant::Int));
 		}
 
-		if(rule.getMax(1) != -1) {
-			query.bind(":max1", rule.getMax(1));
+		if(rule->getMax(1) != -1) {
+			query.bindValue(":max1", rule->getMax(1));
 		}
 		else { // NULL value
-			query.bind(":max1", QVariant(QVariant::Int));
+			query.bindValue(":max1", QVariant(QVariant::Int));
 		}
-		if(rule.getMax(2) != -1) {
-			query.bind(":max2", rule.getMax(2));
-		}
-		else { // NULL value
-			query.bind(":max2", QVariant(QVariant::Int));
-		}
-		if(rule.getMax(3) != -1) {
-			query.bind(":max3", rule.getMax(3));
+		if(rule->getMax(2) != -1) {
+			query.bindValue(":max2", rule->getMax(2));
 		}
 		else { // NULL value
-			query.bind(":max3", QVariant(QVariant::Int));
+			query.bindValue(":max2", QVariant(QVariant::Int));
 		}
-		if(rule.getMax(4) != -1) {
-			query.bind(":max4", rule.getMax(4));
-		}
-		else { // NULL value
-			query.bind(":max4", QVariant(QVariant::Int));
-		}
-		if(rule.getMax(5) != -1) {
-			query.bind(":max5", rule.getMax(5));
+		if(rule->getMax(3) != -1) {
+			query.bindValue(":max3", rule->getMax(3));
 		}
 		else { // NULL value
-			query.bind(":max5", QVariant(QVariant::Int));
+			query.bindValue(":max3", QVariant(QVariant::Int));
 		}
-		if(rule.getMax(6) != -1) {
-			query.bind(":max6", rule.getMax(6));
-		}
-		else { // NULL value
-			query.bind(":max6", QVariant(QVariant::Int));
-		}
-		if(rule.getMax(7) != -1) {
-			query.bind(":max7", rule.getMax(7));
+		if(rule->getMax(4) != -1) {
+			query.bindValue(":max4", rule->getMax(4));
 		}
 		else { // NULL value
-			query.bind(":max7", QVariant(QVariant::Int));
+			query.bindValue(":max4", QVariant(QVariant::Int));
 		}
-		if(rule.getMax(8) != -1) {
-			query.bind(":max8", rule.getMax(8));
+		if(rule->getMax(5) != -1) {
+			query.bindValue(":max5", rule->getMax(5));
 		}
 		else { // NULL value
-			query.bind(":max8", QVariant(QVariant::Int));
+			query.bindValue(":max5", QVariant(QVariant::Int));
+		}
+		if(rule->getMax(6) != -1) {
+			query.bindValue(":max6", rule->getMax(6));
+		}
+		else { // NULL value
+			query.bindValue(":max6", QVariant(QVariant::Int));
+		}
+		if(rule->getMax(7) != -1) {
+			query.bindValue(":max7", rule->getMax(7));
+		}
+		else { // NULL value
+			query.bindValue(":max7", QVariant(QVariant::Int));
+		}
+		if(rule->getMax(8) != -1) {
+			query.bindValue(":max8", rule->getMax(8));
+		}
+		else { // NULL value
+			query.bindValue(":max8", QVariant(QVariant::Int));
 		}
 
 		query.exec();
@@ -416,9 +416,9 @@ void Database::saveVoisinage(const QString& name, const RegleVoisinage& r) const
 
 	if(type == 1 || type == 2) { //Von Neumann OR Moore (same structure)
 		query.prepare("INSERT INTO regles_voisinage (id, type, rayon) VALUES (:nom, :type, :rayon)");
-		query.bind(":nom", name);
-		query.bind(":type", type);
-		query.bind(":rayon", r.getr());
+		query.bindValue(":nom", name);
+		query.bindValue(":type", type);
+		query.bindValue(":rayon", r.getr());
 
 		query.exec();
 	}
@@ -434,7 +434,7 @@ void Database::saveVoisinage(const QString& name, const RegleVoisinage& r) const
 ///@param reseau est le réseau à stocker
 ///@param nomReseau est le nom du réseau à stocker
 ///@param nomAutomate est le nom de l'automate en cours
-void Database::stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutomate) const
+void Database::stockerReseau(const Reseau& reseau, const QString& nomReseau, const QString& nomAutomate) const
 {
     //Tout d'abord, on a besoin de créer un tuple dans la table reseaux :
     //toutes les autres tables l'ont en clé étrangère !

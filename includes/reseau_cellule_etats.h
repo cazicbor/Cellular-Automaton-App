@@ -38,7 +38,7 @@ private:
 public:
     std::string getLabel(){return label;}
     QColor getColor(){return color;}
-    unsigned int getIndice() { return indice; }
+	unsigned int getIndice() const { return indice; }
 };
 
 

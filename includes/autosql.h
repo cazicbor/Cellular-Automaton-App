@@ -8,6 +8,7 @@
 #include <QVariant>
 #include <Fonction.h>
 #include <voisinage.h>
+#include <Automate.h>
 
 /// Cette classe adapte un objet base de données pour le rendre facile d'utilisation dans le cadre de l'application
 ///
@@ -23,7 +24,7 @@ class Database {
 		RegleVoisinage* getRegleVoisinage(const QString& name) const;
 		std::vector<QString> getListeReseaux(const QString& name) const;
 		Reseau& getReseau(int idReseau) const;
-		void stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutomate) const;
+		void stockerReseau(const Reseau& reseau, const QString& nomReseau, const QString& nomAutomate) const;
 		void initEnsEtat(const QString& name) const;
 		void saveAutomaton(const Automate& a) const;
 		void saveFunction(const QString& name, const Fonction& f) const;

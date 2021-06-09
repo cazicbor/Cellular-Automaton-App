@@ -25,7 +25,7 @@ class Automate {
 		std::string author;
 		std::string desc;
 
-		Automate(): delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), title(""), reseauInit(Reseau(0, 0)) { timer.automate = this; }
+		Automate(): title(""), delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), reseauInit(Reseau(0, 0)), year(2000), author("Anonym"), desc("") { timer.automate = this; }
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
 		class Timer: public QObject {
@@ -69,11 +69,11 @@ class Automate {
 		/// Définir la fonction de transition de l'automate, le cycle de vie de la focntion est géré par l'utilisateur
 		void setFonction(Fonction& f) { fonction = &f; }
 		/// Récupérer la fonction de transition
-		const Fonction& getFonction() { return *fonction; }
+		const Fonction& getFonction() const { return *fonction; }
 		/// Définir une règle de voisinage, le cycle de vie de la règle est géré par l'utilisateur
 		void setRegleVoisinage(RegleVoisinage& r) { regleVoisinage = &r; }
 		/// Récupérer la règle de voisinage
-		const RegleVoisinage& getRegleVoisinage() { return *regleVoisinage; }
+		const RegleVoisinage& getRegleVoisinage() const { return *regleVoisinage; }
 		/// Définir le délai entre 2 itérations de l'automate en mode Timer
 		void setDelai(const unsigned int d) { delai = d; }
 
@@ -118,7 +118,7 @@ class Automate {
 		/// Définir le réseau initial de l'automate
 		void setReseauInit(Reseau& r) { reseauInit = r; }
 		/// Récupérer le réseau initial de l'automate
-		Reseau& getReseauInit() { return reseauInit; }
+		const Reseau& getReseauInit() const { return reseauInit; }
 		/// Récupérer le nom de l'automate
 		std::string getTitle() const { return title; }
 		/// Redéfinir le nom de l'automate
