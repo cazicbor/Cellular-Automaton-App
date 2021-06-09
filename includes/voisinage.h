@@ -14,6 +14,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include"parametragemodele.h"
 
 
 using namespace std;
@@ -94,15 +95,15 @@ class RegleVoisinageMoore : public RegleVoisinage {
 };
 
 class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle pour le voisinage arbitraire
-	private:
-		unsigned int nbVoisin;
-	public:
-		int getType() const { return 3; }
-		void setNbVoisins(unsigned int r) { nbVoisin = r; }
-		unsigned int getNbVoisin() { return nbVoisin; }
-		vector<Coordonnees> coordonnees;
-		void calculVoisinage(Voisinage& v, const Reseau& r) const; // Calcul du voisinage en fonction de la cellule centre
-//		Coordonnees getVoisinage(const Reseau& r); // Dééfinition des coordonnées relatives pour le calcul du voisinage
+    private:
+        unsigned int nbVoisin;
+    public:
+        int getType() const override{ return 3; }
+        void setNbVoisins(unsigned int r) { nbVoisin = r; }
+        unsigned int getNbVoisin() { return nbVoisin; }
+        vector<Coordonnees> coordonnees;
+        void calculVoisinage(Voisinage& v, const Reseau& r) const override; // Calcul du voisinage en fonction de la cellule centre
+        vector<Coordonnees> getVoisinage(const Reseau& r, const QTableWidget* grid ); // Dééfinition des coordonnées relatives pour le calcul du voisinage
 };
 
 #endif /* voisinage_h */

@@ -65,10 +65,11 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 
     // récupération des automates en mémoire
 
-    /*vector<QString> noms_modeles = database.getAutomates();
-    for(auto : nom, noms_modeles){
-        liste->addItem(nom);
-    }*/
+    std::vector<QString> noms_modeles = Database::getInstance().getAutomates();
+    for(size_t i = 0 ; i<noms_modeles.size() ; i++){
+        std::cout<<"modele :"<<noms_modeles[i].toStdString()<<std::endl;
+        liste->addItem(noms_modeles[i]);
+    }
 
     liste->addItem("modèle 1");
     liste->addItem("modèle 2");
