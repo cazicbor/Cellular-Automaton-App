@@ -269,7 +269,7 @@ void AutoCell::initialiserGrille(){
     QString str_l; str_l.setNum(l);
     QString str_h; str_h.setNum(h);
 
-    if(0>=h || h>21 || 0>=l || l>41){
+    if((0>=h || h>21 || 0>=l || l>41) && !check_load_grid->isChecked()){
         QString msg("erreur dimensions");
         afficherErreur(msg);
         edit_largeur->setText("");
@@ -287,19 +287,20 @@ void AutoCell::initialiserGrille(){
 
     if (check_load_grid->isChecked()) {
       delete Grille;
-      Grille = new Reseau(Database::getInstance().getReseau(list_grids->currentIndex()*2)); /// Méthode à implémenter
+      Grille = new Reseau(Database::getInstance().getReseau(listeGrille[list_grids->currentIndex()*2].toInt())); /// Méthode à implémenter
       QString str_largeur;
+      //str_largeur.setNum(listeGrille[list_grids->currentIndex()*2].toInt());
       QString str_hauteur;
+      //edit_largeur->setText(str_largeur);
       edit_largeur->setText(str_largeur.setNum(Grille->getLargeur(),10));
       edit_hauteur->setText(str_hauteur.setNum(Grille->getHauteur(),10));
       }
 
     //réinitialiser l'automate
 
-    this->afficherGrille(this->Grille);
+    //this->afficherGrille(this->Grille);
 
 };
-
 void AutoCell::RAZ(){
     delete grid;
     grid = new QTableWidget(0,0,win_grid);
