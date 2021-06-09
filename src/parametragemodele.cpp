@@ -127,24 +127,37 @@ void NouveauModele::affGrille() {
             */
 
             grid->setItem(i, j, new QTableWidgetItem);
-            grid->item(i, j)->setFlags(Qt::ItemIsEnabled);
+                grid->item(i, j)->setFlags(Qt::ItemIsEnabled);
+                grid->item(i,j)->setBackground(Qt::white);
 
+            }
         }
-    }
     QColor noir = Qt::black;
     grid->item(2,2)->setBackground(noir);
+
     connect(grid, SIGNAL(clicked(const QModelIndex&)), this, SLOT(modifGrille(const QModelIndex&)));
 }
+
+
 
 void NouveauModele::modifGrille(const QModelIndex& index){
     unsigned int i = index.row();
     unsigned int j = index.column();
 
     QColor rouge = Qt::red;
+    QColor blanc = Qt::white;
+
     if (i == 2 && j == 2){
-        return;
-    }else grid->item(i,j)->setBackground(rouge);
+       return;
+    }else if (grid->item(i,j)->background() == blanc){
+         grid->item(i,j)->setBackground(rouge);
+    }else if(grid->item(i,j)->background() == rouge){
+         grid->item(i,j)->setBackground(blanc);
+    }
 
 }
+
+
+
 
 
