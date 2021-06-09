@@ -27,6 +27,9 @@ class Regle {
 		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
 		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
 		virtual bool verify(const Voisinage& voisins, const Cellule& cellule) const;
+		virtual int getCourant() const { return -1; }
+		int getMin(const size_t i) { if(i > 0 && i <= 8) return seuilsMin[i - 1]; else throw "Invalid number!"; }
+		int getMax(const size_t i) { if(i > 0 && i <= 8) return seuilsMax[i - 1]; else throw "Invalid number!"; }
 };
 
 class RegleAvecEtatCourant: public Regle {
@@ -44,6 +47,7 @@ class RegleAvecEtatCourant: public Regle {
 		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
 		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
 		bool verify(const Voisinage& voisins, const Cellule& cellule) const;
+		int getCourant() const { return static_cast<int>(etatCourant); }
 };
 
 class Fonction {
@@ -76,6 +80,8 @@ class Fonction {
 		/// @param[in] voisins voisins de la cellule à laquelle appliquer la fonction
 		/// @param[in] cellule cellule à laquelle appliquer la fonction
 		virtual const Etat& getEtatSuivant(const Voisinage& voisins, const Cellule& cellule) const;
+		/// Accesseur sur la liste de règles, il est impossible de modifier les règles de cette manière, la liste est en lecture seule
+		const std::list<Regle*>& getRules() const { return regles; }
 };
 
 #endif

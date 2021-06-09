@@ -68,6 +68,7 @@ public:
 class RegleVoisinage{
 	public :
 		virtual void calculVoisinage(Voisinage& v, const Reseau& r) const = 0;
+		virtual int getType() const = 0;
 };
 
 class RegleVoisinageNeumann : public RegleVoisinage {
@@ -77,6 +78,7 @@ class RegleVoisinageNeumann : public RegleVoisinage {
 		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
 		void setr(unsigned int r);
 		unsigned int getr() const { return rayon; }
+		int getType() const { return 1; }
 };
 
 class RegleVoisinageMoore : public RegleVoisinage {
@@ -86,12 +88,14 @@ class RegleVoisinageMoore : public RegleVoisinage {
 		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
 		void setr(unsigned int r);
 		unsigned int getr() const { return rayon; }
+		int getType() const { return 2; }
 };
 
 class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle pour le voisinage arbitraire
 	private:
 		unsigned int nbVoisin;
 	public:
+		int getType() const { return 3; }
 		void setNbVoisins(unsigned int r) { nbVoisin = r; }
 		unsigned int getNbVoisin() { return nbVoisin; }
 		vector<Coordonnees> coordonnees;
