@@ -22,6 +22,7 @@
 #include <QCheckBox>
 #include <QFormLayout>
 #include <QBrush>
+#include <QMouseEvent>
 
 using namespace std;
 
@@ -69,6 +70,7 @@ public:
     NouveauModele(QWidget* parent = nullptr);
 public slots:
     void paramVoisinage(const QString& choix_voisinage);
+    void changerVoisinage(const QString& choix_regle);
     void affGrille();
     void modifGrille(const QModelIndex& index);
 
