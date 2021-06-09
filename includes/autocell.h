@@ -29,6 +29,7 @@ class AutoCell : public QWidget
     static std::unique_ptr<AutoCell> instance;
 
     Reseau* Grille = nullptr;
+    std::vector<QString> listeGrille;
 
     Q_OBJECT
     QGridLayout* general;
