@@ -77,7 +77,7 @@ public slots:
     void affGrille();
     void modifGrille(const QModelIndex& index);
     void paramRegle(const QString& choix_regle);
-    //void choisirEtatCourant(QFormLayout* form_choix);
+    void choisirEtatCourant(bool checked);
 
 
 };

@@ -53,13 +53,14 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     liste_regle_transition->addItem("Langston's Loop");
     liste_regle_transition->addItem("Nouvelle fonction de transition");
 
-    connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));
+
 
 
     liste_regle_transition->setCurrentIndex(-1);
 
     //connect(liste_regle_transition, SIGNAL(currentIndexChanged(int)), liste_voisinage, SLOT(setCurrentIndex(int)));
     connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(changerVoisinage(const QString&)));
+    connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));
 
     bouton_valide = new QPushButton("Valider");
     bouton_valide->setFixedWidth(50);
@@ -67,19 +68,9 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     //connect(bouton_valide, SIGNAL(clicked()), SLOT(affParametrage()));
 
     //ajout regle :
-    seuilMax = new QLabel("Seuil Max : ");
-    seuilMin = new QLabel("Seuil Min : ");
-    destination = new QLabel("Destination : ");
-    etatCourant = new QLabel("Etat Courant : ");
-
-    valid_Etat = new QCheckBox;
-
-    etatDest = new QSpinBox;
-    etatDest->setRange(1,8);
 
 
 
-    //connect(etatDest, SIGNAL(toggled(bool)), this, SLOT(choisirEtatCourant(QFormLayout*)));
 
 
 
@@ -90,10 +81,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
 
 
-    form_choix->addRow(seuilMin);
-    form_choix->addRow(seuilMax);
-    form_choix->addRow(destination);
-    form_choix->addRow(etatCourant, valid_Etat);
+
 
 
 
@@ -141,6 +129,15 @@ void NouveauModele::paramVoisinage(const QString& choix_voisinage){
 
 }
 void NouveauModele::paramRegle(const QString& choix_regle) {
+    seuilMax = new QLabel("Seuil Max : ");
+    seuilMin = new QLabel("Seuil Min : ");
+    destination = new QLabel("Destination : ");
+    etatCourant = new QLabel("Etat Courant : ");
+
+    valid_Etat = new QCheckBox;
+
+    etatDest = new QSpinBox;
+    etatDest->setRange(1,8);
 
 
     if (choix_regle == "Nouvelle fonction de transition") {
@@ -155,8 +152,17 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
                 form_init->addWidget(numSeuilMin[i]);
             }
     }
+    form_choix->addRow(seuilMin);
+    form_choix->addRow(seuilMax);
+    form_choix->addRow(destination, etatDest);
+    form_choix->addRow(etatCourant, valid_Etat);
+    connect(etatDest, SIGNAL(toggled(bool)), this, SLOT(choisirEtatCourant(bool)));
 }
 
+void choisirEtatCourant(bool checked){
+     numEtatCourant = new QSpinBox*;
+
+}
 void NouveauModele::affGrille() {
     delete grid;
     grid = new QTableWidget(5, 5);
@@ -245,8 +251,3 @@ void NouveauModele::changerVoisinage(const QString& choix_regle){
     connect(liste_voisinage, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramVoisinage(const QString&)));
 }
 
-/*void choisirEtatCourant(QFormLayout* form_choix){
-    QSpinBox* numEtatCourant = new QSpinBox;
-    numEtatCourant->setRange(1,8);
-    form_choix->addRow("Choisissez l'indice de l'tat courant : ", numEtatCourant);
-}*/
