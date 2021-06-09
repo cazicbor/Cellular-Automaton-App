@@ -178,10 +178,20 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     grid_run_control->addWidget(button_next, 2, 2);
     grid_run_control->addWidget(button_reinitialiser, 3, 0, Qt::AlignCenter);
 
-    button_save_grid = new QPushButton("sauvegarder la grille");
+    lab_sauv_grille = new QLabel("Sauvegarder la grille courante");
+    edit_nom_grille = new QLineEdit;
+    edit_nom_grille->setPlaceholderText("Entrer un nom");
+    edit_nom_grille->setStyleSheet("background-color: rgb(255,255,255)");
+
+    edit_nom_grille->setFixedWidth(180);
+
+    button_save_grid = new QPushButton("sauvegarder");
+    button_save_grid->setFixedWidth(90);
     connect(button_save_grid,SIGNAL(clicked()),this,SLOT(sauvergarderGrille()));
 
-    grid_run_control->addWidget(button_save_grid,4,1,4,3,Qt::AlignBottom);
+    grid_run_control->addWidget(lab_sauv_grille,4,0,1,3, Qt::AlignBottom);
+    grid_run_control->addWidget(edit_nom_grille,5,0, Qt::AlignBottom);
+    grid_run_control->addWidget(button_save_grid,5,2,Qt::AlignBottom);
 
     general->addWidget(win_run_ctrl,1,0,2,1);
 
@@ -333,21 +343,16 @@ void AutoCell::modifierCellule(const QModelIndex& index) {
 }
 
 void AutoCell::sauvegarderGrille(){
-    /*QWindow window_dialogue;
-    QSize taille(450,100);
-    window_dialogue.setTitle("Enregistrer une grille");
-    window_dialogue.setMaximumSize(taille);
-    QFormLayout form;
-    QLineEdit edit_nom;
-    edit_nom.setFixedWidth(200);
-    QPushButton button_valider("Valider");
-    form.addRow("Entrez un nom :", &edit_nom);
-    form.addWidget(&button_valider);
-    form.setParent(&window_dialogue);
-    window_dialogue.show();
-    connect(button_valider, SIGNAL(clicked(edit_nom.text())), this, SLOT(sauvergarderGrille(edit_nom.text())));
-    //stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutomate);
-*/
+     if(edit_nom_grille->text()==""){
+        QString msg("Entrer un nom");
+        afficherErreur(msg);
+        return;
+    }
+    QString nom_grille;
+    nom_grille = edit_nom_grille->text();
+    QString nom_automate;
+    nom_automate = liste->currentText();
+    Database::getInstance().stockerReseau(*Grille, nom_grille, nom_automate);
 };
 
 void AutoCell::chargerGrilles(const QString& text){
