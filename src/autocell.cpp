@@ -34,6 +34,8 @@ extern EnsembleEtat& enseEtats;
 
 using namespace std;
 
+std::unique_ptr<AutoCell> AutoCell::instance = nullptr;
+
 AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 {
     this->setWindowTitle("Automate cellulaire");
