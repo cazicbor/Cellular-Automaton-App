@@ -350,19 +350,18 @@ void AutoCell::sauvegarderGrille(){
 };
 
 void AutoCell::chargerGrilles(){
+    listeGrille.clear();
     QString text;
     QString nb;
     text = liste->currentText();
 
-    edit_hauteur->setText(text);
     list_grids->clear();
     vector<QString> noms = Database::getInstance().getListeReseaux(text);
     nb.setNum(noms.size());
-        edit_largeur->setText(nb);
 
-    for(size_t i=0 ; i<noms.size() ; i++)
+    for(size_t i=1 ; i<noms.size() ; i = i + 2)
         list_grids->addItem(noms[i]);
-
+    listeGrille = noms;
 }
 
 void AutoCell::gererSimulation(){
