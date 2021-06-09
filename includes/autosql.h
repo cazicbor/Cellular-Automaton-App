@@ -16,8 +16,19 @@
 class Database {
 	private:
 		QSqlDatabase db;
+
+		static std::unique_ptr<Database> instance;
+        Database& operator=(const Database& a) = delete;
+        Database(const Database& a) = delete;
+        Database(std::string path);
 	public:
-		Database(std::string path);
+		static Database& getInstance() {
+            if(instance == nullptr) {
+                instance.reset(new Database("application.db"));
+            }
+            return *instance;
+        }
+		
 		~Database() { db.close(); }
 		std::vector<QString> getAutomates() const;
 		Fonction* getFonction(Automate& a) const;
