@@ -77,64 +77,425 @@ INSERT INTO regles_voisinage VALUES(
 	1
 );
 
--- règles transition : 123456 signifie :
+-- 219 règles de transition, 123456 signifie :
     -- si la cellule est dans l'état 1
     -- et que ses voisins sont dans les états 2,3,4 et 5
     -- alors la cellule passe dans l'état 6
 
+-- 000000
+
 INSERT INTO regles_transition VALUES(
 	"Langton s loop",
-	2, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-	3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+	4, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+	4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
 	0, 0
 );
 
--- 000000
 -- 000012
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	3, 1, NULL, NULL, NULL, NULL, NULL, NULL,
+	3, 1, NULL, NULL, NULL, NULL, NULL, NULL, 
+	0, 2
+);
+
 -- 000020
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	3, NULL, 1, NULL, NULL, NULL, NULL, NULL,
+	3, NULL, 1, NULL, NULL, NULL, NULL, NULL, 
+	0, 0
+);
+
 -- 000030
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	3, NULL, NULL, 1, NULL, NULL, NULL, NULL,
+	3, NULL, NULL, 1, NULL, NULL, NULL, NULL, 
+	0, 0
+);
+
 -- 000050
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	3, NULL, NULL, NULL, NULL, 1, NULL, NULL,
+	3, NULL, NULL, NULL, NULL, 1, NULL, NULL, 
+	0, 0
+);
+
 -- 000063
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	3, NULL, NULL, NULL, NULL, NULL, 1, NULL,
+	3, NULL, NULL, NULL, NULL, NULL, 1, NULL, 
+	0, 3
+);
+
 -- 000071
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	3, NULL, NULL, NULL, NULL, NULL, NULL, 1,
+	3, NULL, NULL, NULL, NULL, NULL, NULL, 1, 
+	0, 1
+);
+
 -- 000112
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, 2, NULL, NULL, NULL, NULL, NULL, NULL,
+	2, 2, NULL, NULL, NULL, NULL, NULL, NULL, 
+	0, 2
+);
+
 -- 000122
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, 1, 1, NULL, NULL, NULL, NULL, NULL,
+	2, 1, 1, NULL, NULL, NULL, NULL, NULL, 
+	0, 2
+);
+
 -- 000132
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, 1, NULL, 1, NULL, NULL, NULL, NULL,
+	2, 1, NULL, 1, NULL, NULL, NULL, NULL, 
+	0, 2
+);
+
 -- 000212
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, 1, 1, NULL, NULL, NULL, NULL, NULL,
+	2, 1, 1, NULL, NULL, NULL, NULL, NULL, 
+	0, 2
+);
+
 -- 000220
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 2, NULL, NULL, NULL, NULL, NULL,
+	2, NULL, 2, NULL, NULL, NULL, NULL, NULL, 
+	0, 0
+);
+
 -- 000230
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, 1, NULL, NULL, NULL, NULL,
+	2, NULL, 1, 1, NULL, NULL, NULL, NULL, 
+	0, 0
+);
+
 -- 000262
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, NULL, NULL, NULL, 1, NULL,
+	2, NULL, 1, NULL, NULL, NULL, 1, NULL, 
+	0, 2
+);
+
 -- 000272
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, NULL, NULL, NULL, NULL, 1,
+	2, NULL, 1, NULL, NULL, NULL, NULL, 1, 
+	0, 2
+);
+
 -- 000320
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, 1, NULL, NULL, NULL, NULL,
+	2, NULL, 1, 1, NULL, NULL, NULL, NULL, 
+	0, 0
+);
+
 -- 000525
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, NULL, NULL, 1, NULL, NULL,
+	2, NULL, 1, NULL, NULL, 1, NULL, NULL, 
+	0, 5
+);
+
 -- 000622
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, NULL, NULL, NULL, 1, NULL,
+	2, NULL, 1, NULL, NULL, NULL, 1, NULL, 
+	0, 2
+);
+
 -- 000722
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, NULL, NULL, NULL, NULL, 1,
+	2, NULL, 1, NULL, NULL, NULL, NULL, 1, 
+	0, 2
+);
+
 -- 001022
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, 1, 1, NULL, NULL, NULL, NULL, NULL,
+	2, 1, 1, NULL, NULL, NULL, NULL, NULL, 
+	0, 2
+);
+
 -- 001120
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, 2, 1, NULL, NULL, NULL, NULL, NULL,
+	1, 2, 1, NULL, NULL, NULL, NULL, NULL, 
+	0, 0
+);
+
 -- 002020
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 2, NULL, NULL, NULL, NULL, NULL,
+	2, NULL, 2, NULL, NULL, NULL, NULL, NULL, 
+	0, 0
+);
+
 -- 002030
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, 1, NULL, NULL, NULL, NULL,
+	2, NULL, 1, 1, NULL, NULL, NULL, NULL, 
+	0, 0
+);
+
 -- 002050
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, NULL, NULL, 1, NULL, NULL,
+	2, NULL, 1, NULL, NULL, 1, NULL, NULL, 
+	0, 0
+);
+
 -- 002125
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, 1, 2, NULL, NULL, NULL, NULL, NULL,
+	1, 1, 2, NULL, NULL, NULL, NULL, NULL, 
+	0, 5
+);
+
 -- 002220
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 3, NULL, NULL, NULL, NULL, NULL,
+	1, NULL, 3, NULL, NULL, NULL, NULL, NULL, 
+	0, 0
+);
+
 -- 002322
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 2, 1, NULL, NULL, NULL, NULL,
+	1, NULL, 2, 1, NULL, NULL, NULL, NULL, 
+	0, 2
+);
+
 -- 005222
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 2, NULL, NULL, 1, NULL, NULL,
+	1, NULL, 2, NULL, NULL, 1, NULL, NULL, 
+	0, 2
+);
+
 -- 012321
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 2, 1, NULL, NULL, NULL, NULL,
+	NULL, 1, 2, 1, NULL, NULL, NULL, NULL, 
+	0, 1
+);
+
 -- 012421
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 2, NULL, 1, NULL, NULL, NULL,
+	NULL, 1, 2, NULL, 1, NULL, NULL, NULL, 
+	0, 1
+);
+
 -- 012525
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 2, NULL, NULL, 1, NULL, NULL,
+	NULL, 1, 2, NULL, NULL, 1, NULL, NULL, 
+	0, 5
+);
+
 -- 012621
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 2, NULL, NULL, NULL, 1, NULL,
+	NULL, 1, 2, NULL, NULL, NULL, 1, NULL, 
+	0, 1
+);
+
 -- 012721
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 2, NULL, NULL, NULL, NULL, 1,
+	NULL, 1, 2, NULL, NULL, NULL, NULL, 1, 
+	0, 1
+);
+
 -- 012751
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 1, NULL, NULL, 1, NULL, 1,
+	NULL, 1, 1, NULL, NULL, 1, NULL, 1, 
+	0, 1
+);
+
 -- 014221
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 2, NULL, 1, NULL, NULL, NULL,
+	NULL, 1, 2, NULL, 1, NULL, NULL, NULL, 
+	0, 1
+);
+
 -- 014321
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 1, 1, 1, NULL, NULL, NULL,
+	NULL, 1, 1, 1, 1, NULL, NULL, NULL, 
+	0, 1
+);
+
 -- 014421
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 1, NULL, 2, NULL, NULL, NULL,
+	NULL, 1, 1, NULL, 2, NULL, NULL, NULL, 
+	0, 1
+);
+
 -- 014721
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 1, NULL, 1, NULL, NULL, 1,
+	NULL, 1, 1, NULL, 1, NULL, NULL, 1, 
+	0, 1
+);
+
 -- 016251
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 1, NULL, NULL, 1, 1, NULL,
+	NULL, 1, 1, NULL, NULL, 1, 1, NULL, 
+	0, 1
+);
+
 -- 017221
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 2, NULL, NULL, NULL, NULL, 1,
+	NULL, 1, 2, NULL, NULL, NULL, NULL, 1, 
+	0, 1
+);
+
 -- 017255
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 1, NULL, NULL, 1, NULL, 1,
+	NULL, 1, 1, NULL, NULL, 1, NULL, 1, 
+	0, 5
+);
+
 -- 017521
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 1, NULL, NULL, 1, NULL, 1,
+	NULL, 1, 1, NULL, NULL, 1, NULL, 1, 
+	0, 1
+);
+
 -- 017621
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 1, NULL, NULL, NULL, 1, 1,
+	NULL, 1, 1, NULL, NULL, NULL, 1, 1, 
+	0, 1
+);
+
 -- 017721
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, 1, 1, NULL, NULL, NULL, NULL, 2,
+	NULL, 1, 1, NULL, NULL, NULL, NULL, 2, 
+	0, 1
+);
+
 -- 025271
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, NULL, 2, NULL, NULL, 1, NULL, 1,
+	NULL, NULL, 2, NULL, NULL, 1, NULL, 1, 
+	0, 1
+);
+
 -- 100011
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+	NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
+	1, 1
+);
+
 -- 100061
 -- 100077
 -- 100111
