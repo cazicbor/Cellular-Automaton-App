@@ -102,8 +102,11 @@ void NouveauModele::parametrerEtats() {
 
 void NouveauModele::paramVoisinage(const QString& choix_voisinage){
     if(choix_voisinage == "Voisinage de von Neumann" || choix_voisinage == "Voisinage de Moore"){
-        if (form_rayon != nullptr)delete form_rayon;
+        if (form_rayon != nullptr) delete form_rayon;
         if (grid != nullptr) delete grid;
+
+        grid = new QTableWidget;
+        grid = nullptr;
 
         form_rayon = new QFormLayout;
         rayon = new QSpinBox;
@@ -121,144 +124,7 @@ void NouveauModele::paramVoisinage(const QString& choix_voisinage){
     //}
 
 }
-void NouveauModele::paramRegle(const QString& choix_regle) {
-    seuilMax = new QLabel("Seuil Max : ");
-    seuilMin = new QLabel("Seuil Min : ");
-    destination = new QLabel("Destination : ");
-    etatCourant = new QLabel("Etat Courant : ");
 
-    etatDest = new QSpinBox;
-
-    valid_Etat = new QComboBox;
-    valid_Etat->addItem("Oui");
-    valid_Etat->addItem("Non");
-    valid_Etat->setCurrentIndex(-1);
-
-    if (choix_regle == "Nouvelle fonction de transition") {
-        seuilValidator=new QIntValidator;
-
-        if(layouth1 != nullptr) delete layouth1;
-        if(layouth2 != nullptr) delete layouth2;
-        if(layouth3 != nullptr) delete layouth3;
-        if(layouth4 != nullptr) delete layouth4;
-        if(layoutv != nullptr) delete layoutv;
-        if(layouth5 != nullptr) delete layouth5;
-        if(layouth6 != nullptr) delete layouth6;
-        if(layoutv2 != nullptr) delete layoutv2;
-
-        layouth1 = new QHBoxLayout;
-        layouth2 = new QHBoxLayout;
-        layouth3 = new QHBoxLayout;
-        layouth4 = new QHBoxLayout;
-        layoutv = new QVBoxLayout;
-
-        layouth6 = new QHBoxLayout;
-        layouth5 = new QHBoxLayout;
-        layoutv2 = new QVBoxLayout;
-
-        form_choix->addRow(layoutv);
-        layoutv->addLayout(layouth1);
-        layoutv->addLayout(layouth2);
-        layoutv->addLayout(layouth3);
-        layoutv->addLayout(layouth4);
-
-
-
-        seuilValidator->setRange(0,1);
-
-        layouth1->addWidget(seuilMin);
-        for(unsigned int i=0; i<8; i++) {
-            numSeuilMin[i]=new QLineEdit;
-            numSeuilMin[i]->setFixedWidth(22);
-            numSeuilMin[i]->setMaxLength(2);
-            numSeuilMin[i]->setText("-1");
-            numSeuilMin[i]->setValidator(seuilValidator);
-            if (i<nb_etats->value()){
-            layouth1->addWidget(numSeuilMin[i]);
-            }
-         }
-
-
-         layouth2->addWidget(seuilMax);
-         for(unsigned int i=0; i<8; i++) {
-             numSeuilMax[i]=new QLineEdit;
-             numSeuilMax[i]->setFixedWidth(22);
-             numSeuilMax[i]->setMaxLength(2);
-             numSeuilMax[i]->setText("-1");
-             numSeuilMax[i]->setValidator(seuilValidator);
-             if (i<nb_etats->value()){
-             layouth2->addWidget(numSeuilMax[i]);
-             }
-         }
-         layouth3->addWidget(destination);
-         layouth3->addWidget(etatDest);
-
-         layouth4->addWidget(etatCourant);
-         layouth4->addWidget(valid_Etat);
-         connect(valid_Etat, SIGNAL(currentTextChanged(const QString&)), this, SLOT(choisirEtatCourant(const QString&)));
-    }
-}
-
-void NouveauModele::choisirEtatCourant(const QString& validEtat){
-
-    fin = new QPushButton("Terminer");
-    next = new QPushButton("Règle suivante");
-
-
-
-
-    if (validEtat == "Oui"){
-
-        if(layouth5 != nullptr) delete layouth5;
-        if(layouth6 != nullptr) delete layouth6;
-        if(layoutv2 != nullptr) delete layoutv2;
-        if(etatCourant2 != nullptr) delete etatCourant2;
-
-
-        layouth6 = new QHBoxLayout;
-        layouth5 = new QHBoxLayout;
-        layoutv2 = new QVBoxLayout;
-
-        form_choix->addRow(layoutv2);
-        layoutv2->addLayout(layouth5);
-        layoutv2->addLayout(layouth6);
-
-
-        etatCourant2 = new QLabel("Etat Courant : ");
-
-        numEtatCourant = new QSpinBox;
-        numEtatCourant->setRange(1,8);
-
-        layouth5->addWidget(etatCourant2);
-        layouth5->addWidget(numEtatCourant);
-
-        layouth6->addWidget(fin);
-        layouth6->addWidget(next);
-
-    }else{
-
-       if(layouth5 != nullptr) delete layouth5;
-       if(layouth6 != nullptr) delete layouth6;
-       if(layoutv2 != nullptr) delete layoutv2;
-       if(etatCourant2 != nullptr) delete etatCourant2;
-
-       etatCourant2 = new QLabel("Etat Courant non pris en compte ");
-
-       layouth6 = new QHBoxLayout;
-       layouth5 = new QHBoxLayout;
-       layoutv2 = new QVBoxLayout;
-
-       form_choix->addRow(layoutv2);
-       layoutv2->addLayout(layouth5);
-       layoutv2->addLayout(layouth6);
-       layouth5->addWidget(etatCourant2);
-       layouth6->addWidget(fin);
-       layouth6->addWidget(next);
-
-
-    }
-
-}
 
 
 void NouveauModele::affGrille() {
@@ -347,5 +213,165 @@ void NouveauModele::changerVoisinage(const QString& choix_regle){
     }
     form_choix->insertRow(2, "Voisinage :", liste_voisinage);
     connect(liste_voisinage, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramVoisinage(const QString&)));
+}
+
+
+void NouveauModele::choisirEtatCourant(const QString& validEtat){
+
+    if (validEtat == "Oui"){
+
+        if (fin != nullptr) delete fin;
+        if (next != nullptr) delete next;
+        if (layouth5 != nullptr) delete layouth5;
+        if (layouth6 != nullptr) delete layouth6;
+        if (layoutv2 != nullptr) delete layoutv2;
+        if (etatCourant2 != nullptr) delete etatCourant2;
+        if (numEtatCourant != nullptr) delete numEtatCourant;
+
+        layouth6 = new QHBoxLayout;
+        layouth5 = new QHBoxLayout;
+        layoutv2 = new QVBoxLayout;
+
+
+        fin = new QPushButton("Terminer");
+        next = new QPushButton("Règle suivante");
+
+        form_choix->addRow(layoutv2);
+        layoutv2->addLayout(layouth5);
+        layoutv2->addLayout(layouth6);
+
+
+        etatCourant2 = new QLabel("Etat Courant : ");
+
+        numEtatCourant = new QSpinBox;
+        numEtatCourant->setRange(1,8);
+
+        layouth5->addWidget(etatCourant2);
+        layouth5->addWidget(numEtatCourant);
+
+        layouth6->addWidget(fin);
+        layouth6->addWidget(next);
+        connect(next, SIGNAL(clicked()), this, SLOT(addRegle()));
+
+    }else{
+
+
+       if (fin != nullptr) delete fin;
+       if (next != nullptr) delete next;
+       if (layouth5 != nullptr) delete layouth5;
+       if (layouth6 != nullptr) delete layouth6;
+       if (layoutv2 != nullptr) delete layoutv2;
+       if (etatCourant2 != nullptr) delete etatCourant2;
+       if (numEtatCourant != nullptr) delete numEtatCourant;
+
+       numEtatCourant = new QSpinBox;
+       numEtatCourant = nullptr;
+
+       layouth6 = new QHBoxLayout;
+       layouth5 = new QHBoxLayout;
+       layoutv2 = new QVBoxLayout;
+
+
+       etatCourant2 = new QLabel("Etat Courant non pris en compte ");
+
+       fin = new QPushButton("Terminer");
+       next = new QPushButton("Règle suivante");
+
+       form_choix->addRow(layoutv2);
+       layoutv2->addLayout(layouth5);
+       layoutv2->addLayout(layouth6);
+       layouth5->addWidget(etatCourant2);
+       layouth6->addWidget(fin);
+       layouth6->addWidget(next);
+
+       connect(next, SIGNAL(clicked()), this, SLOT(addRegle()));
+
+    }
+
+
+}
+
+void NouveauModele::paramRegle(const QString& choix_regle) {
+    seuilMax = new QLabel("Seuil Max : ");
+    seuilMin = new QLabel("Seuil Min : ");
+    destination = new QLabel("Destination : ");
+    etatCourant = new QLabel("Etat Courant : ");
+
+    etatDest = new QSpinBox;
+
+    valid_Etat = new QComboBox;
+    valid_Etat->addItem("Oui");
+    valid_Etat->addItem("Non");
+    valid_Etat->setCurrentIndex(-1);
+
+    if (choix_regle == "Nouvelle fonction de transition") {
+        seuilValidator=new QIntValidator;
+
+        if(layouth1 != nullptr) delete layouth1;
+        if(layouth2 != nullptr) delete layouth2;
+        if(layouth3 != nullptr) delete layouth3;
+        if(layouth4 != nullptr) delete layouth4;
+        if(layoutv != nullptr) delete layoutv;
+        if(layouth5 != nullptr) delete layouth5;
+        if(layouth6 != nullptr) delete layouth6;
+        if(layoutv2 != nullptr) delete layoutv2;
+
+        layouth1 = new QHBoxLayout;
+        layouth2 = new QHBoxLayout;
+        layouth3 = new QHBoxLayout;
+        layouth4 = new QHBoxLayout;
+        layoutv = new QVBoxLayout;
+
+        layouth6 = new QHBoxLayout;
+        layouth5 = new QHBoxLayout;
+        layoutv2 = new QVBoxLayout;
+
+        form_choix->addRow(layoutv);
+        layoutv->addLayout(layouth1);
+        layoutv->addLayout(layouth2);
+        layoutv->addLayout(layouth3);
+        layoutv->addLayout(layouth4);
+
+
+
+        seuilValidator->setRange(0,1);
+
+        layouth1->addWidget(seuilMin);
+        for(unsigned int i=0; i<8; i++) {
+            numSeuilMin[i]=new QLineEdit;
+            numSeuilMin[i]->setFixedWidth(22);
+            numSeuilMin[i]->setMaxLength(2);
+            numSeuilMin[i]->setText("-1");
+            numSeuilMin[i]->setValidator(seuilValidator);
+            if (i<nb_etats->value()){
+            layouth1->addWidget(numSeuilMin[i]);
+            }
+         }
+
+
+         layouth2->addWidget(seuilMax);
+         for(unsigned int i=0; i<8; i++) {
+             numSeuilMax[i]=new QLineEdit;
+             numSeuilMax[i]->setFixedWidth(22);
+             numSeuilMax[i]->setMaxLength(2);
+             numSeuilMax[i]->setText("-1");
+             numSeuilMax[i]->setValidator(seuilValidator);
+             if (i<nb_etats->value()){
+             layouth2->addWidget(numSeuilMax[i]);
+             }
+         }
+         layouth3->addWidget(destination);
+         layouth3->addWidget(etatDest);
+
+         layouth4->addWidget(etatCourant);
+         layouth4->addWidget(valid_Etat);
+         connect(valid_Etat, SIGNAL(currentTextChanged(const QString&)), this, SLOT(choisirEtatCourant(const QString&)));
+    }
+}
+
+
+
+void NouveauModele::addRegle(){
+    paramRegle("Nouvelle fonction de transition");
 }
 

@@ -52,11 +52,11 @@ class NouveauModele : public QWidget {
     QLabel* etatCourant2 = nullptr;
 
     QComboBox* valid_Etat;
-    QSpinBox* numEtatCourant;
+    QSpinBox* numEtatCourant = nullptr;
     QSpinBox* etatDest;
 
-    QPushButton* fin;
-    QPushButton* next;
+    QPushButton* fin = nullptr;
+    QPushButton* next = nullptr;
     QIntValidator* seuilValidator;
     QLineEdit* numSeuilMin[8];
     QLineEdit* numSeuilMax[8];
@@ -96,6 +96,8 @@ public slots:
 
     void choisirEtatCourant(const QString& validEtat);
     void parametrerEtats();
+
+    void addRegle();
 
 
 
