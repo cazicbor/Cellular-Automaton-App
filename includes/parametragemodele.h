@@ -49,7 +49,7 @@ class NouveauModele : public QWidget {
     QLabel* seuilMin;
     QLabel* destination;
     QLabel* etatCourant;
-    QLabel* etatCourant2;
+    QLabel* etatCourant2 = nullptr;
 
     QComboBox* valid_Etat;
     QSpinBox* numEtatCourant;
@@ -61,15 +61,15 @@ class NouveauModele : public QWidget {
     QLineEdit* numSeuilMin[8];
     QLineEdit* numSeuilMax[8];
 
-    QVBoxLayout* layoutv = new QVBoxLayout;
-    QHBoxLayout* layouth1 = new QHBoxLayout;
-    QHBoxLayout* layouth2 = new QHBoxLayout;
-    QHBoxLayout* layouth3 = new QHBoxLayout;
-    QHBoxLayout* layouth4 = new QHBoxLayout;
+    QVBoxLayout* layoutv = nullptr;
+    QHBoxLayout* layouth1 = nullptr;
+    QHBoxLayout* layouth2 = nullptr;
+    QHBoxLayout* layouth3 = nullptr;
+    QHBoxLayout* layouth4 = nullptr;
 
-    QVBoxLayout* layoutv2 = new QVBoxLayout;
-    QHBoxLayout* layouth5 = new QHBoxLayout;
-    QHBoxLayout* layouth6 = new QHBoxLayout;
+    QVBoxLayout* layoutv2 = nullptr;
+    QHBoxLayout* layouth5 = nullptr;
+    QHBoxLayout* layouth6 = nullptr;
 
     //définition de la frame paramétrage du choix
     QWidget* fenetre_param;
@@ -77,11 +77,11 @@ class NouveauModele : public QWidget {
     QLabel* label_param;
 
     //Voisiange non arbitraire
-    QFormLayout* form_rayon;
+    QFormLayout* form_rayon = nullptr;
     QSpinBox* rayon;
 
     //définition de la frame contenant la grille de sélection du voisinage
-    QTableWidget* grid;
+    QTableWidget* grid = nullptr;
     std::unique_ptr<ParamAlpha> paramAlpha;
     QPushButton* boutonEtat;
 

@@ -29,32 +29,25 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     //choisir un voisinage
     liste_voisinage = new QComboBox;
 
-    liste_voisinage->addItem("--- select ---");
-    /*
-    liste_voisinage->addItem("Voisinage de Moore");
-    liste_voisinage->addItem("Voisinage de von Neumann");
-    liste_voisinage->addItem("Voisinage arbitraire");
 
-    //liste_voisinage->setPlaceholderText("--- select ---");
+
+    liste_voisinage->setPlaceholderText("--- select ---");
     liste_voisinage->setCurrentIndex(-1);
-    */
+
 
     connect(liste_voisinage, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramVoisinage(const QString&)));
 
     //choisir une règle de transition
     liste_regle_transition = new QComboBox;
-    //liste_regle_transition->setPlaceholderText("--- select ---");
+
+    liste_regle_transition->setPlaceholderText("--- select ---");
 
     //liste_regle_transition->addItem("--- select ---");
     liste_regle_transition->addItem("Life Game");
     liste_regle_transition->addItem("Langston's Loop");
     liste_regle_transition->addItem("Brian's brain");
     liste_regle_transition->addItem("Circulaire de Griffeath");
-    liste_regle_transition->addItem("Langston's Loop");
     liste_regle_transition->addItem("Nouvelle fonction de transition");
-
-
-
 
     liste_regle_transition->setCurrentIndex(-1);
 
@@ -66,14 +59,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     bouton_valide->setFixedWidth(50);
 
 
-    //connect(bouton_valide, SIGNAL(clicked()), SLOT(affParametrage()));
-
     //ajout regle :
-
-
-
-
-
 
     form_choix->addRow("Nombre d'états :", nb_etats);
     form_choix->addRow("Règle de transition :", liste_regle_transition);
@@ -106,16 +92,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
     form_choix->addWidget(boutonEtat);
 
-    form_choix->addRow(layoutv);
-    layoutv->addLayout(layouth1);
-    layoutv->addLayout(layouth2);
-    layoutv->addLayout(layouth3);
-    layoutv->addLayout(layouth4);
-
-    form_choix->addRow(layoutv2);
-    layoutv2->addLayout(layouth5);
-    layoutv2->addLayout(layouth6);
-
 
 }
 
@@ -126,8 +102,9 @@ void NouveauModele::parametrerEtats() {
 
 void NouveauModele::paramVoisinage(const QString& choix_voisinage){
     if(choix_voisinage == "Voisinage de von Neumann" || choix_voisinage == "Voisinage de Moore"){
-        delete form_rayon;
-        delete grid;
+        if (form_rayon != nullptr)delete form_rayon;
+        if (grid != nullptr) delete grid;
+
         form_rayon = new QFormLayout;
         rayon = new QSpinBox;
 
@@ -159,6 +136,33 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
 
     if (choix_regle == "Nouvelle fonction de transition") {
         seuilValidator=new QIntValidator;
+
+        if(layouth1 != nullptr) delete layouth1;
+        if(layouth2 != nullptr) delete layouth2;
+        if(layouth3 != nullptr) delete layouth3;
+        if(layouth4 != nullptr) delete layouth4;
+        if(layoutv != nullptr) delete layoutv;
+        if(layouth5 != nullptr) delete layouth5;
+        if(layouth6 != nullptr) delete layouth6;
+        if(layoutv2 != nullptr) delete layoutv2;
+
+        layouth1 = new QHBoxLayout;
+        layouth2 = new QHBoxLayout;
+        layouth3 = new QHBoxLayout;
+        layouth4 = new QHBoxLayout;
+        layoutv = new QVBoxLayout;
+
+        layouth6 = new QHBoxLayout;
+        layouth5 = new QHBoxLayout;
+        layoutv2 = new QVBoxLayout;
+
+        form_choix->addRow(layoutv);
+        layoutv->addLayout(layouth1);
+        layoutv->addLayout(layouth2);
+        layoutv->addLayout(layouth3);
+        layoutv->addLayout(layouth4);
+
+
 
         seuilValidator->setRange(0,1);
 
@@ -196,13 +200,31 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
 }
 
 void NouveauModele::choisirEtatCourant(const QString& validEtat){
-    etatCourant2 = new QLabel("Etat Courant : ");
 
     fin = new QPushButton("Terminer");
     next = new QPushButton("Règle suivante");
 
+
+
+
     if (validEtat == "Oui"){
 
+        if(layouth5 != nullptr) delete layouth5;
+        if(layouth6 != nullptr) delete layouth6;
+        if(layoutv2 != nullptr) delete layoutv2;
+        if(etatCourant2 != nullptr) delete etatCourant2;
+
+
+        layouth6 = new QHBoxLayout;
+        layouth5 = new QHBoxLayout;
+        layoutv2 = new QVBoxLayout;
+
+        form_choix->addRow(layoutv2);
+        layoutv2->addLayout(layouth5);
+        layoutv2->addLayout(layouth6);
+
+
+        etatCourant2 = new QLabel("Etat Courant : ");
 
         numEtatCourant = new QSpinBox;
         numEtatCourant->setRange(1,8);
@@ -210,16 +232,28 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
         layouth5->addWidget(etatCourant2);
         layouth5->addWidget(numEtatCourant);
 
-
-
         layouth6->addWidget(fin);
         layouth6->addWidget(next);
 
     }else{
-       QHBoxLayout* layout = new QHBoxLayout;
-       form_choix->addRow(layout);
-       layout->addWidget(fin);
-       layout->addWidget(next);
+
+       if(layouth5 != nullptr) delete layouth5;
+       if(layouth6 != nullptr) delete layouth6;
+       if(layoutv2 != nullptr) delete layoutv2;
+       if(etatCourant2 != nullptr) delete etatCourant2;
+
+       etatCourant2 = new QLabel("Etat Courant non pris en compte ");
+
+       layouth6 = new QHBoxLayout;
+       layouth5 = new QHBoxLayout;
+       layoutv2 = new QVBoxLayout;
+
+       form_choix->addRow(layoutv2);
+       layoutv2->addLayout(layouth5);
+       layoutv2->addLayout(layouth6);
+       layouth5->addWidget(etatCourant2);
+       layouth6->addWidget(fin);
+       layouth6->addWidget(next);
 
 
     }
@@ -228,9 +262,9 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
 
 
 void NouveauModele::affGrille() {
-    delete grid;
+    if (grid != nullptr) delete grid;
     grid = new QTableWidget(5,5);
-    form_param->addWidget(grid, 0, 0, 8, 1);
+    form_param->addWidget(grid, 0, 0, 7, 3);
 
     grid->horizontalHeader()->setVisible(false); //Pas de nom pour les colonnes.
     grid->verticalHeader()->setVisible(false);
@@ -240,8 +274,8 @@ void NouveauModele::affGrille() {
     for(unsigned int i=0; i<5; i++){
         for(unsigned int j=0; j<5; j++)
         {
-            grid->setRowHeight(j,50);
-            grid->setColumnWidth(j, 50);
+            grid->setRowHeight(j,80);
+            grid->setColumnWidth(j,80);
 
             /*
             int x = i-3;
@@ -287,7 +321,7 @@ void NouveauModele::modifGrille(const QModelIndex& index){
 
 void NouveauModele::changerVoisinage(const QString& choix_regle){
 
-    delete liste_voisinage;
+    //delete liste_voisinage;
     form_choix->removeRow(2);
     liste_voisinage = new QComboBox();
 
