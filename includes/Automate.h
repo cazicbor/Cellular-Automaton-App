@@ -140,6 +140,8 @@ class Automate {
 		int getYear() const { return year; }
 		/// Redéfinir le nom de l'automate
 		void setYear(const int y) { year = y; }
+
+		void reinitialiserAutomate();
 };
 
 #endif
