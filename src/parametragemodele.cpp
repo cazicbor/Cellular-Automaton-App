@@ -150,7 +150,12 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     valid_Etat->addItem("Non");
     valid_Etat->setCurrentIndex(-1);
 
-    QHBoxLayout* layout = new QHBoxLayout;
+    QVBoxLayout* layoutv = new QVBoxLayout;
+    QHBoxLayout* layouth1 = new QHBoxLayout;
+    QHBoxLayout* layouth2 = new QHBoxLayout;
+    QHBoxLayout* layouth3 = new QHBoxLayout;
+    QHBoxLayout* layouth4 = new QHBoxLayout;
+
 
 
 
@@ -165,28 +170,34 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
                 numSeuilMin[i]->setValidator(seuilValidator);
                 form_init->addWidget(numSeuilMin[i]);
             }*/
-            form_choix->addRow(layout);
-            layout->addWidget(seuilMin);
+            form_choix->addRow(layoutv);
+            layoutv->addLayout(layouth1);
+            layouth1->addWidget(seuilMin);
             for(unsigned int i=0; i<8; i++) {
                 numSeuilMin[i]=new QLineEdit;
                 numSeuilMin[i]->setFixedWidth(22);
                 numSeuilMin[i]->setMaxLength(1);
                 numSeuilMin[i]->setText("-1");
                 numSeuilMin[i]->setValidator(seuilValidator);
-                layout->addWidget(numSeuilMin[i]);
+                layouth1->addWidget(numSeuilMin[i]);
             }
 
-            form_choix->addRow(seuilMax);
+            layoutv->addLayout(layouth2);
+            layouth2->addWidget(seuilMax);
             for(unsigned int i=0; i<8; i++) {
                 numSeuilMax[i]=new QLineEdit;
                 numSeuilMax[i]->setFixedWidth(22);
                 numSeuilMax[i]->setMaxLength(2);
                 numSeuilMax[i]->setText("-1");
                 numSeuilMax[i]->setValidator(seuilValidator);
-                form_choix->addWidget(numSeuilMax[i]);
+                layouth2->addWidget(numSeuilMax[i]);
             }
-            form_choix->addRow(destination, etatDest);
-            form_choix->addRow(etatCourant, valid_Etat);
+            layoutv->addLayout(layouth3);
+            layouth3->addWidget(destination);
+            layouth3->addWidget(etatDest);
+            layoutv->addLayout(layouth4);
+            layouth4->addWidget(etatCourant);
+            layouth4->addWidget(valid_Etat);
             connect(valid_Etat, SIGNAL(currentTextChanged(const QString&)), this, SLOT(choisirEtatCourant(const QString&)));
     }
 }
@@ -196,7 +207,11 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
     if (validEtat == "Oui"){
     numEtatCourant = new QSpinBox;
     numEtatCourant->setRange(1,8);
-    form_choix->addRow("Etat Courant :", numEtatCourant);
+    QHBoxLayout* layout = new QHBoxLayout;
+    form_choix->addRow(layout);
+    layout->addWidget(etatCourant);
+    layout->addWidget(numEtatCourant);
+
     }
 }
 
