@@ -49,6 +49,7 @@ class NouveauModele : public QWidget {
     QLabel* seuilMin;
     QLabel* destination;
     QLabel* etatCourant;
+    QLabel* etatCourant2;
 
     QComboBox* valid_Etat;
     QSpinBox* numEtatCourant;

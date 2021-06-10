@@ -64,6 +64,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     bouton_valide = new QPushButton("Valider");
     bouton_valide->setFixedWidth(50);
+     connect(bouton_valide, SIGNAL(clicked()),this, SLOT(quit()));
 
     //connect(bouton_valide, SIGNAL(clicked()), SLOT(affParametrage()));
 
@@ -78,11 +79,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     form_choix->addRow("Règle de transition :", liste_regle_transition);
     form_choix->addRow("Voisinage :", liste_voisinage);
     form_choix->addWidget(bouton_valide);
-
-
-
-
-
 
 
     general->addWidget(fenetre_init, 0, 0, 9, 1);
@@ -109,6 +105,9 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     boutonEtat->setFixedWidth(50);
     connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
     form_choix->addWidget(boutonEtat);
+
+
+
 
 }
 
@@ -150,14 +149,12 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     valid_Etat->addItem("Non");
     valid_Etat->setCurrentIndex(-1);
 
+
     QVBoxLayout* layoutv = new QVBoxLayout;
     QHBoxLayout* layouth1 = new QHBoxLayout;
     QHBoxLayout* layouth2 = new QHBoxLayout;
     QHBoxLayout* layouth3 = new QHBoxLayout;
     QHBoxLayout* layouth4 = new QHBoxLayout;
-
-
-
 
     if (choix_regle == "Nouvelle fonction de transition") {
         seuilValidator=new QIntValidator;
@@ -176,7 +173,7 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
             for(unsigned int i=0; i<8; i++) {
                 numSeuilMin[i]=new QLineEdit;
                 numSeuilMin[i]->setFixedWidth(22);
-                numSeuilMin[i]->setMaxLength(1);
+                numSeuilMin[i]->setMaxLength(2);
                 numSeuilMin[i]->setText("-1");
                 numSeuilMin[i]->setValidator(seuilValidator);
                 layouth1->addWidget(numSeuilMin[i]);
@@ -203,16 +200,21 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
 }
 
 void NouveauModele::choisirEtatCourant(const QString& validEtat){
-
-    if (validEtat == "Oui"){
-    numEtatCourant = new QSpinBox;
-    numEtatCourant->setRange(1,8);
+    etatCourant2 = new QLabel("Etat Courant : ");
     QHBoxLayout* layout = new QHBoxLayout;
     form_choix->addRow(layout);
-    layout->addWidget(etatCourant);
-    layout->addWidget(numEtatCourant);
 
+
+    if (validEtat == "Oui"){
+        numEtatCourant = new QSpinBox;
+        numEtatCourant->setRange(1,8);
+
+        layout->addWidget(etatCourant);
+        layout->addWidget(numEtatCourant);
+    }else{
+       delete layout;
     }
+
 }
 
 
