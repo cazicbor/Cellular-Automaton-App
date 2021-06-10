@@ -49,13 +49,14 @@ class NouveauModele : public QWidget {
     QLabel* destination;
     QLabel* etatCourant;
 
-    QCheckBox* valid_Etat;
+    QComboBox* valid_Etat;
     QSpinBox* numEtatCourant;
     QSpinBox* etatDest;
 
     QPushButton* fin, next;
     QIntValidator* seuilValidator;
     QLineEdit* numSeuilMin[8];
+    QLineEdit* numSeuilMax[8];
 
     //définition de la frame paramétrage du choix
     QWidget* fenetre_param;
@@ -77,7 +78,7 @@ public slots:
     void affGrille();
     void modifGrille(const QModelIndex& index);
     void paramRegle(const QString& choix_regle);
-    void choisirEtatCourant(bool checked);
+    void choisirEtatCourant(const QString& validEtat);
 
 
 };

@@ -134,35 +134,64 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     destination = new QLabel("Destination : ");
     etatCourant = new QLabel("Etat Courant : ");
 
-    valid_Etat = new QCheckBox;
-
     etatDest = new QSpinBox;
-    etatDest->setRange(1,8);
+
+    valid_Etat = new QComboBox;
+    valid_Etat->addItem("Oui");
+    valid_Etat->addItem("Non");
+    valid_Etat->setCurrentIndex(-1);
+
+    QHBoxLayout* layout = new QHBoxLayout;
+
 
 
     if (choix_regle == "Nouvelle fonction de transition") {
         seuilValidator=new QIntValidator;
             seuilValidator->setRange(0,1);
-            for(unsigned int i=0; i<8; i++) {
+            /*for(unsigned int i=0; i<8; i++) {
                 numSeuilMin[i]=new QLineEdit;
                 numSeuilMin[i]->setFixedWidth(22);
                 numSeuilMin[i]->setMaxLength(1);
                 numSeuilMin[i]->setText("-1");
                 numSeuilMin[i]->setValidator(seuilValidator);
                 form_init->addWidget(numSeuilMin[i]);
+            }*/
+            form_choix->addRow(layout);
+            layout->addWidget(seuilMin);
+            for(unsigned int i=0; i<8; i++) {
+                numSeuilMin[i]=new QLineEdit;
+                numSeuilMin[i]->setFixedWidth(22);
+                numSeuilMin[i]->setMaxLength(1);
+                numSeuilMin[i]->setText("-1");
+                numSeuilMin[i]->setValidator(seuilValidator);
+                layout->addWidget(numSeuilMin[i]);
             }
+
+            form_choix->addRow(seuilMax);
+            for(unsigned int i=0; i<8; i++) {
+                numSeuilMax[i]=new QLineEdit;
+                numSeuilMax[i]->setFixedWidth(22);
+                numSeuilMax[i]->setMaxLength(2);
+                numSeuilMax[i]->setText("-1");
+                numSeuilMax[i]->setValidator(seuilValidator);
+                form_choix->addWidget(numSeuilMax[i]);
+            }
+            form_choix->addRow(destination, etatDest);
+            form_choix->addRow(etatCourant, valid_Etat);
+            connect(valid_Etat, SIGNAL(currentTextChanged(const QString&)), this, SLOT(choisirEtatCourant(const QString&)));
     }
-    form_choix->addRow(seuilMin);
-    form_choix->addRow(seuilMax);
-    form_choix->addRow(destination, etatDest);
-    form_choix->addRow(etatCourant, valid_Etat);
-    connect(etatDest, SIGNAL(toggled(bool)), this, SLOT(choisirEtatCourant(bool)));
 }
 
-void NouveauModele::choisirEtatCourant(bool checked){
-     numEtatCourant = new QSpinBox;
+void NouveauModele::choisirEtatCourant(const QString& validEtat){
 
+    if (validEtat == "Oui"){
+    numEtatCourant = new QSpinBox;
+    numEtatCourant->setRange(1,8);
+    form_choix->addRow("Etat Courant :", numEtatCourant);
+    }
 }
+
+
 void NouveauModele::affGrille() {
     delete grid;
     grid = new QTableWidget(5, 5);
@@ -240,7 +269,7 @@ void NouveauModele::changerVoisinage(const QString& choix_regle){
         liste_voisinage->addItem("Voisinage arbitraire");
         liste_voisinage->setCurrentIndex(-1);
     }
-    else if(choix_regle == "Brian's brain" || choix_regle == "Circulaire de Griffeath"){
+    else if(choix_regle == "Brian's brain" || choix_regle == "Circulaire de Griffeath" || choix_regle == "Nouvelle fonction de transition"){
         //liste_voisinage->addItem("--- select ---");
         liste_voisinage->addItem("Voisinage de Moore");
         liste_voisinage->addItem("Voisinage de von Neumann");
