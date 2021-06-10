@@ -1,4 +1,5 @@
 #include"parametragemodele.h"
+#include <autocell.h>
 
 
 NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
@@ -62,6 +63,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     boutonEtat = new QPushButton("Etats");
 
     connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
+    connect(bouton_valide, SIGNAL(clicked()), this, SLOT(validerParametrage()));
 
     //ajout regle :
 
@@ -374,5 +376,14 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
 
 void NouveauModele::addRegle(){
     paramRegle("Nouvelle fonction de transition");
+}
+
+void NouveauModele::validerParametrage(){
+    if(nvAutocell != nullptr) delete nvAutocell;
+
+    nvAutocell = new AutoCell;
+
+    nvAutocell->show();
+
 }
 

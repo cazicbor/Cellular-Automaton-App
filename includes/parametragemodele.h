@@ -3,6 +3,7 @@
 
 #include <reseau_cellule_etats.h>
 #include <paramalpha.h>
+#include <autocell.h>
 
 #include <QObject>
 #include <QApplication>
@@ -87,6 +88,8 @@ class NouveauModele : public QWidget {
     std::unique_ptr<ParamAlpha> paramAlpha;
     QPushButton* boutonEtat;
 
+    AutoCell* nvAutocell = nullptr;
+
 public:
     NouveauModele(QWidget* parent = nullptr);
 public slots:
@@ -100,6 +103,8 @@ public slots:
     void parametrerEtats();
 
     void addRegle();
+
+    void validerParametrage();
 
 
 

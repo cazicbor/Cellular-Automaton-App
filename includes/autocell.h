@@ -84,7 +84,7 @@ class AutoCell : public QWidget
     QLabel* lab_notice;
 
     explicit AutoCell(QWidget* parent=nullptr);
-
+    friend class NouveauModele;
     public:
 
     static AutoCell& getInstance() {
