@@ -5,6 +5,7 @@
 #include <Fonction.h>
 #include <voisinage.h>
 #include <QObject>
+#include <autocell.h>
 
 /// La classe automate se charge de gérer les informations d'un automate (fonction de transition, règle de voisinage, réseau, ...) et joue également le rôle de simulateur
 ///
@@ -88,17 +89,23 @@ class Automate {
 		void setLargeur(unsigned int largeur) { l = largeur; }
 
 		/// Se placer sur l'état précédent si disponible
-		void previous() { if(itBuffer!=buffer.begin()) itBuffer--; }
+		void previous() {
+			if(itBuffer!=buffer.begin())
+				itBuffer--;
+			AutoCell::getInstance().afficherGrille(&*itBuffer);
+		}
 		/// Se placer sur l'état suivant si disponible
-		void next() { if(itBuffer!=buffer.end()) itBuffer++; }
+		void next() { if(itBuffer!=(--buffer.end())) itBuffer++; }
 		/// On vide la buffer et on l'initialise avec une première grille
 		void reset() { buffer.clear(); buffer.push_back(reseauInit); }
 
 		/// Se placer sur l'état suivant du buffer et le calculer s'il n'y en a plus de disponible
 		void step() {
-			if(itBuffer==buffer.end())
+			if(itBuffer==(--buffer.end()))
 				nextTimer();
 			itBuffer++;
+			AutoCell::getInstance().afficherGrille(&*itBuffer);
+			std::cout << buffer.size() << std::endl;
 		}
 		/// Execution multiple de la méthode step
 		void run(int n) {
@@ -118,10 +125,10 @@ class Automate {
 		Reseau getReseauCourant() { return *itBuffer; }
 
 		/// initialiser le buffer s'il est vide avec un réseau
-		void initialiserBuffer() { if(buffer.begin()==buffer.end()) buffer.push_front(reseauInit); }
+		void initialiserBuffer() { buffer.clear(); buffer.push_front(reseauInit); }
 
 		/// Définir le réseau initial de l'automate
-		void setReseauInit(Reseau& r) { reseauInit = r; }
+		void setReseauInit(Reseau& r) { reseauInit = r; h = r.getHauteur(); l = r.getLargeur(); }
 		/// Récupérer le réseau initial de l'automate
 		const Reseau& getReseauInit() const { return reseauInit; }
 		/// Récupérer le nom de l'automate

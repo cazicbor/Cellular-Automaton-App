@@ -48,7 +48,7 @@ public:
             i++;
         }
         bool isDone(){
-            return (vsn->voisinage.size() <=  i);
+            return !(i < vsn->voisinage.size());
         }
         Cellule* currentItem(){
             return vsn->voisinage[i];

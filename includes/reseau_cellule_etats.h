@@ -10,7 +10,6 @@ private:
     unsigned int indEtat;
     unsigned int abs;
     unsigned int ord;
-    Cellule();
     //inline Cellule():indEtat(0), abs(0), ord(0){};
     void initCellule(const unsigned int ind, const unsigned int &x, const unsigned int &y);
     friend class Reseau;
@@ -22,6 +21,8 @@ private:
 public:
     inline unsigned int getIndEtat() const {return indEtat;}
     void incrementerEtat();
+    Cellule();
+    Cellule(const Cellule& c): indEtat(c.indEtat), abs(c.abs), ord(c.ord) {}
 };
 
 class Etat{
