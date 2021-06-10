@@ -71,7 +71,6 @@ class NouveauModele : public QWidget {
     QHBoxLayout* layouth5 = new QHBoxLayout;
     QHBoxLayout* layouth6 = new QHBoxLayout;
 
-
     //définition de la frame paramétrage du choix
     QWidget* fenetre_param;
     QGridLayout* form_param;

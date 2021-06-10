@@ -12,7 +12,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     fenetre_init = new QWidget;
     fenetre_init->setStyleSheet("background-color: rgb(204, 209, 209)");
-    fenetre_init->setFixedWidth(500);
+    fenetre_init->setFixedWidth(410);
     label_init = new QLabel("Configuration du modèle :");
 
     form_init = new QGridLayout(fenetre_init);
@@ -161,21 +161,6 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
         seuilValidator=new QIntValidator;
 
         seuilValidator->setRange(0,1);
-        if ( layouth1 != nullptr){
-            delete layouth1;
-        }
-        if (layouth2 != nullptr){
-            delete layouth2;
-        }
-        if (layouth3 != nullptr){
-            delete layouth3;
-        }
-        if (layouth4 != nullptr){
-            delete layouth4;
-        }
-        if (layoutv != nullptr){
-            delete layoutv;
-        }
 
         layouth1->addWidget(seuilMin);
         for(unsigned int i=0; i<8; i++) {
@@ -244,7 +229,7 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
 
 void NouveauModele::affGrille() {
     delete grid;
-    grid = new QTableWidget(5, 5);
+    grid = new QTableWidget(5,5);
     form_param->addWidget(grid, 0, 0, 8, 1);
 
     grid->horizontalHeader()->setVisible(false); //Pas de nom pour les colonnes.
@@ -255,8 +240,8 @@ void NouveauModele::affGrille() {
     for(unsigned int i=0; i<5; i++){
         for(unsigned int j=0; j<5; j++)
         {
-            grid->setRowHeight(j,80);
-            grid->setColumnWidth(j, 80);
+            grid->setRowHeight(j,50);
+            grid->setColumnWidth(j, 50);
 
             /*
             int x = i-3;
