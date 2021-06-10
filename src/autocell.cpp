@@ -298,8 +298,9 @@ void AutoCell::initialiserGrille(){
       }
 
     //réinitialiser l'automate
+    Automate::getInstance().reset();
 
-    //this->afficherGrille(this->Grille);
+    this->afficherGrille(this->Grille);
 
 };
 void AutoCell::RAZ(){
