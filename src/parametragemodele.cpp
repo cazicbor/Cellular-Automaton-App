@@ -65,6 +65,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     bouton_valide = new QPushButton("Valider");
     bouton_valide->setFixedWidth(50);
 
+
     //connect(bouton_valide, SIGNAL(clicked()), SLOT(affParametrage()));
 
     //ajout regle :
@@ -78,11 +79,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     form_choix->addRow("Règle de transition :", liste_regle_transition);
     form_choix->addRow("Voisinage :", liste_voisinage);
     form_choix->addWidget(bouton_valide);
-
-
-
-
-
 
 
     general->addWidget(fenetre_init, 0, 0, 9, 1);
@@ -150,69 +146,67 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     valid_Etat->addItem("Non");
     valid_Etat->setCurrentIndex(-1);
 
-    QVBoxLayout* layoutv = new QVBoxLayout;
-    QHBoxLayout* layouth1 = new QHBoxLayout;
-    QHBoxLayout* layouth2 = new QHBoxLayout;
-    QHBoxLayout* layouth3 = new QHBoxLayout;
-    QHBoxLayout* layouth4 = new QHBoxLayout;
-
 
 
 
     if (choix_regle == "Nouvelle fonction de transition") {
         seuilValidator=new QIntValidator;
-            seuilValidator->setRange(0,1);
-            /*for(unsigned int i=0; i<8; i++) {
-                numSeuilMin[i]=new QLineEdit;
-                numSeuilMin[i]->setFixedWidth(22);
-                numSeuilMin[i]->setMaxLength(1);
-                numSeuilMin[i]->setText("-1");
-                numSeuilMin[i]->setValidator(seuilValidator);
-                form_init->addWidget(numSeuilMin[i]);
-            }*/
-            form_choix->addRow(layoutv);
-            layoutv->addLayout(layouth1);
-            layouth1->addWidget(seuilMin);
-            for(unsigned int i=0; i<8; i++) {
-                numSeuilMin[i]=new QLineEdit;
-                numSeuilMin[i]->setFixedWidth(22);
-                numSeuilMin[i]->setMaxLength(1);
-                numSeuilMin[i]->setText("-1");
-                numSeuilMin[i]->setValidator(seuilValidator);
-                layouth1->addWidget(numSeuilMin[i]);
-            }
 
-            layoutv->addLayout(layouth2);
-            layouth2->addWidget(seuilMax);
-            for(unsigned int i=0; i<8; i++) {
-                numSeuilMax[i]=new QLineEdit;
-                numSeuilMax[i]->setFixedWidth(22);
-                numSeuilMax[i]->setMaxLength(2);
-                numSeuilMax[i]->setText("-1");
-                numSeuilMax[i]->setValidator(seuilValidator);
-                layouth2->addWidget(numSeuilMax[i]);
-            }
-            layoutv->addLayout(layouth3);
-            layouth3->addWidget(destination);
-            layouth3->addWidget(etatDest);
-            layoutv->addLayout(layouth4);
-            layouth4->addWidget(etatCourant);
-            layouth4->addWidget(valid_Etat);
-            connect(valid_Etat, SIGNAL(currentTextChanged(const QString&)), this, SLOT(choisirEtatCourant(const QString&)));
+        seuilValidator->setRange(0,1);
+        QVBoxLayout* layoutv = new QVBoxLayout;
+        QHBoxLayout* layouth1 = new QHBoxLayout;
+        QHBoxLayout* layouth2 = new QHBoxLayout;
+        QHBoxLayout* layouth3 = new QHBoxLayout;
+        QHBoxLayout* layouth4 = new QHBoxLayout;
+
+        form_choix->addRow(layoutv);
+        layoutv->addLayout(layouth1);
+        layouth1->addWidget(seuilMin);
+        for(unsigned int i=0; i<8; i++) {
+            numSeuilMin[i]=new QLineEdit;
+            numSeuilMin[i]->setFixedWidth(22);
+            numSeuilMin[i]->setMaxLength(2);
+            numSeuilMin[i]->setText("-1");
+            numSeuilMin[i]->setValidator(seuilValidator);
+            layouth1->addWidget(numSeuilMin[i]);
+         }
+
+         layoutv->addLayout(layouth2);
+         layouth2->addWidget(seuilMax);
+         for(unsigned int i=0; i<8; i++) {
+             numSeuilMax[i]=new QLineEdit;
+             numSeuilMax[i]->setFixedWidth(22);
+             numSeuilMax[i]->setMaxLength(2);
+             numSeuilMax[i]->setText("-1");
+             numSeuilMax[i]->setValidator(seuilValidator);
+             layouth2->addWidget(numSeuilMax[i]);
+         }
+         layoutv->addLayout(layouth3);
+         layouth3->addWidget(destination);
+         layouth3->addWidget(etatDest);
+         layoutv->addLayout(layouth4);
+         layouth4->addWidget(etatCourant);
+         layouth4->addWidget(valid_Etat);
+         connect(valid_Etat, SIGNAL(currentTextChanged(const QString&)), this, SLOT(choisirEtatCourant(const QString&)));
     }
 }
 
 void NouveauModele::choisirEtatCourant(const QString& validEtat){
-
-    if (validEtat == "Oui"){
-    numEtatCourant = new QSpinBox;
-    numEtatCourant->setRange(1,8);
+    etatCourant2 = new QLabel("Etat Courant : ");
     QHBoxLayout* layout = new QHBoxLayout;
     form_choix->addRow(layout);
-    layout->addWidget(etatCourant);
-    layout->addWidget(numEtatCourant);
 
+
+    if (validEtat == "Oui"){
+        numEtatCourant = new QSpinBox;
+        numEtatCourant->setRange(1,8);
+
+        layout->addWidget(etatCourant);
+        layout->addWidget(numEtatCourant);
+    }else{
+       delete layout;
     }
+
 }
 
 
