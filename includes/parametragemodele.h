@@ -43,6 +43,8 @@ class NouveauModele : public QWidget {
     QComboBox* liste_regle_transition;
     QPushButton* bouton_valide;
 
+    QHBoxLayout* layoutvalid;
+
     //definition frame règle de transitions
     QWidget* fenetre_regle;
     QLabel* seuilMax;

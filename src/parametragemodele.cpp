@@ -56,16 +56,21 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));
 
     bouton_valide = new QPushButton("Valider");
-    bouton_valide->setFixedWidth(50);
 
+    layoutvalid = new QHBoxLayout;
+
+    boutonEtat = new QPushButton("Etats");
+
+    connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
 
     //ajout regle :
 
     form_choix->addRow("Nombre d'états :", nb_etats);
     form_choix->addRow("Règle de transition :", liste_regle_transition);
     form_choix->addRow("Voisinage :", liste_voisinage);
-    form_choix->addWidget(bouton_valide);
-
+    form_choix->addRow(layoutvalid);
+    layoutvalid->addWidget(bouton_valide);
+    layoutvalid->addWidget(boutonEtat);
 
     general->addWidget(fenetre_init, 0, 0, 9, 1);
 
@@ -87,10 +92,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     general->addWidget(fenetre_param, 0, 1, 9, 1);
     */
-    boutonEtat = new QPushButton("Etats");
-    boutonEtat->setFixedWidth(50);
-    connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
-    form_choix->addWidget(boutonEtat);
 
 
 }
