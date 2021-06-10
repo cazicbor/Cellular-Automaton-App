@@ -1163,23 +1163,167 @@ INSERT INTO regles_transition VALUES(
 );
 
 -- 201422
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, 1, 1, NULL, 1, NULL, NULL, NULL,
+	1, 1, 1, NULL, 1, NULL, NULL, NULL, 
+	2, 2
+);
+
 -- 201722
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, 1, 1, NULL, NULL, NULL, NULL, 1,
+	1, 1, 1, NULL, NULL, NULL, NULL, 1, 
+	2, 2
+);
+
 -- 202022
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 2, NULL, NULL, NULL, NULL, NULL,
+	2, NULL, 2, NULL, NULL, NULL, NULL, NULL, 
+	2, 2
+);
+
 -- 202032
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, 1, NULL, NULL, NULL, NULL,
+	2, NULL, 1, 1, NULL, NULL, NULL, NULL, 
+	2, 2
+);
+
 -- 202052
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, NULL, NULL, 1, NULL, NULL,
+	2, NULL, 1, NULL, NULL, 1, NULL, NULL, 
+	2, 2
+);
+
 -- 202073
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	2, NULL, 1, NULL, NULL, NULL, NULL, 1,
+	2, NULL, 1, NULL, NULL, NULL, NULL, 1, 
+	2, 3
+);
+
 -- 202122
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, 1, 2, NULL, NULL, NULL, NULL, NULL,
+	1, 1, 2, NULL, NULL, NULL, NULL, NULL, 
+	2, 2
+);
+
 -- 202152
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, 1, 1, NULL, NULL, 1, NULL, NULL,
+	1, 1, 1, NULL, NULL, 1, NULL, NULL, 
+	2, 2
+);
+
 -- 202212
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, 1, 2, NULL, NULL, NULL, NULL, NULL,
+	1, 1, 2, NULL, NULL, NULL, NULL, NULL, 
+	2, 2
+);
+
 -- 202222
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 3, NULL, NULL, NULL, NULL, NULL,
+	1, NULL, 3, NULL, NULL, NULL, NULL, NULL, 
+	2, 2
+);
+
 -- 202272
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 2, NULL, NULL, NULL, NULL, 1,
+	1, NULL, 2, NULL, NULL, NULL, NULL, 1, 
+	2, 2
+);
+
 -- 202321
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 2, 1, NULL, NULL, NULL, NULL,
+	1, NULL, 2, 1, NULL, NULL, NULL, NULL, 
+	2, 1
+);
+
 -- 202422
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 2, NULL, 1, NULL, NULL, NULL,
+	1, NULL, 2, NULL, 1, NULL, NULL, NULL, 
+	2, 2
+);
+
 -- 202452
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 1, NULL, 1, 1, NULL, NULL,
+	1, NULL, 1, NULL, 1, 1, NULL, NULL, 
+	2, 2
+);
+
 -- 202520
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 2, NULL, NULL, 1, NULL, NULL,
+	1, NULL, 2, NULL, NULL, 1, NULL, NULL, 
+	2, 0
+);
+
 -- 202552
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 1, NULL, NULL, 2, NULL, NULL,
+	1, NULL, 1, NULL, NULL, 2, NULL, NULL, 
+	2, 2
+);
+
 -- 202622
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 2, NULL, NULL, NULL, 1, NULL,
+	1, NULL, 2, NULL, NULL, NULL, 1, NULL, 
+	2, 2
+);
+
 -- 202722
+
+INSERT INTO regles_transition VALUES(
+	"Langton s loop",
+	1, NULL, 2, NULL, NULL, NULL, NULL, 1,
+	1, NULL, 2, NULL, NULL, NULL, NULL, 1, 
+	2, 2
+);
+
 -- 203122
 -- 203216
 -- 203226
