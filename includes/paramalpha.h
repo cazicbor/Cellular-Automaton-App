@@ -9,7 +9,6 @@
 #include <QWidget>
 #include <QFormLayout>
 #include <reseau_cellule_etats.h>
-#include <Automate.h>
 
 class ParamAlpha: public QWidget {
 	Q_OBJECT
@@ -25,8 +24,9 @@ class ParamAlpha: public QWidget {
 		QSpinBox* blue[8];
 
 		QPushButton* valider;
+	public:
+		ParamAlpha(const int nbEtats);
 	public slots:
-		void addEtats(const int nbEtats);
 		void valide();
 };
 

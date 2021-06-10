@@ -1,11 +1,7 @@
 #include <paramalpha.h>
+#include <Automate.h>
 
-void ParamAlpha::addEtats(const int nbEtats) {
-	if(nbEtats <= 0 || nbEtats > 8)
-		throw "Nombre invalide!";
-
-	nb = nbEtats;
-
+ParamAlpha::ParamAlpha(const int nbEtats): QWidget(), nb(nbEtats) {
 	this->setWindowTitle("Configuration des états");
 	this->setMinimumSize(900, 700);
 
@@ -36,20 +32,20 @@ void ParamAlpha::addEtats(const int nbEtats) {
 
 	general->addLayout(form[0], 0, 0, 1, 1);
 	if(nb >= 2)
-		general->addLayout(form[0], 0, 1, 1, 1);
+		general->addLayout(form[1], 0, 1, 1, 1);
 	if(nb >= 3)
-		general->addLayout(form[0], 0, 2, 1, 1);
+		general->addLayout(form[2], 0, 2, 1, 1);
 	if(nb >= 4)
-		general->addLayout(form[0], 1, 0, 1, 1);
+		general->addLayout(form[3], 1, 0, 1, 1);
 	if(nb >= 5)
-		general->addLayout(form[0], 1, 1, 1, 1);
+		general->addLayout(form[4], 1, 1, 1, 1);
 	if(nb >= 6)
-		general->addLayout(form[0], 1, 2, 1, 1);
+		general->addLayout(form[5], 1, 2, 1, 1);
 	if(nb >= 7)
-		general->addLayout(form[0], 2, 0, 1, 1);
+		general->addLayout(form[6], 2, 0, 1, 1);
 	if(nb == 8)
-		general->addLayout(form[0], 2, 1, 1, 1);
-	general->addWidget(valider, 2, 1, 1, 1);
+		general->addLayout(form[7], 2, 1, 1, 1);
+	general->addWidget(valider, 2, 2, 1, 1, Qt::AlignBottom);
 }
 
 void ParamAlpha::valide() {

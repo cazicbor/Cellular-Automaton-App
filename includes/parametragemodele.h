@@ -2,6 +2,7 @@
 #define PARAMETRAGEMODELE_H
 
 #include <reseau_cellule_etats.h>
+#include <paramalpha.h>
 
 #include <QObject>
 #include <QApplication>
@@ -68,6 +69,8 @@ class NouveauModele : public QWidget {
 
     //définition de la frame contenant la grille de sélection du voisinage
     QTableWidget* grid;
+    std::unique_ptr<ParamAlpha> paramAlpha;
+    QPushButton* boutonEtat;
 
 public:
     NouveauModele(QWidget* parent = nullptr);
@@ -78,6 +81,7 @@ public slots:
     void modifGrille(const QModelIndex& index);
     void paramRegle(const QString& choix_regle);
     void choisirEtatCourant(bool checked);
+    void parametrerEtats();
 
 
 };
