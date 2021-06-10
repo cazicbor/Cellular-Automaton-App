@@ -81,12 +81,10 @@ public slots:
     void affGrille();
     void modifGrille(const QModelIndex& index);
     void paramRegle(const QString& choix_regle);
-<<<<<<< HEAD
+
     void choisirEtatCourant(const QString& validEtat);
-=======
-    void choisirEtatCourant(bool checked);
     void parametrerEtats();
->>>>>>> b75009b4f263c0958c988e2906423ed9f3c2a961
+
 
 
 };
