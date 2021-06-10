@@ -480,3 +480,27 @@ void Database::stockerReseau(const Reseau& reseau, const QString& nomReseau, con
     }
 }
 
+void Database::initSingletonAutomate(QString& modele) const
+{
+    Automate::getInstance().reinitialiserAutomate();
+
+    QSqlQuery reseau(db);
+    reseau.prepare("SELECT * FROM automates WHERE nom = :id");
+    reseau.bindValue(":id", modele);
+    reseau.exec();
+
+    Automate::getInstance().setTitle(reseau.value("nom").toString().toStdString());
+    Automate::getInstance().setAuthor(reseau.value("auteur").toString().toStdString());
+    Automate::getInstance().setDesc(reseau.value("description").toString().toStdString());
+    Automate::getInstance().setYear(reseau.value("annee").toInt());
+
+    Automate::getInstance().setFonction(*Database::getFonction(Automate::getInstance()));
+    Automate::getInstance().setRegleVoisinage(*Database::getRegleVoisinage(modele));
+
+    Database::initEnsEtat(Automate::getInstance());
+    //Automate::getInstance().getEnsemble();
+
+    std::vector<QString> reseaux = Database::getListeReseaux(modele);
+    Automate::getInstance().setReseauInit(Database::getReseau(reseaux[0].toInt()));
+    Automate::getInstance().initialiserBuffer();
+}
