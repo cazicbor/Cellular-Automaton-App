@@ -159,8 +159,8 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     connect(etatDest, SIGNAL(toggled(bool)), this, SLOT(choisirEtatCourant(bool)));
 }
 
-void choisirEtatCourant(bool checked){
-     numEtatCourant = new QSpinBox*;
+void NouveauModele::choisirEtatCourant(bool checked){
+     numEtatCourant = new QSpinBox;
 
 }
 void NouveauModele::affGrille() {
