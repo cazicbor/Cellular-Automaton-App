@@ -181,7 +181,7 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 
     button_save_grid = new QPushButton("sauvegarder");
     button_save_grid->setFixedWidth(90);
-    connect(button_save_grid,SIGNAL(clicked()),this,SLOT(sauvergarderGrille()));
+    connect(button_save_grid,SIGNAL(clicked()),this,SLOT(sauvegarderGrille()));
 
     grid_run_control->addWidget(lab_sauv_grille,4,0,1,3, Qt::AlignBottom);
     grid_run_control->addWidget(edit_nom_grille,5,0, Qt::AlignBottom);
