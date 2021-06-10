@@ -1,7 +1,7 @@
 #ifndef AUTOCELL_H
 #define AUTOCELL_H
 
-#include "reseau_cellule_etats.h"
+#include <reseau_cellule_etats.h>
 
 #include <QObject>
 #include <QApplication>
