@@ -4,6 +4,8 @@ QT += widgets
 
 INCLUDEPATH += "includes"
 
+QMAKE_CXXFLAGS = -g -ggdb
+
 SOURCES += src/autocell.cpp
 SOURCES += src/voisinage.cpp
 SOURCES += src/reseau_cellule_etats.cpp

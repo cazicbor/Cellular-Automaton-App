@@ -10,7 +10,10 @@ bool RegleAvecEtatCourant::verify(const Voisinage& voisins, const Cellule& cellu
 	cellules->first();
 
 	while(!cellules->isDone())
+	{
 		nb[cellules->currentItem()->getIndEtat()]++;
+		cellules->next();
+	}
 
 	delete cellules;
 
@@ -28,7 +31,10 @@ bool Regle::verify(const Voisinage& voisins, const Cellule& cellule) const {
 	cellules->first();
 
 	while(!cellules->isDone())
+	{
 		nb[cellules->currentItem()->getIndEtat()]++;
+		cellules->next();
+	}
 
 	delete cellules;
 

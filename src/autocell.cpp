@@ -146,14 +146,15 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     edit_time_step = new QLineEdit;
     edit_time_step->setStyleSheet("background-color: rgb(255,255,255)");
     edit_time_step->setFixedWidth(30);
-    edit_time_step->setText("1"); //valeur par défaut pour le pas de temps
+    edit_time_step->setText("1000"); //valeur par défaut pour le pas de temps
     button_valider_delai = new QPushButton("valider");
     button_valider_delai->setStyleSheet("background-color: rgb(255,255,255)");
     button_valider_delai->setFixedWidth(50);
-    //connect(button_valider_delai, SIGNAL(clicked()), Automate::getInstance(), SLOT(Automate::getInstance().setDelai()));
+    connect(button_valider_delai, SIGNAL(clicked()), this, SLOT(changeDelai()));
     button_prev = new QPushButton("<<");
     button_prev->setStyleSheet("background-color: rgb(255,255,255)");
     button_prev->setFixedSize(40,40);
+    connect(button_prev, SIGNAL(clicked()), this, SLOT(previous()));
     button_run = new QPushButton("RUN");
     button_run->setFixedSize(40,40);
     button_run->setStyleSheet("background-color: rgb(255,255,255)");
@@ -161,6 +162,7 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     button_next = new QPushButton(">>");
     button_next->setFixedSize(40,40);
     button_next->setStyleSheet("background-color: rgb(255,255,255)");
+    connect(button_next, SIGNAL(clicked()), this, SLOT(next()));
     button_reinitialiser = new QPushButton("Réinitialiser la simulation");
     button_reinitialiser->setStyleSheet("background-color: rgb(255,255,255)");
     button_reinitialiser->setFixedWidth(200);
@@ -282,7 +284,8 @@ void AutoCell::initialiserGrille(){
 
     this->Grille = new Reseau(h,l);
 
-    if (check_aleatoire->isChecked()) Grille->setAleatoire();
+    if (check_aleatoire->isChecked())
+	    Grille->setAleatoire();
 
     QString nom_grille = list_grids->currentText();
 
@@ -301,6 +304,8 @@ void AutoCell::initialiserGrille(){
     Automate::getInstance().reset();
 
     this->afficherGrille(this->Grille);
+    Automate::getInstance().setReseauInit(*Grille);
+    Automate::getInstance().initialiserBuffer();
 
 };
 void AutoCell::RAZ(){
@@ -308,7 +313,7 @@ void AutoCell::RAZ(){
     grid = new QTableWidget(0,0,win_grid);
     edit_largeur->setText("");
     edit_hauteur->setText("");
-    edit_time_step->setText("1");
+    edit_time_step->setText("1000");
     check_aleatoire->setCheckState(Qt::Unchecked);
     check_load_grid->setCheckState(Qt::Unchecked);
 ;}
@@ -387,4 +392,17 @@ void AutoCell::afficherErreur(QString& msg){
 void AutoCell::initAutomate(const QString& name) {
 	std::cout << name.toStdString() << std::endl;
 	Database::getInstance().initSingletonAutomate(name);
+}
+
+void AutoCell::changeDelai() {
+	// @todo : implémenter un message d'erreur
+	Automate::getInstance().setDelai(static_cast<unsigned int>(edit_time_step->text().toInt()));
+}
+
+void AutoCell::next() {
+	Automate::getInstance().step();
+}
+
+void AutoCell::previous() {
+	Automate::getInstance().previous();
 }

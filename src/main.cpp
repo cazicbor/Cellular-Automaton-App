@@ -22,13 +22,6 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 
-    EnsembleEtat enseEtats;
-
-    enseEtats.ajouterEtat(0, "vivant", 239, 239, 239);
-    enseEtats.ajouterEtat(1, "mort", 90, 94, 107);
-    enseEtats.ajouterEtat(2, "zombie", 131, 166, 151);
-    enseEtats.ajouterEtat(3, "fantôme", 22, 166, 151);
-
     AutoCell::getInstance().show();
 
     return app.exec();
