@@ -41,7 +41,7 @@ class Database {
 		void saveFunction(const QString& name, const Fonction& f) const;
 		void saveVoisinage(const QString& name, const RegleVoisinage& r) const;
 		void saveEnsemble(Automate& a) const;
-		 void initSingletonAutomate(QString& modele) const;
+		void initSingletonAutomate(const QString& modele) const;
 };
 
 #endif

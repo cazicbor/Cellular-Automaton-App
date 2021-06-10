@@ -116,6 +116,7 @@ class AutoCell : public QWidget
     void sauvegarderGrille();
     void defNouveauModele();
     void afficherErreur(QString& msg);
+    void initAutomate(const QString& name);
 };
 
 #endif // AUTOCELL_H

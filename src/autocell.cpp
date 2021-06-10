@@ -76,6 +76,7 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 
     connect(liste,SIGNAL(currentIndexChanged(int)),this,SLOT(RAZ()));
     connect(liste,SIGNAL(currentIndexChanged(int)),this,SLOT(chargerGrilles()));
+    connect(liste,SIGNAL(currentTextChanged(const QString&)),this,SLOT(initAutomate(const QString&)));
 
 
     grid_model_choice = new QGridLayout(win_model_choice);
@@ -380,4 +381,9 @@ void AutoCell::afficherErreur(QString& msg){
     QMessageBox messageBox;
     messageBox.critical(0,"Error",msg);
     messageBox.setFixedSize(500,200);
+}
+
+void AutoCell::initAutomate(const QString& name) {
+	std::cout << name.toStdString() << std::endl;
+	Database::getInstance().initSingletonAutomate(name);
 }

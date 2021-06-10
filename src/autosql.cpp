@@ -234,6 +234,8 @@ Reseau& Database::getReseau(int idReseau) const {
     reseau.prepare("SELECT * FROM reseaux WHERE id = :id");
     reseau.bindValue(":id", idReseau);
     reseau.exec();
+    if(!reseau.first())
+	    throw "Can't select!";
     Reseau* r = new Reseau(reseau.value("h").toUInt(), reseau.value("l").toUInt());
 
     //remplissage du réseau
@@ -247,6 +249,8 @@ Reseau& Database::getReseau(int idReseau) const {
             cellule.bindValue(":i", static_cast<int>(i));
             cellule.bindValue(":j", static_cast<int>(j));
             cellule.exec();
+	    if(!cellule.first())
+		    throw "Can't select!";
             while(static_cast<int>(r->getReseau()[i][j].getIndEtat()) != cellule.value("etat").toInt())
                 r->getReseau()[i][j].incrementerEtat();
         }
@@ -414,6 +418,8 @@ void Database::saveEnsemble(Automate& a) const {
 	QSqlQuery query(db);
     query.prepare("SELECT COUNT(*) FROM EnsembleEtats");
     query.exec();
+    if(!query.first())
+	    throw "Error sql!";
     int idEns = query.value(0).toInt() + 1;
 
     //Insertion du tuple dans EnsembleEtats
@@ -454,6 +460,8 @@ void Database::stockerReseau(const Reseau& reseau, const QString& nomReseau, con
     QSqlQuery query(db);
     query.prepare("SELECT COUNT(*) FROM reseaux");
     query.exec();
+    if(!query.first())
+	    throw "error sql!";
     int idReseau = query.value(0).toInt() + 1;
 
     //Insertion du tuple dans reseaux
@@ -480,24 +488,27 @@ void Database::stockerReseau(const Reseau& reseau, const QString& nomReseau, con
     }
 }
 
-void Database::initSingletonAutomate(QString& modele) const
+void Database::initSingletonAutomate(const QString& modele) const
 {
     Automate::getInstance().reinitialiserAutomate();
 
     QSqlQuery reseau(db);
-    reseau.prepare("SELECT * FROM automates WHERE nom = :id");
+    reseau.prepare("SELECT nom, auteur, description, annee FROM automates WHERE nom = :id");
     reseau.bindValue(":id", modele);
     reseau.exec();
 
-    Automate::getInstance().setTitle(reseau.value("nom").toString().toStdString());
-    Automate::getInstance().setAuthor(reseau.value("auteur").toString().toStdString());
-    Automate::getInstance().setDesc(reseau.value("description").toString().toStdString());
-    Automate::getInstance().setYear(reseau.value("annee").toInt());
+    if(!reseau.first())
+	    throw "Can't select!";
 
+    Automate::getInstance().setTitle(reseau.value(0).toString().toStdString());
+    Automate::getInstance().setAuthor(reseau.value(1).toString().toStdString());
+    Automate::getInstance().setDesc(reseau.value(2).toString().toStdString());
+    Automate::getInstance().setYear(reseau.value(3).toInt());
+
+    Database::initEnsEtat(Automate::getInstance());
     Automate::getInstance().setFonction(*Database::getFonction(Automate::getInstance()));
     Automate::getInstance().setRegleVoisinage(*Database::getRegleVoisinage(modele));
 
-    Database::initEnsEtat(Automate::getInstance());
     //Automate::getInstance().getEnsemble();
 
     std::vector<QString> reseaux = Database::getListeReseaux(modele);
