@@ -105,7 +105,16 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     general->addWidget(fenetre_param, 0, 1, 9, 1);
     */
+    boutonEtat = new QPushButton("Etats");
+    boutonEtat->setFixedWidth(50);
+    connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
+    form_choix->addWidget(boutonEtat);
 
+}
+
+void NouveauModele::parametrerEtats() {
+	paramAlpha.reset(new ParamAlpha(nb_etats->value()));
+	paramAlpha->show();
 }
 
 void NouveauModele::paramVoisinage(const QString& choix_voisinage){

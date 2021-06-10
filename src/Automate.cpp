@@ -29,3 +29,19 @@ void Automate::nextTimer()
 		}
 	}
 }
+
+void Automate::reinitialiserAutomate(){
+    title = "";
+    delai = 500;
+    delete fonction;
+    delete regleVoisinage;
+    buffer.clear();
+    itBuffer = buffer.begin();
+    h = 0;
+    l = 0;
+    reseauInit = Reseau(0, 0);
+    year = 2000;
+    author = "Anonym";
+    desc = "";
+    ensemble.reset();
+}
