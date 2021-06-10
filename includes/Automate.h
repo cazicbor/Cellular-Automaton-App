@@ -70,11 +70,11 @@ class Automate {
 		/// Définir la fonction de transition de l'automate, le cycle de vie de la focntion est géré par l'utilisateur
 		void setFonction(Fonction& f) { fonction = &f; }
 		/// Récupérer la fonction de transition
-		const Fonction& getFonction() const { return *fonction; }
+		Fonction& getFonction() { return *fonction; }
 		/// Définir une règle de voisinage, le cycle de vie de la règle est géré par l'utilisateur
 		void setRegleVoisinage(RegleVoisinage& r) { regleVoisinage = &r; }
 		/// Récupérer la règle de voisinage
-		const RegleVoisinage& getRegleVoisinage() const { return *regleVoisinage; }
+		RegleVoisinage& getRegleVoisinage() { return *regleVoisinage; }
 		/// Définir le délai entre 2 itérations de l'automate en mode Timer
 		void setDelai(const unsigned int d) { delai = d; }
 
