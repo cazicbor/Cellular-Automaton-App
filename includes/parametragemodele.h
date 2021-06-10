@@ -55,10 +55,22 @@ class NouveauModele : public QWidget {
     QSpinBox* numEtatCourant;
     QSpinBox* etatDest;
 
-    QPushButton* fin, next;
+    QPushButton* fin;
+    QPushButton* next;
     QIntValidator* seuilValidator;
     QLineEdit* numSeuilMin[8];
     QLineEdit* numSeuilMax[8];
+
+    QVBoxLayout* layoutv = new QVBoxLayout;
+    QHBoxLayout* layouth1 = new QHBoxLayout;
+    QHBoxLayout* layouth2 = new QHBoxLayout;
+    QHBoxLayout* layouth3 = new QHBoxLayout;
+    QHBoxLayout* layouth4 = new QHBoxLayout;
+
+    QVBoxLayout* layoutv2 = new QVBoxLayout;
+    QHBoxLayout* layouth5 = new QHBoxLayout;
+    QHBoxLayout* layouth6 = new QHBoxLayout;
+
 
     //définition de la frame paramétrage du choix
     QWidget* fenetre_param;

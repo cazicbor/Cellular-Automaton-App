@@ -12,7 +12,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     fenetre_init = new QWidget;
     fenetre_init->setStyleSheet("background-color: rgb(204, 209, 209)");
-    fenetre_init->setFixedWidth(300);
+    fenetre_init->setFixedWidth(500);
     label_init = new QLabel("Configuration du modèle :");
 
     form_init = new QGridLayout(fenetre_init);
@@ -106,6 +106,17 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
     form_choix->addWidget(boutonEtat);
 
+    form_choix->addRow(layoutv);
+    layoutv->addLayout(layouth1);
+    layoutv->addLayout(layouth2);
+    layoutv->addLayout(layouth3);
+    layoutv->addLayout(layouth4);
+
+    form_choix->addRow(layoutv2);
+    layoutv2->addLayout(layouth5);
+    layoutv2->addLayout(layouth6);
+
+
 }
 
 void NouveauModele::parametrerEtats() {
@@ -146,21 +157,26 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     valid_Etat->addItem("Non");
     valid_Etat->setCurrentIndex(-1);
 
-
-
-
     if (choix_regle == "Nouvelle fonction de transition") {
         seuilValidator=new QIntValidator;
 
         seuilValidator->setRange(0,1);
-        QVBoxLayout* layoutv = new QVBoxLayout;
-        QHBoxLayout* layouth1 = new QHBoxLayout;
-        QHBoxLayout* layouth2 = new QHBoxLayout;
-        QHBoxLayout* layouth3 = new QHBoxLayout;
-        QHBoxLayout* layouth4 = new QHBoxLayout;
+        if ( layouth1 != nullptr){
+            delete layouth1;
+        }
+        if (layouth2 != nullptr){
+            delete layouth2;
+        }
+        if (layouth3 != nullptr){
+            delete layouth3;
+        }
+        if (layouth4 != nullptr){
+            delete layouth4;
+        }
+        if (layoutv != nullptr){
+            delete layoutv;
+        }
 
-        form_choix->addRow(layoutv);
-        layoutv->addLayout(layouth1);
         layouth1->addWidget(seuilMin);
         for(unsigned int i=0; i<8; i++) {
             numSeuilMin[i]=new QLineEdit;
@@ -168,10 +184,12 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
             numSeuilMin[i]->setMaxLength(2);
             numSeuilMin[i]->setText("-1");
             numSeuilMin[i]->setValidator(seuilValidator);
+            if (i<nb_etats->value()){
             layouth1->addWidget(numSeuilMin[i]);
+            }
          }
 
-         layoutv->addLayout(layouth2);
+
          layouth2->addWidget(seuilMax);
          for(unsigned int i=0; i<8; i++) {
              numSeuilMax[i]=new QLineEdit;
@@ -179,12 +197,13 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
              numSeuilMax[i]->setMaxLength(2);
              numSeuilMax[i]->setText("-1");
              numSeuilMax[i]->setValidator(seuilValidator);
+             if (i<nb_etats->value()){
              layouth2->addWidget(numSeuilMax[i]);
+             }
          }
-         layoutv->addLayout(layouth3);
          layouth3->addWidget(destination);
          layouth3->addWidget(etatDest);
-         layoutv->addLayout(layouth4);
+
          layouth4->addWidget(etatCourant);
          layouth4->addWidget(valid_Etat);
          connect(valid_Etat, SIGNAL(currentTextChanged(const QString&)), this, SLOT(choisirEtatCourant(const QString&)));
@@ -193,18 +212,31 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
 
 void NouveauModele::choisirEtatCourant(const QString& validEtat){
     etatCourant2 = new QLabel("Etat Courant : ");
-    QHBoxLayout* layout = new QHBoxLayout;
-    form_choix->addRow(layout);
 
+    fin = new QPushButton("Terminer");
+    next = new QPushButton("Règle suivante");
 
     if (validEtat == "Oui"){
+
+
         numEtatCourant = new QSpinBox;
         numEtatCourant->setRange(1,8);
 
-        layout->addWidget(etatCourant);
-        layout->addWidget(numEtatCourant);
+        layouth5->addWidget(etatCourant2);
+        layouth5->addWidget(numEtatCourant);
+
+
+
+        layouth6->addWidget(fin);
+        layouth6->addWidget(next);
+
     }else{
-       delete layout;
+       QHBoxLayout* layout = new QHBoxLayout;
+       form_choix->addRow(layout);
+       layout->addWidget(fin);
+       layout->addWidget(next);
+
+
     }
 
 }
