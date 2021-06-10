@@ -72,6 +72,7 @@ class RegleVoisinage{
 		virtual int getType() const = 0;
 		/// Renvoie le rayon d'une règle de voisinage, 0 si ce n'est pas pertinant pour ce voisinage (arbitraire, ...)
 		virtual unsigned int getr() const { return 0; }
+		virtual ~RegleVoisinage() = default;
 };
 
 class RegleVoisinageNeumann : public RegleVoisinage {
