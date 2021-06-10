@@ -1,5 +1,5 @@
 INSERT INTO automates VALUES (
-	"Brian's brain",
+	"Brian s brain",
 	500,
 	"Comparable à un cerveau, dont les cellules seraient des neurones qui peuvent être dans trois états.",
 	"Brian Silverman",
@@ -8,7 +8,7 @@ INSERT INTO automates VALUES (
 
 INSERT INTO EnsembleEtats VALUES(
 	1,
-	"Brian's brain"
+	"Brian s brain"
 );
 
 -- 3 états : on, dying and off --> vivant (blanc), mourant (gris), mort (noir)
@@ -43,7 +43,7 @@ INSERT INTO Etats VALUES(
 -- utilise un voisinage de Moore
 
 INSERT INTO regles_voisinage VALUES(
-	"Brian's brain",
+	"Brian s brain",
 	2,
 	1
 );
@@ -53,7 +53,7 @@ INSERT INTO regles_voisinage VALUES(
 -- cellule devient vivante si elle est morte et a 2 voisins vivants
 
 INSERT INTO regles_transition VALUES(
-	"Brian's brain",
+	"Brian s brain",
 	2, 
 	NULL, 
 	NULL, 
@@ -77,7 +77,7 @@ INSERT INTO regles_transition VALUES(
 -- cellule vivante devient mourante
 
 INSERT INTO regles_transition VALUES(
-	"Brian's brain",
+	"Brian s brain",
 	NULL, 
 	NULL, 
 	NULL, 
@@ -101,7 +101,7 @@ INSERT INTO regles_transition VALUES(
 -- cellule mourante devient morte
 
 INSERT INTO regles_transition VALUES(
-	"Brian's brain",
+	"Brian s brain",
 	NULL, 
 	NULL, 
 	NULL, 
@@ -126,10 +126,10 @@ INSERT INTO regles_transition VALUES(
 
 INSERT INTO reseaux VALUES(
 	0,  
-	"Grille 5*5 - Brian's Brain", 
+	"Grille 5*5 - Brian s Brain", 
 	5, 
 	5,
-	"Brian's brain"
+	"Brian s brain"
 );
 
 INSERT INTO Cellules VALUES(
@@ -276,10 +276,10 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO reseaux VALUES(
 	1,  
-	"Grille oscillateur 4*4 - Brian's Brain", 
+	"Grille oscillateur 4*4 - Brian s Brain", 
 	4, 
 	4,
-	"Brian's brain"
+	"Brian s brain"
 );
 
 INSERT INTO Cellules VALUES(

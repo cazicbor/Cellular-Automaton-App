@@ -1,7 +1,7 @@
 #ifndef AUTOCELL_H
 #define AUTOCELL_H
 
-#include "reseau_cellule_etats.h"
+#include <reseau_cellule_etats.h>
 
 #include <QObject>
 #include <QApplication>
@@ -29,6 +29,7 @@ class AutoCell : public QWidget
     static std::unique_ptr<AutoCell> instance;
 
     Reseau* Grille = nullptr;
+    std::vector<QString> listeGrille;
 
     Q_OBJECT
     QGridLayout* general;
@@ -70,6 +71,8 @@ class AutoCell : public QWidget
     QPushButton* button_next;
     QPushButton* button_reinitialiser;
 
+    QLabel* lab_sauv_grille;
+    QLineEdit* edit_nom_grille;
     QPushButton* button_save_grid;
 
     //définition de la frame affichage de la grille
@@ -95,11 +98,11 @@ class AutoCell : public QWidget
     public slots:
     //void chargerModele();
     //void listerModele(); //à faire en dernier
-    //void chargerGrille();
+    void chargerGrilles();
     //void listerGrille(); //déjà réfléchir à la recopie
     //Reseau initialiserGrille(); //méthode à implémenter qui récupère les données du formulaire - penser à réinitialiser les données annexes
     //void afficherGrille(Reseau&); //affiche une grille
-    void chargerGrilles(const QString &text);
+    //void chargerGrilles(const QString &text);
 
     void afficherGrille(Reseau* Grille);
 

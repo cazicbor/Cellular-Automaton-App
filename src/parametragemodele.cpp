@@ -1,5 +1,4 @@
 #include"parametragemodele.h"
-#include"fonction.h"
 
 
 NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
@@ -29,24 +28,38 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     //choisir un voisinage
     liste_voisinage = new QComboBox;
-    liste_voisinage->setPlaceholderText("--- select ---");
-    liste_voisinage->setCurrentIndex(-1);
 
-    //liste_voisinage->addItem("--- select ---");
-    liste_voisinage->addItem("Voisinage de von Neumann");
+    liste_voisinage->addItem("--- select ---");
+    /*
     liste_voisinage->addItem("Voisinage de Moore");
+    liste_voisinage->addItem("Voisinage de von Neumann");
     liste_voisinage->addItem("Voisinage arbitraire");
+
+    //liste_voisinage->setPlaceholderText("--- select ---");
+    liste_voisinage->setCurrentIndex(-1);
+    */
 
     connect(liste_voisinage, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramVoisinage(const QString&)));
 
     //choisir une règle de transition
     liste_regle_transition = new QComboBox;
+    //liste_regle_transition->setPlaceholderText("--- select ---");
+
+    //liste_regle_transition->addItem("--- select ---");
     liste_regle_transition->addItem("Life Game");
+    liste_regle_transition->addItem("Langston's Loop");
     liste_regle_transition->addItem("Brian's brain");
     liste_regle_transition->addItem("Circulaire de Griffeath");
     liste_regle_transition->addItem("Langston's Loop");
     liste_regle_transition->addItem("Nouvelle fonction de transition");
 
+
+
+
+    liste_regle_transition->setCurrentIndex(-1);
+
+    //connect(liste_regle_transition, SIGNAL(currentIndexChanged(int)), liste_voisinage, SLOT(setCurrentIndex(int)));
+    connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(changerVoisinage(const QString&)));
     connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));
 
     bouton_valide = new QPushButton("Valider");
@@ -54,10 +67,23 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     //connect(bouton_valide, SIGNAL(clicked()), SLOT(affParametrage()));
 
+    //ajout regle :
+
+
+
+
+
+
     form_choix->addRow("Nombre d'états :", nb_etats);
-    form_choix->addRow("Voisinage :", liste_voisinage);
     form_choix->addRow("Règle de transition :", liste_regle_transition);
+    form_choix->addRow("Voisinage :", liste_voisinage);
     form_choix->addWidget(bouton_valide);
+
+
+
+
+
+
 
     general->addWidget(fenetre_init, 0, 0, 9, 1);
 
@@ -102,8 +128,16 @@ void NouveauModele::paramVoisinage(const QString& choix_voisinage){
     //}
 
 }
-
 void NouveauModele::paramRegle(const QString& choix_regle) {
+    seuilMax = new QLabel("Seuil Max : ");
+    seuilMin = new QLabel("Seuil Min : ");
+    destination = new QLabel("Destination : ");
+    etatCourant = new QLabel("Etat Courant : ");
+
+    valid_Etat = new QCheckBox;
+
+    etatDest = new QSpinBox;
+    etatDest->setRange(1,8);
 
 
     if (choix_regle == "Nouvelle fonction de transition") {
@@ -118,8 +152,17 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
                 form_init->addWidget(numSeuilMin[i]);
             }
     }
+    form_choix->addRow(seuilMin);
+    form_choix->addRow(seuilMax);
+    form_choix->addRow(destination, etatDest);
+    form_choix->addRow(etatCourant, valid_Etat);
+    connect(etatDest, SIGNAL(toggled(bool)), this, SLOT(choisirEtatCourant(bool)));
 }
 
+void NouveauModele::choisirEtatCourant(bool checked){
+     numEtatCourant = new QSpinBox;
+
+}
 void NouveauModele::affGrille() {
     delete grid;
     grid = new QTableWidget(5, 5);
@@ -178,7 +221,33 @@ void NouveauModele::modifGrille(const QModelIndex& index){
 
 }
 
+void NouveauModele::changerVoisinage(const QString& choix_regle){
+
+    delete liste_voisinage;
+    form_choix->removeRow(2);
+    liste_voisinage = new QComboBox();
 
 
 
+    if(choix_regle == "Life Game"){
+        //liste_voisinage->addItem("--- select ---");
+        liste_voisinage->addItem("Voisinage de von Neumann");
+        liste_voisinage->addItem("Voisinage arbitraire");
+        liste_voisinage->setCurrentIndex(-1);
+    }
+    else if(choix_regle == "Langston's Loop"){
+        liste_voisinage->addItem("Voisinage de Moore");
+        liste_voisinage->addItem("Voisinage arbitraire");
+        liste_voisinage->setCurrentIndex(-1);
+    }
+    else if(choix_regle == "Brian's brain" || choix_regle == "Circulaire de Griffeath"){
+        //liste_voisinage->addItem("--- select ---");
+        liste_voisinage->addItem("Voisinage de Moore");
+        liste_voisinage->addItem("Voisinage de von Neumann");
+        liste_voisinage->addItem("Voisinage arbitraire");
+        liste_voisinage->setCurrentIndex(-1);
+    }
+    form_choix->insertRow(2, "Voisinage :", liste_voisinage);
+    connect(liste_voisinage, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramVoisinage(const QString&)));
+}
 

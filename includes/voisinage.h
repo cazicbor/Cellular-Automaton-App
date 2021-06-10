@@ -14,6 +14,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include"parametragemodele.h"
 
 
 using namespace std;
@@ -78,9 +79,9 @@ class RegleVoisinageNeumann : public RegleVoisinage {
 		unsigned int rayon;
 	public:
 		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
-		void setr(unsigned int r);
-		unsigned int getr() const { return rayon; }
-		int getType() const { return 1; }
+		void setr(unsigned int r) { rayon = r; }
+        unsigned int getr() const override { return rayon; }
+        int getType() const override { return 1; }
 };
 
 class RegleVoisinageMoore : public RegleVoisinage {
@@ -88,21 +89,21 @@ class RegleVoisinageMoore : public RegleVoisinage {
 		unsigned int rayon;
 	public:
 		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
-		void setr(unsigned int r);
-		unsigned int getr() const { return rayon; }
-		int getType() const { return 2; }
+		void setr(unsigned int r) { rayon = r; }
+        unsigned int getr() const override { return rayon; }
+        int getType() const override { return 2; }
 };
 
 class RegleVoisinageArbitraire : public RegleVoisinage { //définit la règle pour le voisinage arbitraire
-	private:
-		unsigned int nbVoisin;
-	public:
-		int getType() const { return 3; }
-		void setNbVoisins(unsigned int r) { nbVoisin = r; }
-		unsigned int getNbVoisin() { return nbVoisin; }
-		vector<Coordonnees> coordonnees;
-		void calculVoisinage(Voisinage& v, const Reseau& r) const; // Calcul du voisinage en fonction de la cellule centre
-//		Coordonnees getVoisinage(const Reseau& r); // Dééfinition des coordonnées relatives pour le calcul du voisinage
+    private:
+        unsigned int nbVoisin;
+    public:
+        int getType() const override{ return 3; }
+        void setNbVoisins(unsigned int r) { nbVoisin = r; }
+        unsigned int getNbVoisin() { return nbVoisin; }
+        vector<Coordonnees> coordonnees;
+        void calculVoisinage(Voisinage& v, const Reseau& r) const override; // Calcul du voisinage en fonction de la cellule centre
+        vector<Coordonnees> getVoisinage(const QTableWidget* grid ); // Dééfinition des coordonnées relatives pour le calcul du voisinage
 };
 
 #endif /* voisinage_h */

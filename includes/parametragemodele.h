@@ -1,7 +1,7 @@
 #ifndef PARAMETRAGEMODELE_H
 #define PARAMETRAGEMODELE_H
 
-#include "reseau_cellule_etats.h"
+#include <reseau_cellule_etats.h>
 
 #include <QObject>
 #include <QApplication>
@@ -22,6 +22,7 @@
 #include <QCheckBox>
 #include <QFormLayout>
 #include <QBrush>
+#include <QMouseEvent>
 
 using namespace std;
 
@@ -41,14 +42,25 @@ class NouveauModele : public QWidget {
     QComboBox* liste_regle_transition;
     QPushButton* bouton_valide;
 
+    //definition frame règle de transitions
+    QWidget* fenetre_regle;
+    QLabel* seuilMax;
+    QLabel* seuilMin;
+    QLabel* destination;
+    QLabel* etatCourant;
+
+    QCheckBox* valid_Etat;
+    QSpinBox* numEtatCourant;
+    QSpinBox* etatDest;
+
+    QPushButton* fin, next;
+    QIntValidator* seuilValidator;
+    QLineEdit* numSeuilMin[8];
+
     //définition de la frame paramétrage du choix
     QWidget* fenetre_param;
     QGridLayout* form_param;
     QLabel* label_param;
-
-    //définition de la frame de règle de transition
-    QIntValidator* seuilValidator;
-    QLineEdit* numSeuilMin[8];
 
     //Voisiange non arbitraire
     QFormLayout* form_rayon;
@@ -61,9 +73,11 @@ public:
     NouveauModele(QWidget* parent = nullptr);
 public slots:
     void paramVoisinage(const QString& choix_voisinage);
+    void changerVoisinage(const QString& choix_regle);
     void affGrille();
     void modifGrille(const QModelIndex& index);
     void paramRegle(const QString& choix_regle);
+    void choisirEtatCourant(bool checked);
 
 
 };

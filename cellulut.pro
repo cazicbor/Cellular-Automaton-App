@@ -12,6 +12,7 @@ SOURCES += src/autosql.cpp
 SOURCES += src/Fonction.cpp
 SOURCES += src/Automate.cpp
 SOURCES += src/parametragemodele.cpp
+SOURCES += src/paramalpha.cpp
 
 HEADERS += includes/autocell.h \
     includes/coordonnees.h
@@ -22,3 +23,4 @@ HEADERS += includes/reseau_cellule_etats.h
 HEADERS += includes/Fonction.h
 HEADERS += includes/Automate.h
 HEADERS += includes/parametragemodele.h
+HEADERS += includes/paramalpha.h

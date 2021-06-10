@@ -65,22 +65,17 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 
     // récupération des automates en mémoire
 
-    /*vector<QString> noms_modeles = database.getAutomates();
-    for(auto : nom, noms_modeles){
-        liste->addItem(nom);
-    }*/
-
-    liste->addItem("modèle 1");
-    liste->addItem("modèle 2");
-    liste->addItem("modèle 3");
-    liste->addItem("modèle 4");
-
+    std::vector<QString> noms_modeles = Database::getInstance().getAutomates();
+    for(size_t i = 0 ; i<noms_modeles.size() ; i++){
+        std::cout<<"modele :"<<noms_modeles[i].toStdString()<<std::endl;
+        liste->addItem(noms_modeles[i]);
+    }
 
     liste->setStyleSheet("background-color : rgb(251, 252, 252 )");
     liste->setFixedWidth(140);
 
     connect(liste,SIGNAL(currentIndexChanged(int)),this,SLOT(RAZ()));
-    connect(liste,SIGNAL(currentTextChanged(const QString &text)),this,SLOT(chargerGrilles(const QString &text)));
+    connect(liste,SIGNAL(currentIndexChanged(int)),this,SLOT(chargerGrilles()));
 
 
     grid_model_choice = new QGridLayout(win_model_choice);
@@ -177,10 +172,20 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     grid_run_control->addWidget(button_next, 2, 2);
     grid_run_control->addWidget(button_reinitialiser, 3, 0, Qt::AlignCenter);
 
-    button_save_grid = new QPushButton("sauvegarder la grille");
-    connect(button_save_grid,SIGNAL(clicked()),this,SLOT(sauvergarderGrille()));
+    lab_sauv_grille = new QLabel("Sauvegarder la grille courante");
+    edit_nom_grille = new QLineEdit;
+    edit_nom_grille->setPlaceholderText("Entrer un nom");
+    edit_nom_grille->setStyleSheet("background-color: rgb(255,255,255)");
 
-    grid_run_control->addWidget(button_save_grid,4,1,4,3,Qt::AlignBottom);
+    edit_nom_grille->setFixedWidth(180);
+
+    button_save_grid = new QPushButton("sauvegarder");
+    button_save_grid->setFixedWidth(90);
+    connect(button_save_grid,SIGNAL(clicked()),this,SLOT(sauvegarderGrille()));
+
+    grid_run_control->addWidget(lab_sauv_grille,4,0,1,3, Qt::AlignBottom);
+    grid_run_control->addWidget(edit_nom_grille,5,0, Qt::AlignBottom);
+    grid_run_control->addWidget(button_save_grid,5,2,Qt::AlignBottom);
 
     general->addWidget(win_run_ctrl,1,0,2,1);
 
@@ -264,7 +269,7 @@ void AutoCell::initialiserGrille(){
     QString str_l; str_l.setNum(l);
     QString str_h; str_h.setNum(h);
 
-    if(0>=h || h>21 || 0>=l || l>41){
+    if((0>=h || h>21 || 0>=l || l>41) && !check_load_grid->isChecked()){
         QString msg("erreur dimensions");
         afficherErreur(msg);
         edit_largeur->setText("");
@@ -279,22 +284,23 @@ void AutoCell::initialiserGrille(){
     if (check_aleatoire->isChecked()) Grille->setAleatoire();
 
     QString nom_grille = list_grids->currentText();
-    /*if (check_load_grid->isChecked()) {
+
+    if (check_load_grid->isChecked()) {
       delete Grille;
-      Grille = new Reseau(getGrilleFromDb(nom_grille)) /// Méthode à implémenter
+      Grille = new Reseau(Database::getInstance().getReseau(listeGrille[list_grids->currentIndex()*2].toInt())); /// Méthode à implémenter
       QString str_largeur;
+      //str_largeur.setNum(listeGrille[list_grids->currentIndex()*2].toInt());
       QString str_hauteur;
-      edit_largeur->setText(str_largeur.setNum(Grille.getLargeur,10);
-      edit_hauteur->setText(str_hauteur.setNum(Grille.getHauteur,10);
-      }*/
+      //edit_largeur->setText(str_largeur);
+      edit_largeur->setText(str_largeur.setNum(Grille->getLargeur(),10));
+      edit_hauteur->setText(str_hauteur.setNum(Grille->getHauteur(),10));
+      }
 
     //réinitialiser l'automate
 
-    this->afficherGrille(this->Grille);
+    //this->afficherGrille(this->Grille);
 
 };
-
-
 void AutoCell::RAZ(){
     delete grid;
     grid = new QTableWidget(0,0,win_grid);
@@ -332,27 +338,31 @@ void AutoCell::modifierCellule(const QModelIndex& index) {
 }
 
 void AutoCell::sauvegarderGrille(){
-    /*QWindow window_dialogue;
-    QSize taille(450,100);
-    window_dialogue.setTitle("Enregistrer une grille");
-    window_dialogue.setMaximumSize(taille);
-    QFormLayout form;
-    QLineEdit edit_nom;
-    edit_nom.setFixedWidth(200);
-    QPushButton button_valider("Valider");
-    form.addRow("Entrez un nom :", &edit_nom);
-    form.addWidget(&button_valider);
-    form.setParent(&window_dialogue);
-    window_dialogue.show();
-    connect(button_valider, SIGNAL(clicked(edit_nom.text())), this, SLOT(sauvergarderGrille(edit_nom.text())));
-    //stockerReseau(Reseau& reseau, QString nomReseau, QString nomAutomate);
-*/
+     if(edit_nom_grille->text()==""){
+        QString msg("Entrer un nom");
+        afficherErreur(msg);
+        return;
+    }
+    QString nom_grille;
+    nom_grille = edit_nom_grille->text();
+    QString nom_automate;
+    nom_automate = liste->currentText();
+    Database::getInstance().stockerReseau(*Grille, nom_grille, nom_automate);
 };
 
-void AutoCell::chargerGrilles(const QString& text){
+void AutoCell::chargerGrilles(){
+    listeGrille.clear();
+    QString text;
+    QString nb;
+    text = liste->currentText();
+
     list_grids->clear();
-    /*vector<QString> noms = database.getListesReseaux(text);
-    for(auto nom : noms) list_grids->addItem(nom);*/
+    vector<QString> noms = Database::getInstance().getListeReseaux(text);
+    nb.setNum(noms.size());
+
+    for(size_t i=1 ; i<noms.size() ; i = i + 2)
+        list_grids->addItem(noms[i]);
+    listeGrille = noms;
 }
 
 void AutoCell::gererSimulation(){

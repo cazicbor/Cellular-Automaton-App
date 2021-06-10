@@ -111,4 +111,21 @@ Reseau::Reseau(const Reseau& init_grille){
             reseau[i][j].initCellule(init_grille.reseau[i][j].getIndEtat(),i,j);
         }
 
-};
+}
+
+Reseau& Reseau::operator=(const Reseau& init_grille) {
+	for(unsigned int i=0; i<hauteur; i++)
+		delete[] reseau[i];
+	delete[] reseau;
+
+	hauteur = init_grille.hauteur;
+	largeur = init_grille.largeur;
+	reseau = new Cellule* [hauteur];
+	for(unsigned int i=0; i<hauteur; i++)
+		reseau[i] = new Cellule [largeur];
+	for(unsigned int i=0; i<hauteur; i++)
+		for(unsigned int j=0; j<largeur; j++)
+			reseau[i][j].initCellule(init_grille.reseau[i][j].getIndEtat(),i,j);
+
+	return *this;
+}
