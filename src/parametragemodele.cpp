@@ -50,8 +50,8 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     QString descDefaut = "Nouvel automate créé par l'utilisateur";
     QLineEdit* description = new QLineEdit(descDefaut);
     // nb d'états
-    QSpinBox* nb_etats = new QSpinBox;
-    nb_etats->setRange(1, 8);
+    nb_etats = new QSpinBox;
+    nb_etats->setRange(2, 8);
     QSpinBox* etat_defaut = new QSpinBox;
     etat_defaut->setRange(0,nb_etats->value()-1);
 
@@ -102,7 +102,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     //form_choix->addRow("Etat par défaut", etat_defaut);
     form_choix->addRow("Nombre d'états :", nb_etats);
     form_choix->addRow("Règle de transition :", liste_regle_transition);
-    form_choix->addRow("Voisinage :", liste_voisinage);
     form_choix->addRow(layoutvalid);
     layoutvalid->addWidget(bouton_valide);
     layoutvalid->addWidget(boutonEtat);
