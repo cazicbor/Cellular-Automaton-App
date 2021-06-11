@@ -426,6 +426,8 @@ void NouveauModele::validerParametrage(){
     Automate::getInstance().setDesc(description->text().toStdString());
     Automate::getInstance().setYear(annee->text().toInt());
 
+    Fonction* automateFonction = new Fonction(Automate::getInstance().getEnsemble().getEtat(etat_default->value()));
+
     /*
 	Automate::getInstance().setTitle(nom_automate->value().toStdString());
 	Automate::getInstance().setAuthor(auteur->value().toStdString());
