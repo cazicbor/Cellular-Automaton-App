@@ -46,21 +46,21 @@ INSERT INTO regles_voisinage VALUES(
 INSERT INTO regles_transition VALUES(
 	"Game of Life",
 	2, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
 	3, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
 	0, 
 	0
 );
@@ -70,21 +70,21 @@ INSERT INTO regles_transition VALUES(
 INSERT INTO regles_transition VALUES(
 	"Game of Life",
 	3, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
 	3, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
 	1, 
 	0
 );
@@ -101,63 +101,63 @@ INSERT INTO reseaux VALUES(
 
 INSERT INTO Cellules VALUES(
 	3, 
-	0,
+	1,
 	0,
 	0
 );
 
 INSERT INTO Cellules VALUES(
 	3, 
-	0,
+	1,
 	1,
 	0
 );
 
 INSERT INTO Cellules VALUES(
 	3, 
-	0,
+	1,
 	2,
 	0
 );
 
 INSERT INTO Cellules VALUES(
 	3, 
-	1,
+	0,
 	0,
 	1
 );
 
 INSERT INTO Cellules VALUES(
 	3, 
-	1,
+	0,
 	1,
 	1
 );
 
 INSERT INTO Cellules VALUES(
 	3, 
-	1,
+	0,
 	2,
 	1
 );
 
 INSERT INTO Cellules VALUES(
 	3, 
-	0,
+	1,
 	0,
 	2
 );
 
 INSERT INTO Cellules VALUES(
 	3, 
-	0,
+	1,
 	1,
 	2
 );
 
 INSERT INTO Cellules VALUES(
 	3, 
-	0,
+	1,
 	2,
 	2
 );

@@ -19,7 +19,7 @@ class Regle {
 		/// @param[in] nDestination Etat de destination en cas de validation de la règle
 		/// @param[in] nSeuilsMax   Tableau de seuils à ne pas dépasser en nombre de voisins par état pour vérifier la règle
 		/// @param[in] nSeuilsMin   Tableau de seuils à dépasser en nombre de voisins par état pour vérifier la règle
-		Regle(const Etat& nDestination, const int nSeuilsMax[8], const int nSeuilsMin[8]);
+		Regle(const Etat& nDestination, const int nSeuilsMin[8], const int nSeuilsMax[8]);
 		virtual ~Regle() = default;
 		/// Obtenir la destination de cette règle
 		const Etat& getDestination() const { return destination; }
@@ -42,7 +42,7 @@ class RegleAvecEtatCourant: public Regle {
 		/// @param[in] nSeuilsMax   Tableau de seuils à ne pas dépasser en nombre de voisins par état pour vérifier la règle
 		/// @param[in] nSeuilsMin   Tableau de seuils à dépasser en nombre de voisins par état pour vérifier la règle
 		/// @param[in] nEtat        numéro de l'état courant de la cellule nécessaire pour vérifier la règle
-		RegleAvecEtatCourant(const Etat& nDestination, const int nSeuilsMax[8], const int nSeuilsMin[8], const int nEtat);
+		RegleAvecEtatCourant(const Etat& nDestination, const int nSeuilsMin[8], const int nSeuilsMax[8], const int nEtat);
 		/// Vérifier si une règle est vérifiée
 		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
 		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
