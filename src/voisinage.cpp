@@ -31,8 +31,6 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r) const {
 	int hauteur = r.getHauteur();
 	int largeur = r.getLargeur();
 
-	std::cout << "hauteur" << hauteur << "largeur" << largeur << std::endl;
-
 	for (int i = -static_cast<int>(rayon); i <= static_cast<int>(rayon); i++)
 		for (int j = -static_cast<int>(rayon); j <= static_cast<int>(rayon); j++)
 			if (abs(i) <= static_cast<int>(rayon) && abs(j) <= static_cast<int>(rayon) && i != 0 && j != 0)

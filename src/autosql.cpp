@@ -212,7 +212,6 @@ std::vector<QString> Database::getListeReseaux(const QString& name) const
     query.bindValue(":nom", name);
     query.exec();
 
-    std::cout<<query.lastError().text().toStdString()<<std::endl;
     std::vector<QString> names;
 
     if(!query.first())

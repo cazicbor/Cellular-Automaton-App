@@ -67,7 +67,6 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 
     std::vector<QString> noms_modeles = Database::getInstance().getAutomates();
     for(size_t i = 0 ; i<noms_modeles.size() ; i++){
-        std::cout<<"modele :"<<noms_modeles[i].toStdString()<<std::endl;
         liste->addItem(noms_modeles[i]);
     }
 

@@ -105,7 +105,6 @@ class Automate {
 				nextTimer();
 			itBuffer++;
 			AutoCell::getInstance().afficherGrille(&*itBuffer);
-			std::cout << buffer.size() << std::endl;
 		}
 		/// Execution multiple de la méthode step
 		void run(int n) {
