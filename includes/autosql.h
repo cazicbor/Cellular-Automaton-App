@@ -39,7 +39,7 @@ class Database {
 		void initEnsEtat(Automate& a) const;
 		void saveAutomaton(const Automate& a) const;
 		void saveFunction(const QString& name, const Fonction& f) const;
-		void saveVoisinage(const QString& name, RegleVoisinage& r) const;
+		void saveVoisinage(const QString& name, const RegleVoisinage& r) const;
 		void saveEnsemble(Automate& a) const;
 		void initSingletonAutomate(const QString& modele) const;
 };

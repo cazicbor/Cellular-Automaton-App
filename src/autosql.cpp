@@ -174,7 +174,8 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 		regle->setr(query.value("rayon").toInt());
 
 		return regle;
-	} else if(type == 2) {
+	}
+	else if(type == 2) {
 		if(query.isNull("rayon"))
 			throw "Error: r can't be undefined here";
 
@@ -182,30 +183,31 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 		regle->setr(query.value("rayon").toInt());
 
 		return regle;
-	} else if(type != 3) {
-        query.prepare("SELECT x, y FROM coord_voisinage WHERE id = :id");
-        query.bindValue(":id", name);
-        query.exec();
-    
-        if(!query.first())
-            throw "There must be at least one coord in this rule";
-    
-        RegleVoisinageArbitraire *regle = new RegleVoisinageArbitraire;
-        Coordonnees coord;
-        do {
-            coord.x = query.value(0).toUInt();
-            coord.y = query.value(1).toUInt();
-            regle->coordonnees.push_back(coord);
-        } while(query.next());
-        
-        query.prepare("SELECT COUNT(*) FROM coord_voisinage WHERE id = :id");
-        query.bindValue(":id", name);
-        query.exec();
-        
-        regle->setNbVoisins(query.value(0).toUInt());
-        
-        return regle;
-    }
+	}
+	else if(type != 3) {
+		query.prepare("SELECT x, y FROM coord_voisinage WHERE id = :id");
+		query.bindValue(":id", name);
+		query.exec();
+
+		if(!query.first())
+			throw "There must be at least one coord in this rule";
+
+		RegleVoisinageArbitraire *regle = new RegleVoisinageArbitraire;
+		Coordonnees coord;
+		do {
+			coord.x = query.value(0).toUInt();
+			coord.y = query.value(1).toUInt();
+			regle->coordonnees.push_back(coord);
+		} while(query.next());
+
+		query.prepare("SELECT COUNT(*) FROM coord_voisinage WHERE id = :id");
+		query.bindValue(":id", name);
+		query.exec();
+
+		regle->setNbVoisins(query.value(0).toUInt());
+
+		return regle;
+	}
 }
 
 /// Retourne un descriptif des réseaux ("id", "nom", "id", "nom", etc.) liés à un automate
@@ -412,7 +414,7 @@ void Database::saveVoisinage(const QString& name, const RegleVoisinage& r) const
         query.bindValue(":rayon", r.getr());
         query.exec();
 
-        RegleVoisinageArbitraire& new_r = dynamic_cast<RegleVoisinageArbitraire&>(r);
+        const RegleVoisinageArbitraire& new_r = dynamic_cast<const RegleVoisinageArbitraire&>(r);
         for(size_t i = 0 ; i<new_r.coordonnees.size() ; i++)
         {
             query.prepare("INSERT INTO coord_voisinage VALUES (:nom, :x, :y)");
