@@ -99,7 +99,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     form_choix->addRow("Auteur :", auteur);
     form_choix->addRow("Année :", annee);
     form_choix->addRow("Description :", description);
-    form_choix->addRow("Etat par défaut", etat_defaut);
+    //form_choix->addRow("Etat par défaut", etat_defaut);
     form_choix->addRow("Nombre d'états :", nb_etats);
     form_choix->addRow("Règle de transition :", liste_regle_transition);
     form_choix->addRow("Voisinage :", liste_voisinage);
@@ -332,6 +332,10 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     seuilMin = new QLabel("Seuil Min : ");
     destination = new QLabel("Destination : ");
     etatCourant = new QLabel("Etat Courant : ");
+    etat_d = new QLabel("Etat défault : ");
+
+    etat_default = new QSpinBox;
+    etat_default->setRange(0,(nb_etats->value())-1);
 
     /*QLabel* etat_d = new QLabel("Etat Defaut : ");
     QSpinBox* etat_defaut = new QSpinBox;
@@ -349,6 +353,7 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     if (choix_regle == "Nouvelle fonction de transition") {
         seuilValidator=new QIntValidator;
 
+        //if(layouth != nullptr) delete layouth;
         if(layouth1 != nullptr) delete layouth1;
         if(layouth2 != nullptr) delete layouth2;
         if(layouth3 != nullptr) delete layouth3;
@@ -358,21 +363,24 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
         if(layouth6 != nullptr) delete layouth6;
         if(layoutv2 != nullptr) delete layoutv2;
 
+        layoutv = new QVBoxLayout;
+        layouth = new QHBoxLayout;
         layouth1 = new QHBoxLayout;
         layouth2 = new QHBoxLayout;
         layouth3 = new QHBoxLayout;
         layouth4 = new QHBoxLayout;
-        layoutv = new QVBoxLayout;
 
-        layouth6 = new QHBoxLayout;
-        layouth5 = new QHBoxLayout;
-        layoutv2 = new QVBoxLayout;
+
+        //layouth6 = new QHBoxLayout;
+        //layouth5 = new QHBoxLayout;
+        //layoutv2 = new QVBoxLayout;
 
         form_choix->addRow(layoutv);
         layoutv->addLayout(layouth1);
         layoutv->addLayout(layouth2);
         layoutv->addLayout(layouth3);
         layoutv->addLayout(layouth4);
+        layoutv->addLayout(layouth);
 
 
 
@@ -407,6 +415,9 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
 
          layouth4->addWidget(etatCourant);
          layouth4->addWidget(valid_Etat);
+
+         layouth->addWidget(etat_d);
+         layouth->addWidget(etat_default);
          connect(valid_Etat, SIGNAL(currentTextChanged(const QString&)), this, SLOT(choisirEtatCourant(const QString&)));
     }
 }

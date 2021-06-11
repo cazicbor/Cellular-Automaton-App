@@ -58,10 +58,12 @@ class NouveauModele : public QWidget {
     QLabel* destination;
     QLabel* etatCourant;
     QLabel* etatCourant2 = nullptr;
+    QLabel* etat_d = nullptr;
 
     QComboBox* valid_Etat;
     QSpinBox* numEtatCourant = nullptr;
     QSpinBox* etatDest;
+    QSpinBox* etat_default = nullptr;
 
     QPushButton* fin = nullptr;
     QPushButton* next = nullptr;
@@ -74,6 +76,7 @@ class NouveauModele : public QWidget {
     QHBoxLayout* layouth2 = nullptr;
     QHBoxLayout* layouth3 = nullptr;
     QHBoxLayout* layouth4 = nullptr;
+    QHBoxLayout* layouth = nullptr;
 
     QVBoxLayout* layoutv2 = nullptr;
     QHBoxLayout* layouth5 = nullptr;
