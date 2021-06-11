@@ -109,7 +109,7 @@ public slots:
 
     void addRegle();
 
-    void validerParametrage();
+   //  void validerParametrage();
 
 
 

@@ -14,7 +14,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 	Automate::getInstance().getEnsemble().ajouterEtat(5, "État 6", 70, 100, 70);
 	Automate::getInstance().getEnsemble().ajouterEtat(6, "État 7", 70, 70, 100);
 	Automate::getInstance().getEnsemble().ajouterEtat(7, "État 8", 200, 200, 200);
-	fonction.reset(new Fonction(Automate::getInstance().getEnsemble().getEtat(0)));
+   // fonction.reset(new Fonction(Automate::getInstance().getEnsemble().getEtat(0)));
     this->setWindowTitle("Paramétrage d'un nouveau modèle");
     this->setMinimumSize(850, 550);
 
@@ -32,7 +32,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     nomModele = new QLineEdit;
 
-    form_choix->addRow("Nom du modèle : ",nomModele);
+
 
 
     form_choix = new QFormLayout;
@@ -92,7 +92,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     connect(bouton_valide, SIGNAL(clicked()), this, SLOT(validerParametrage()));
 
     //ajout regle :
-
+    form_choix->addRow("Nom du modèle : ",nomModele);
     form_choix->addRow("Nom automate :", nom_automate);
     form_choix->addRow("Auteur :", auteur);
     form_choix->addRow("Année :", annee);
@@ -408,7 +408,7 @@ void NouveauModele::addRegle(){
     paramRegle("Nouvelle fonction de transition");
 }
 
-void NouveauModele::validerParametrage(){
+/*void NouveauModele::validerParametrage(){
 	Automate::getInstance().setTitle(nom_automate->value().toStdString());
 	Automate::getInstance().setAuthor(auteur->value().toStdString());
 	Automate::getInstance().setYear(anneee->value().toInt());
@@ -433,5 +433,5 @@ void NouveauModele::validerParametrage(){
     nvAutocell = new AutoCell;
 
     nvAutocell->show();
-}
+}*/
 
