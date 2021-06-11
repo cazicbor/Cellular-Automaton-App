@@ -51,7 +51,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     QLineEdit* description = new QLineEdit(descDefaut);
     // nb d'états
     QSpinBox* nb_etats = new QSpinBox;
-    nb_etats->setRange(1, 8);
+    nb_etats->setRange(2, 8);
     QSpinBox* etat_defaut = new QSpinBox;
     etat_defaut->setRange(0,nb_etats->value()-1);
 
