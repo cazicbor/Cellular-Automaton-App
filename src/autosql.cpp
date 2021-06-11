@@ -182,25 +182,30 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 		regle->setr(query.value("rayon").toInt());
 
 		return regle;
-	} else if(type != 3) // n'existe pas
-		throw "Unknown type of rule";
-
-	query.prepare("SELECT x, y FROM coord_voisinage WHERE id = :id");
-	query.bindValue(":id", name);
-	query.exec();
-
-	if(!query.first())
-		throw "There must be at least one coord in this rule";
-
-	RegleVoisinageArbitraire *regle = new RegleVoisinageArbitraire;
-
-	do {
-		/// @todo voisinage arbitraire
-		///
-		/// dans l'attente de la possibilité de le faire
-	} while(query.next());
-
-	return regle;
+	} else if(type != 3) {
+        query.prepare("SELECT x, y FROM coord_voisinage WHERE id = :id");
+        query.bindValue(":id", name);
+        query.exec();
+    
+        if(!query.first())
+            throw "There must be at least one coord in this rule";
+    
+        RegleVoisinageArbitraire *regle = new RegleVoisinageArbitraire;
+        Coordonnees coord;
+        do {
+            coord.x = query.value(0).toUInt();
+            coord.y = query.value(1).toUInt();
+            regle->coordonnees.push_back(coord);
+        } while(query.next());
+        
+        query.prepare("SELECT COUNT(*) FROM coord_voisinage WHERE id = :id");
+        query.bindValue(":id", name);
+        query.exec();
+        
+        regle->setNbVoisins(query.value(0).toUInt());
+        
+        return regle;
+    }
 }
 
 /// Retourne un descriptif des réseaux ("id", "nom", "id", "nom", etc.) liés à un automate
@@ -269,7 +274,7 @@ void Database::saveAutomaton(const Automate& a) const {
 	query.exec();
 
 	saveFunction(a.getTitle().c_str(), a.getFonction());
-	saveVoisinage(a.getTitle().c_str(), a.getRegleVoisinage());
+	saveVoisinage(a.getTitle().c_str(), const_cast<RegleVoisinage&>(a.getRegleVoisinage()));
 	stockerReseau(a.getReseauInit(), "To be determined", a.getTitle().c_str());
 }
 
@@ -401,7 +406,21 @@ void Database::saveVoisinage(const QString& name, const RegleVoisinage& r) const
 		query.exec();
 	}
 	else if(type == 3) { //Arbitrary
-		throw "Unimplemented!";
+        query.prepare("INSERT INTO regles_voisinage (id, type, rayon) VALUES (:nom, :type, :rayon)");
+        query.bindValue(":nom", name);
+        query.bindValue(":type", type);
+        query.bindValue(":rayon", r.getr());
+        query.exec();
+
+        RegleVoisinageArbitraire& new_r = dynamic_cast<RegleVoisinageArbitraire&>(r);
+        for(size_t i = 0 ; i<new_r.coordonnees.size() ; i++)
+        {
+            query.prepare("INSERT INTO coord_voisinage VALUES (:nom, :x, :y)");
+            query.bindValue(":nom", name);
+            query.bindValue(":x", new_r.coordonnees[i].x);
+            query.bindValue(":y", new_r.coordonnees[i].y);
+            query.exec();
+        }
 	}
 	else {
 		throw "Unknown type!";
