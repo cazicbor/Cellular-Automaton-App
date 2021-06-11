@@ -88,6 +88,7 @@ class AutoCell : public QWidget
     friend class NouveauModele;
     public:
 
+    /// Obtenir une référence vers l'instance unique du singleton AutoCell
     static AutoCell& getInstance() {
         if(instance == nullptr) {
             instance.reset(new AutoCell);
@@ -99,27 +100,40 @@ class AutoCell : public QWidget
     public slots:
     //void chargerModele();
     //void listerModele(); //à faire en dernier
+    /// slot pour charger les grilles disponibles pour le modèle sélectionné
     void chargerGrilles();
     //void listerGrille(); //déjà réfléchir à la recopie
     //Reseau initialiserGrille(); //méthode à implémenter qui récupère les données du formulaire - penser à réinitialiser les données annexes
     //void afficherGrille(Reseau&); //affiche une grille
     //void chargerGrilles(const QString &text);
 
+    /// Afficher une grille dans l'espace dédié
     void afficherGrille(Reseau* Grille);
 
+    /// Initialiser une grille
     void initialiserGrille();
+    /// Remettre à 0 la simulation
     void RAZ();
+    /// Gérer la mise en route automatique ou non
     void gererSimulation();
     //void sauvegarderGrille();
     //Reseau& modifierCellule(const QModelIndex&, Reseau& Grille);//à implémenter
 
+    /// Modifier l'état d'une cellule de la grille affichée (par clic par exemple)
     void modifierCellule(const QModelIndex& index);
+    /// Sauvegarder la grille courante dans la BDD
     void sauvegarderGrille();
+    /// Créer un nouveau modèle
     void defNouveauModele();
+    /// Afficher une boîte d'erreur
     void afficherErreur(QString& msg);
+    /// Initialiser un automate par son nom
     void initAutomate(const QString& name);
+    /// Changer le délai de l'automate
     void changeDelai();
+    /// Aller en arrière dans la simulation
     void previous();
+    /// Aller en avant dans la simulation
     void next();
 };
 

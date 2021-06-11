@@ -25,8 +25,11 @@ class ParamAlpha: public QWidget {
 
 		QPushButton* valider;
 	public:
+		/// Construire une fenêtre de paramétrage de l'alphabet
+		/// @param[in] nbEtats nombre d'états à initialiser
 		ParamAlpha(const int nbEtats);
 	public slots:
+		/// Valider le paramétrage de l'alphabet, a pour effet de l'initialiser dans l'automate
 		void valide();
 };
 

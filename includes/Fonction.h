@@ -44,7 +44,13 @@ class Regle: public RegleGen {
 		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
 		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
 		virtual bool verify(const Voisinage& voisins, const Cellule& cellule) const override;
+		/// Obtenir le seuil minimum du nombre de voisins requis pour un état donné afin de valider la règle
+		/// Principalement utilisé pour sauvegarder une règle de transition
+		/// @param[in] i numéro de l'état
 		int getMin(const size_t i) { if(i > 0 && i <= 8) return seuilsMin[i - 1]; else throw "Invalid number!"; }
+		/// Obtenir le seuil maximum du nombre de voisins requis pour un état donné afin de valider la règle
+		/// Principalement utilisé pour sauvegarder une règle de transition
+		/// @param[in] i numéro de l'état
 		int getMax(const size_t i) { if(i > 0 && i <= 8) return seuilsMax[i - 1]; else throw "Invalid number!"; }
 };
 
@@ -66,6 +72,8 @@ class RegleAvecEtatCourant: public Regle {
 		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
 		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
 		bool verify(const Voisinage& voisins, const Cellule& cellule) const override;
+		/// Obtenir l'état courant requis pour valider la règle
+		/// Principalement utilisé pour sauvegarder une règle de transition
 		int getCourant() const override { return static_cast<int>(etatCourant); }
 };
 

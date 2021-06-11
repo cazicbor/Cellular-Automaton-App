@@ -68,11 +68,15 @@ class Automate {
 
 			return *instance;
 		}
-		/// Définir la fonction de transition de l'automate, le cycle de vie de la focntion est géré par l'utilisateur
+		/// Définir la fonction de transition de l'automate
+		///
+		/// L'objet est géré dynamiquement par l'utilisateur mais une fois donnné à l'automate il gère son cycle de vie
 		void setFonction(Fonction& f) { fonction = &f; }
 		/// Récupérer la fonction de transition
 		const Fonction& getFonction() const { return *fonction; }
-		/// Définir une règle de voisinage, le cycle de vie de la règle est géré par l'utilisateur
+		/// Définir une règle de voisinage
+		///
+		/// L'objet est géré dynamiquement par l'utilisateur mais une fois donnné à l'automate il gère son cycle de vie
 		void setRegleVoisinage(RegleVoisinage& r) { regleVoisinage = &r; }
 		/// Récupérer la règle de voisinage
 		const RegleVoisinage& getRegleVoisinage() const { return *regleVoisinage; }
@@ -147,6 +151,7 @@ class Automate {
 		/// Redéfinir le nom de l'automate
 		void setYear(const int y) { year = y; }
 
+		/// Réinitialiser totalement la configuration de l'automate
 		void reinitialiserAutomate();
 };
 
