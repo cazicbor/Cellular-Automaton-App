@@ -182,25 +182,30 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 		regle->setr(query.value("rayon").toInt());
 
 		return regle;
-	} else if(type != 3) // n'existe pas
-		throw "Unknown type of rule";
-
-	query.prepare("SELECT x, y FROM coord_voisinage WHERE id = :id");
-	query.bindValue(":id", name);
-	query.exec();
-
-	if(!query.first())
-		throw "There must be at least one coord in this rule";
-
-	RegleVoisinageArbitraire *regle = new RegleVoisinageArbitraire;
-
-	do {
-		/// @todo voisinage arbitraire
-		///
-		/// dans l'attente de la possibilité de le faire
-	} while(query.next());
-
-	return regle;
+	} else if(type != 3) {
+        query.prepare("SELECT x, y FROM coord_voisinage WHERE id = :id");
+        query.bindValue(":id", name);
+        query.exec();
+    
+        if(!query.first())
+            throw "There must be at least one coord in this rule";
+    
+        RegleVoisinageArbitraire *regle = new RegleVoisinageArbitraire;
+        Coordonnees coord;
+        do {
+            coord.x = query.value(0).toUInt();
+            coord.y = query.value(1).toUInt();
+            regle->coordonnees.push_back(coord);
+        } while(query.next());
+        
+        query.prepare("SELECT COUNT(*) FROM coord_voisinage WHERE id = :id");
+        query.bindValue(":id", name);
+        query.exec();
+        
+        regle->setNbVoisins(query.value(0).toUInt());
+        
+        return regle;
+    }
 }
 
 /// Retourne un descriptif des réseaux ("id", "nom", "id", "nom", etc.) liés à un automate
