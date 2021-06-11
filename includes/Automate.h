@@ -94,9 +94,12 @@ class Automate {
 
 		/// Se placer sur l'état précédent si disponible
 		void previous() {
-			if(itBuffer!=buffer.begin())
+			if(itBuffer!=buffer.begin()) {
 				itBuffer--;
-			AutoCell::getInstance().afficherGrille(&*itBuffer);
+				AutoCell::getInstance().afficherGrille(&*itBuffer);
+			}
+			else
+				throw "No more state available before in the buffer (max: 15)";
 		}
 		/// Se placer sur l'état suivant si disponible
 		void next() { if(itBuffer!=(--buffer.end())) itBuffer++; }

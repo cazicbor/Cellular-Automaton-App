@@ -407,5 +407,12 @@ void AutoCell::next() {
 }
 
 void AutoCell::previous() {
-	Automate::getInstance().previous();
+	try {
+		Automate::getInstance().previous();
+	}
+	catch (const char* m)
+	{
+		QString msg(m);
+		afficherErreur(msg);
+	}
 }
