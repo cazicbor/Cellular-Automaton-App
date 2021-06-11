@@ -49,10 +49,10 @@ ParamAlpha::ParamAlpha(const int nbEtats): QWidget(), nb(nbEtats) {
 }
 
 void ParamAlpha::valide() {
-	EnsembleEtat& e = Automate::getInstance().getEnsemble();
+    Automate::getInstance().getEnsemble();
 
-	e.reset();
+    Automate::getInstance().getEnsemble().reset();
 	for(int i = 0; i < nb; ++i) {
-		e.ajouterEtat(i, label[i]->text().toStdString(), red[i]->value(), green[i]->value(), blue[i]->value());
+        Automate::getInstance().getEnsemble().ajouterEtat(i, label[i]->text().toStdString(), red[i]->value(), green[i]->value(), blue[i]->value());
 	}
 }
