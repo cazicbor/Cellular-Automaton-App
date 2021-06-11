@@ -4,24 +4,7 @@ bool RegleAvecEtatCourant::verify(const Voisinage& voisins, const Cellule& cellu
 	if(cellule.getIndEtat() != etatCourant)
 		return false;
 
-	int nb[8] = {0};
-
-	auto *cellules = voisins.creerIterator();
-	cellules->first();
-
-	while(!cellules->isDone())
-	{
-		nb[cellules->currentItem()->getIndEtat()]++;
-		cellules->next();
-	}
-
-	delete cellules;
-
-	for(int i = 0; i < 8; ++i)
-		if((seuilsMin[i] != -1 && nb[i] < seuilsMin[i]) || (seuilsMax[i] != -1 && nb[i] > seuilsMax[i]))
-			return false;
-
-	return true;
+	return Regle::verify(voisins, cellule);
 }
 
 bool Regle::verify(const Voisinage& voisins, const Cellule& cellule) const {
