@@ -125,7 +125,7 @@ class Automate {
 		Reseau getReseauCourant() { return *itBuffer; }
 
 		/// initialiser le buffer s'il est vide avec un réseau
-		void initialiserBuffer() { buffer.clear(); buffer.push_front(reseauInit); }
+		void initialiserBuffer() { buffer.clear(); buffer.push_front(reseauInit); itBuffer = buffer.begin(); }
 
 		/// Définir le réseau initial de l'automate
 		void setReseauInit(Reseau& r) { reseauInit = r; h = r.getHauteur(); l = r.getLargeur(); }

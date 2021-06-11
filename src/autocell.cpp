@@ -213,8 +213,8 @@ void AutoCell::afficherGrille(Reseau* Grille)
 {
     win_grid = new QWidget;
 
-    unsigned int l = Grille->getLargeur();
-    unsigned int h = Grille->getHauteur();
+    int l = Grille->getLargeur();
+    int h = Grille->getHauteur();
 
     delete grid;
     grid = new QTableWidget(h,l,win_grid);
@@ -280,9 +280,7 @@ void AutoCell::initialiserGrille(){
         return;
     }
 
-    delete Grille;
-
-    this->Grille = new Reseau(h,l);
+    this->Grille.reset(new Reseau(h,l));
 
     if (check_aleatoire->isChecked())
 	    Grille->setAleatoire();
@@ -290,8 +288,7 @@ void AutoCell::initialiserGrille(){
     QString nom_grille = list_grids->currentText();
 
     if (check_load_grid->isChecked()) {
-      delete Grille;
-      Grille = new Reseau(Database::getInstance().getReseau(listeGrille[list_grids->currentIndex()*2].toInt())); /// Méthode à implémenter
+      this->Grille.reset(new Reseau(Database::getInstance().getReseau(listeGrille[list_grids->currentIndex()*2].toInt())));
       QString str_largeur;
       //str_largeur.setNum(listeGrille[list_grids->currentIndex()*2].toInt());
       QString str_hauteur;
@@ -303,10 +300,9 @@ void AutoCell::initialiserGrille(){
     //réinitialiser l'automate
     Automate::getInstance().reset();
 
-    this->afficherGrille(this->Grille);
+    this->afficherGrille(this->Grille.get());
     Automate::getInstance().setReseauInit(*Grille);
     Automate::getInstance().initialiserBuffer();
-
 };
 void AutoCell::RAZ(){
     delete grid;

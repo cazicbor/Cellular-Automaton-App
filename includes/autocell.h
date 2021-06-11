@@ -3,6 +3,7 @@
 
 #include <reseau_cellule_etats.h>
 
+#include <memory>
 #include <QObject>
 #include <QApplication>
 #include <QPushButton>
@@ -28,7 +29,7 @@ class AutoCell : public QWidget
 {
     static std::unique_ptr<AutoCell> instance;
 
-    Reseau* Grille = nullptr;
+    unique_ptr<Reseau> Grille = nullptr;
     std::vector<QString> listeGrille;
 
     Q_OBJECT
