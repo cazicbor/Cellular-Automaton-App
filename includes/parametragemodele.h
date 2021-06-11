@@ -46,6 +46,7 @@ class NouveauModele : public QWidget {
 
     QHBoxLayout* layoutvalid;
 
+    QLineEdit* nomModele;
     //definition frame règle de transitions
     QWidget* fenetre_regle;
     QLabel* seuilMax;
