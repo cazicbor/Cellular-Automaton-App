@@ -6,13 +6,33 @@
 #include <voisinage.h>
 #include <list>
 
-class Regle {
+/// Règle générale
+///
+/// Classe mère abstraite de toutes les règles, utilisé pour rendre le code évoluable, définir des règles au comportement totalement différent de ce que nous avons.
+class RegleGen {
+	private:
+		Etat destination;
+
+	public:
+		RegleGen(const Etat& nDestination): destination(nDestination) {}
+		virtual ~RegleGen() = default;
+		/// Vérifier si une règle est vérifiée
+		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
+		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
+		virtual bool verify(const Voisinage& voisins, const Cellule& cellule) const = 0;
+		/// Utilisé pour obtenir l'état courant de la règle s'il existe, n'a pas de sens pour toutes donc on préfère mettre -1 par défaut
+		virtual int getCourant() const { return -1; }
+		/// Obtenir la destination de cette règle
+		const Etat& getDestination() const { return destination; }
+};
+
+/// Règle verifiant le nombre de voisins
+///
+/// Cette règle regarde le nombre de voisins dans un certain état pour être vérifiée.
+class Regle: public RegleGen {
 	protected:
 		int seuilsMin[8];
 		int seuilsMax[8];
-
-	private:
-		Etat destination;
 
 	public:
 		/// Construire une règle
@@ -20,18 +40,17 @@ class Regle {
 		/// @param[in] nSeuilsMax   Tableau de seuils à ne pas dépasser en nombre de voisins par état pour vérifier la règle
 		/// @param[in] nSeuilsMin   Tableau de seuils à dépasser en nombre de voisins par état pour vérifier la règle
 		Regle(const Etat& nDestination, const int nSeuilsMin[8], const int nSeuilsMax[8]);
-		virtual ~Regle() = default;
-		/// Obtenir la destination de cette règle
-		const Etat& getDestination() const { return destination; }
 		/// Vérifier si une règle est vérifiée
 		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
 		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
-		virtual bool verify(const Voisinage& voisins, const Cellule& cellule) const;
-		virtual int getCourant() const { return -1; }
+		virtual bool verify(const Voisinage& voisins, const Cellule& cellule) const override;
 		int getMin(const size_t i) { if(i > 0 && i <= 8) return seuilsMin[i - 1]; else throw "Invalid number!"; }
 		int getMax(const size_t i) { if(i > 0 && i <= 8) return seuilsMax[i - 1]; else throw "Invalid number!"; }
 };
 
+/// Règle prenant en compte l'état courant
+///
+/// Cette règle en plus de vérifier le nombre de voisins, permet de vérifier l'état courant de la cellule à laquelle on applique la règle
 class RegleAvecEtatCourant: public Regle {
 	private:
 		unsigned int etatCourant;
@@ -46,10 +65,13 @@ class RegleAvecEtatCourant: public Regle {
 		/// Vérifier si une règle est vérifiée
 		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
 		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
-		bool verify(const Voisinage& voisins, const Cellule& cellule) const;
-		int getCourant() const { return static_cast<int>(etatCourant); }
+		bool verify(const Voisinage& voisins, const Cellule& cellule) const override;
+		int getCourant() const override { return static_cast<int>(etatCourant); }
 };
 
+/// Fonction de transition
+///
+/// Cette fonction permet de regrouper des règles et de connaître l'état suivant d'une cellule
 class Fonction {
 	private:
 		std::list<Regle*> regles;

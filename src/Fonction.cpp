@@ -66,7 +66,7 @@ Fonction::~Fonction() {
 		delete regle;
 }
 
-Regle::Regle(const Etat& nDestination, const int nSeuilsMin[8], const int nSeuilsMax[8]): destination(nDestination) {
+Regle::Regle(const Etat& nDestination, const int nSeuilsMin[8], const int nSeuilsMax[8]): RegleGen(nDestination) {
 	for(int i = 0; i < 8; ++i)
 		seuilsMin[i] = nSeuilsMin[i];
 
