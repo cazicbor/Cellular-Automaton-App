@@ -369,11 +369,11 @@ void AutoCell::chargerGrilles(){
 void AutoCell::gererSimulation(){
     if(button_run->text() == "RUN"){
         button_run->setText("STOP");
-        //Automate::getInstance().start();
+        Automate::getInstance().start();
     }
     else {
         button_run->setText("RUN");
-        //Automate::getInstance().pause();
+        Automate::getInstance().pause();
     }
 }
 
