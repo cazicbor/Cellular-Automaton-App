@@ -313,6 +313,7 @@ void AutoCell::RAZ(){
 ;}
 
 void AutoCell::defNouveauModele() {
+    Automate::getInstance().reinitialiserAutomate();
     NouveauModele* nouveaumodele = new NouveauModele;
     nouveaumodele->show();
 }
