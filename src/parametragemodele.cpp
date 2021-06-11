@@ -102,7 +102,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     form_choix->addRow("Etat par défaut", etat_defaut);
     form_choix->addRow("Nombre d'états :", nb_etats);
     form_choix->addRow("Règle de transition :", liste_regle_transition);
-    form_choix->addRow("Voisinage :", liste_voisinage);
     form_choix->addRow(layoutvalid);
     layoutvalid->addWidget(bouton_valide);
     layoutvalid->addWidget(boutonEtat);
