@@ -1,6 +1,6 @@
 INSERT INTO automates VALUES (
 	"Brian s brain",
-	500,
+	2,
 	"Comparable à un cerveau, dont les cellules seraient des neurones qui peuvent être dans trois états.",
 	"Brian Silverman",
 	1996
@@ -55,21 +55,21 @@ INSERT INTO regles_voisinage VALUES(
 INSERT INTO regles_transition VALUES(
 	"Brian s brain",
 	2, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
 	2, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
 	2, 
 	0
 );
@@ -78,22 +78,22 @@ INSERT INTO regles_transition VALUES(
 
 INSERT INTO regles_transition VALUES(
 	"Brian s brain",
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
 	0, 
 	1
 );
@@ -102,22 +102,22 @@ INSERT INTO regles_transition VALUES(
 
 INSERT INTO regles_transition VALUES(
 	"Brian s brain",
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
-	NULL, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
+	-1, 
 	1, 
 	2
 );
@@ -234,6 +234,41 @@ INSERT INTO Cellules VALUES(
 	0, 
 	2,
 	2,
+	4
+);
+
+INSERT INTO Cellules VALUES(
+	0, 
+	2,
+	3,
+	0
+);
+
+INSERT INTO Cellules VALUES(
+	0, 
+	2,
+	3,
+	1
+);
+
+INSERT INTO Cellules VALUES(
+	0, 
+	2,
+	3,
+	2
+);
+
+INSERT INTO Cellules VALUES(
+	0, 
+	2,
+	3,
+	3
+);
+
+INSERT INTO Cellules VALUES(
+	0, 
+	2,
+	3,
 	4
 );
 
