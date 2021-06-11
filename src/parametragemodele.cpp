@@ -30,11 +30,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     form_init = new QGridLayout(fenetre_init);
 
-    nomModele = new QLineEdit;
-
-
-
-
     form_choix = new QFormLayout;
 
     form_init->addWidget(label_init, 0, 0, 1, 2);
@@ -94,7 +89,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     connect(bouton_valide, SIGNAL(clicked()), this, SLOT(validerParametrage()));
 
     //ajout regle :
-    form_choix->addRow("Nom du modèle : ",nomModele);
     form_choix->addRow("Nom automate :", nom_automate);
     form_choix->addRow("Auteur :", auteur);
     form_choix->addRow("Année :", annee);
