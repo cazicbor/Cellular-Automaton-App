@@ -59,7 +59,6 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     button_add_model->setFixedWidth(140);
 
     connect(button_add_model, SIGNAL(clicked()), this, SLOT(defNouveauModele()));
-    connect(button_add_model, SIGNAL(clicked()), this, SLOT(reinitialiserAutomate()));
 
     liste = new QComboBox(win_model_choice);
     liste->setPlaceholderText("--- select ---");
