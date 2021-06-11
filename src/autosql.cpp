@@ -401,7 +401,21 @@ void Database::saveVoisinage(const QString& name, const RegleVoisinage& r) const
 		query.exec();
 	}
 	else if(type == 3) { //Arbitrary
-		throw "Unimplemented!";
+        query.prepare("INSERT INTO regles_voisinage (id, type, rayon) VALUES (:nom, :type, :rayon)");
+        query.bindValue(":nom", name);
+        query.bindValue(":type", type);
+        query.bindValue(":rayon", r.getr());
+        query.exec();
+
+        RegleVoisinageArbitraire& new_r = dynamic_cast<RegleVoisinageArbitraire&>(r);
+        for(size_t i = 0 ; i<new_r.coordonnees.size() ; i++)
+        {
+            query.prepare("INSERT INTO coord_voisinage VALUES (:nom, :x, :y)");
+            query.bindValue(":nom", name);
+            query.bindValue(":x", new_r.coordonnees[i].x);
+            query.bindValue(":y", new_r.coordonnees[i].y);
+            query.exec();
+        }
 	}
 	else {
 		throw "Unknown type!";
