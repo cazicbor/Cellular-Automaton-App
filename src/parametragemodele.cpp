@@ -333,6 +333,11 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     destination = new QLabel("Destination : ");
     etatCourant = new QLabel("Etat Courant : ");
 
+    /*QLabel* etat_d = new QLabel("Etat Defaut : ");
+    QSpinBox* etat_defaut = new QSpinBox;
+    etat_defaut->setRange(0,nb_etats->value()-1);
+    form_choix->addRow("Etat par défaut", etat_defaut);*/
+
     QSpinBox* etatDest = new QSpinBox;
     etatDest->setRange(0, nb_etats->value());
 
