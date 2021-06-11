@@ -20,7 +20,7 @@ void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) const
 				int y = (cellX+j)%largeur;
 				if (y < 0)
 					y = hauteur + y;
-				v.voisinage.push_back(new Cellule(r.getReseau()[x][y]));
+				v.voisinage.push_back(new Cellule(r.getReseau()[y][x]));
 			}
 }
 
@@ -41,7 +41,7 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r) const {
 				int y = (cellX+j)%largeur;
 				if (y < 0)
 					y = hauteur + y;
-				v.voisinage.push_back(new Cellule(r.getReseau()[x][y]));
+				v.voisinage.push_back(new Cellule(r.getReseau()[y][x]));
 			}
 }
 

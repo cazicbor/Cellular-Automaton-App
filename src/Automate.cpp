@@ -12,7 +12,7 @@ void Automate::nextTimer() {
 				for(size_t j = 0; j < l; ++j) {
 					Voisinage voisinage(&(*(--buffer.end())).getReseau()[i][j]);
 					regleVoisinage->calculVoisinage(voisinage, *(--buffer.end()));
-					const Etat e = fonction->getEtatSuivant(voisinage, r.getReseau()[i][j]);
+					const Etat e = fonction->getEtatSuivant(voisinage, (*(--buffer.end())).getReseau()[i][j]);
 					while(r.getReseau()[i][j].getIndEtat() != e.getIndice())
 						r.getReseau()[i][j].incrementerEtat();
 				}
