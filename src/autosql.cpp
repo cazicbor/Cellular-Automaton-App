@@ -276,7 +276,7 @@ void Database::saveAutomaton(const Automate& a) const {
 	query.exec();
 
 	saveFunction(a.getTitle().c_str(), a.getFonction());
-	saveVoisinage(a.getTitle().c_str(), const_cast<RegleVoisinage&>(a.getRegleVoisinage()));
+	saveVoisinage(a.getTitle().c_str(), a.getRegleVoisinage());
 	stockerReseau(a.getReseauInit(), "To be determined", a.getTitle().c_str());
 }
 
