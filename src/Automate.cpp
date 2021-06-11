@@ -32,8 +32,8 @@ void Automate::nextTimer() {
 void Automate::reinitialiserAutomate() {
 	title = "";
 	delai = 500;
-	delete fonction;
-	delete regleVoisinage;
+	fonction.reset(nullptr);
+	regleVoisinage.reset(nullptr);
 	reseauInit = Reseau(0, 0);
 	buffer.clear();
 	itBuffer = buffer.begin();

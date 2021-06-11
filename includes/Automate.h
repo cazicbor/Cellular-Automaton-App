@@ -15,8 +15,8 @@ class Automate {
 		static std::unique_ptr<Automate> instance;
 		std::string title;
 		unsigned int delai;
-		Fonction* fonction;
-		RegleVoisinage* regleVoisinage;
+		std::unique_ptr<Fonction> fonction;
+		std::unique_ptr<RegleVoisinage> regleVoisinage;
 		std::list<Reseau> buffer;
 		std::list<Reseau>::iterator itBuffer;
 		unsigned int h;
@@ -71,13 +71,13 @@ class Automate {
 		/// Définir la fonction de transition de l'automate
 		///
 		/// L'objet est géré dynamiquement par l'utilisateur mais une fois donnné à l'automate il gère son cycle de vie
-		void setFonction(Fonction& f) { fonction = &f; }
+		void setFonction(Fonction* f) { fonction.reset(f); }
 		/// Récupérer la fonction de transition
 		const Fonction& getFonction() const { return *fonction; }
 		/// Définir une règle de voisinage
 		///
 		/// L'objet est géré dynamiquement par l'utilisateur mais une fois donnné à l'automate il gère son cycle de vie
-		void setRegleVoisinage(RegleVoisinage& r) { regleVoisinage = &r; }
+		void setRegleVoisinage(RegleVoisinage* r) { regleVoisinage.reset(r); }
 		/// Récupérer la règle de voisinage
 		const RegleVoisinage& getRegleVoisinage() const { return *regleVoisinage; }
 		/// Définir le délai entre 2 itérations de l'automate en mode Timer

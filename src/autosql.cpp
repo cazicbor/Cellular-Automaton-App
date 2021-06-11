@@ -526,8 +526,8 @@ void Database::initSingletonAutomate(const QString& modele) const
     Automate::getInstance().setYear(reseau.value(3).toInt());
 
     Database::initEnsEtat(Automate::getInstance());
-    Automate::getInstance().setFonction(*Database::getFonction(Automate::getInstance()));
-    Automate::getInstance().setRegleVoisinage(*Database::getRegleVoisinage(modele));
+    Automate::getInstance().setFonction(Database::getFonction(Automate::getInstance()));
+    Automate::getInstance().setRegleVoisinage(Database::getRegleVoisinage(modele));
 
     //Automate::getInstance().getEnsemble();
 
