@@ -12,7 +12,7 @@ void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) const
 
 	for (int i = -static_cast<int>(rayon); i <= static_cast<int>(rayon); i++)
 		for (int j = -static_cast<int>(rayon); j <= static_cast<int>(rayon); j++)
-			if (abs(i) + abs(j) <= static_cast<int>(rayon) && i != 0 && j != 0)
+			if (abs(i) + abs(j) <= static_cast<int>(rayon) && (i != 0 || j != 0))
 			{
 				int x = (cellY+i)%hauteur;
 				if (x < 0)
@@ -33,7 +33,7 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r) const {
 
 	for (int i = -static_cast<int>(rayon); i <= static_cast<int>(rayon); i++)
 		for (int j = -static_cast<int>(rayon); j <= static_cast<int>(rayon); j++)
-			if (abs(i) <= static_cast<int>(rayon) && abs(j) <= static_cast<int>(rayon) && i != 0 && j != 0)
+			if (i != 0 || j != 0)
 			{
 				int x = (cellY+i)%hauteur;
 				if (x < 0)
