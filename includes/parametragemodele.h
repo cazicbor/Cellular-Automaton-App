@@ -39,6 +39,10 @@ class NouveauModele : public QWidget {
 
     QFormLayout* form_choix;
 
+    QLineEdit* nom_automate;
+    QLineEdit* auteur;
+    QLineEdit* annee;
+    QLineEdit* description;
     QSpinBox* nb_etats;
     QComboBox* liste_voisinage;
     QComboBox* liste_regle_transition;

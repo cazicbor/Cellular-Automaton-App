@@ -1,8 +1,20 @@
 #include"parametragemodele.h"
 #include <autocell.h>
+#include <Automate.h>
 
 
 NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
+	Automate::getInstance().reset();
+	//create dumb ensembleetat
+	Automate::getInstance().getEnsemble().ajouterEtat(0, "État 1", 0, 0, 0);
+	Automate::getInstance().getEnsemble().ajouterEtat(1, "État 2", 10, 10, 30);
+	Automate::getInstance().getEnsemble().ajouterEtat(2, "État 3", 10, 30, 10);
+	Automate::getInstance().getEnsemble().ajouterEtat(3, "État 4", 30, 10, 10);
+	Automate::getInstance().getEnsemble().ajouterEtat(4, "État 5", 100, 70, 70);
+	Automate::getInstance().getEnsemble().ajouterEtat(5, "État 6", 70, 100, 70);
+	Automate::getInstance().getEnsemble().ajouterEtat(6, "État 7", 70, 70, 100);
+	Automate::getInstance().getEnsemble().ajouterEtat(7, "État 8", 200, 200, 200);
+	fonction.reset(new Fonction(Automate::getInstance().getEnsemble().getEtat(0)));
     this->setWindowTitle("Paramétrage d'un nouveau modèle");
     this->setMinimumSize(850, 550);
 
@@ -23,6 +35,15 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     form_init->addWidget(label_init, 0, 0, 1, 2);
     form_init->addLayout(form_choix, 1, 0, 8, 2);
 
+    // infos sur l'automate
+    QString nomDefaut = "Nouvel automate";
+    nom_automate = new QLineEdit(nomDefaut);
+    QString auteurDefaut = "Anonym";
+    auteur = new QLineEdit(auteurDefaut);
+    QString anneeDefaut = "2000";
+    annee = new QLineEdit(anneeDefaut);
+    QString descDefaut = "Nouvel automate créé par l'utilisateur";
+    description = new QLineEdit(descDefaut);
     // nb d'états
     nb_etats = new QSpinBox;
     nb_etats->setRange(1, 8);
@@ -67,6 +88,10 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     //ajout regle :
 
+    form_choix->addRow("Nom automate :", nom_automate);
+    form_choix->addRow("Auteur :", auteur);
+    form_choix->addRow("Année :", annee);
+    form_choix->addRow("Description :", description);
     form_choix->addRow("Nombre d'états :", nb_etats);
     form_choix->addRow("Règle de transition :", liste_regle_transition);
     form_choix->addRow("Voisinage :", liste_voisinage);
@@ -379,11 +404,29 @@ void NouveauModele::addRegle(){
 }
 
 void NouveauModele::validerParametrage(){
+	Automate::getInstance().setTitle(nom_automate->value().toStdString());
+	Automate::getInstance().setAuthor(auteur->value().toStdString());
+	Automate::getInstance().setYear(anneee->value().toInt());
+	Automate::getInstance().setDescription(description->value().toStdString());
+	Automate::getInstance().setFonction(fonction.get());
+	if (liste_voisinage->currentText().toStdString() == "Voisinage de von Neumann") {
+		RegleVoisinageNeumann *regle_voisins = new RegleVoisinageNeumann;
+		regle_voisins->setr(rayon.value());
+		Automate::getInstance().setRegleVoisinage(rayon_voisins);
+	}
+	else if (liste_voisinage->currentText().toStdString() == "Voisinage de Moore") {
+		RegleVoisinageMoore *regle_voisins = new RegleVoisinageMoore;
+		regle_voisins->setr(rayon.value());
+		Automate::getInstance().setRegleVoisinage(rayon_voisins);
+	}
+	else if (liste_voisinage->currentText().toStdString() == "Voisinage arbitraire") {
+		//todo
+	}
+	Database::saveAutomaton(Automate::getInstance());
     if(nvAutocell != nullptr) delete nvAutocell;
 
     nvAutocell = new AutoCell;
 
     nvAutocell->show();
-
 }
 
