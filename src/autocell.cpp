@@ -337,6 +337,9 @@ void AutoCell::modifierCellule(const QModelIndex& index) {
     grid->item(i,j)->setText(str_indice);
 
     //réitnitialiser l'automate ou modif du buffer d
+    Automate::getInstance().reset();
+    Automate::getInstance().setReseauInit(*Grille);
+    Automate::getInstance().initialiserBuffer();
 }
 
 void AutoCell::sauvegarderGrille(){
