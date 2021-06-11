@@ -42,13 +42,13 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     // infos sur l'automate
     QString nomDefaut = "Nouvel automate";
-    nom_automate = new QLineEdit(nomDefaut);
+    QLineEdit* nom_automate = new QLineEdit(nomDefaut);
     QString auteurDefaut = "Anonym";
-    auteur = new QLineEdit(auteurDefaut);
+    QLineEdit* auteur = new QLineEdit(auteurDefaut);
     QString anneeDefaut = "2000";
-    annee = new QLineEdit(anneeDefaut);
+    QLineEdit* annee = new QLineEdit(anneeDefaut);
     QString descDefaut = "Nouvel automate créé par l'utilisateur";
-    description = new QLineEdit(descDefaut);
+    QLineEdit* description = new QLineEdit(descDefaut);
     // nb d'états
     nb_etats = new QSpinBox;
     nb_etats->setRange(1, 8);
