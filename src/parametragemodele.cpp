@@ -336,7 +336,7 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     form_choix->addRow("Etat par défaut", etat_defaut);*/
 
     QSpinBox* etatDest = new QSpinBox;
-    etatDest->setRange(0, nb_etats->value());
+    etatDest->setRange(0, nb_etats->value()-1);
 
     valid_Etat = new QComboBox;
     valid_Etat->addItem("Oui");
