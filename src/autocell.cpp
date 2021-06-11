@@ -386,8 +386,13 @@ void AutoCell::afficherErreur(QString& msg){
 }
 
 void AutoCell::initAutomate(const QString& name) {
-	std::cout << name.toStdString() << std::endl;
-	Database::getInstance().initSingletonAutomate(name);
+	try {
+		Database::getInstance().initSingletonAutomate(name);
+	}
+	catch(const char* m) {
+		QString msg(m);
+		afficherErreur(msg);
+	}
 }
 
 void AutoCell::changeDelai() {
