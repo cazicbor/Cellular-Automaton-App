@@ -432,6 +432,6 @@ INSERT INTO Cellules VALUES(
 INSERT INTO Cellules VALUES(
 	2,
 	3,
-	3,
+	4,
 	4
 );

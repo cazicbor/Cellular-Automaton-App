@@ -48,7 +48,7 @@ void Database::initEnsEtat(Automate& a) const {
 	query.exec();
 
 	if(!query.first())
-		throw "Unable to select this object";
+		throw "Unable to select this object (ensemble)";
 
 	EnsembleEtat& ens = a.getEnsemble();
 	ens.reset();
@@ -75,7 +75,7 @@ Fonction* Database::getFonction(Automate& a) const {
 	query.exec();
 
 	if(!query.first())
-		throw "Unable to select this object";
+		throw "Unable to select this object (function)";
 
 	Fonction* fonction = new Fonction(a.getEnsemble().getEtat(query.value("defaut").toInt()));
 
@@ -162,7 +162,7 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 	query.exec();
 
 	if(!query.first())
-		throw "Unable to select this object";
+		throw "Unable to select this object (neighbourhood)";
 
 	int type = query.value("type").toInt();
 
@@ -235,7 +235,7 @@ Reseau& Database::getReseau(int idReseau) const {
     reseau.bindValue(":id", idReseau);
     reseau.exec();
     if(!reseau.first())
-	    throw "Can't select!";
+	    throw "Can't select (reseau) !";
     Reseau* r = new Reseau(reseau.value("h").toUInt(), reseau.value("l").toUInt());
 
     //remplissage du réseau
@@ -250,7 +250,7 @@ Reseau& Database::getReseau(int idReseau) const {
             cellule.bindValue(":j", static_cast<int>(j));
             cellule.exec();
 	    if(!cellule.first())
-		    throw "Can't select!";
+		    throw "Can't select (cell) !";
             while(static_cast<int>(r->getReseau()[i][j].getIndEtat()) != cellule.value("etat").toInt())
                 r->getReseau()[i][j].incrementerEtat();
         }
@@ -498,7 +498,7 @@ void Database::initSingletonAutomate(const QString& modele) const
     reseau.exec();
 
     if(!reseau.first())
-	    throw "Can't select!";
+	    throw "Can't select (automaton) !";
 
     Automate::getInstance().setTitle(reseau.value(0).toString().toStdString());
     Automate::getInstance().setAuthor(reseau.value(1).toString().toStdString());
