@@ -233,9 +233,8 @@ void AutoCell::afficherGrille(Reseau* Grille)
 
     QFont serifFont("Times", 8, QFont::DemiBold);
 
-    for(unsigned int i=0; i<h; i++){
-            for(unsigned int j=0; j<l; j++)
-        {
+    for(int i=0; i < h; ++i) {
+            for(int j=0; j < l; ++j) {
             //vérifier si les cellules ont ou non été générés (!= nullptr)
             QString indice; indice.setNum(Grille->getReseau()[i][j].getIndEtat());
 
