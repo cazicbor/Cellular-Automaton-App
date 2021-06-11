@@ -50,8 +50,10 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     QString descDefaut = "Nouvel automate créé par l'utilisateur";
     QLineEdit* description = new QLineEdit(descDefaut);
     // nb d'états
-    nb_etats = new QSpinBox;
+    QSpinBox* nb_etats = new QSpinBox;
     nb_etats->setRange(1, 8);
+    QSpinBox* etat_defaut = new QSpinBox;
+    etat_defaut->setRange(0,nb_etats->value()-1);
 
     //choisir un voisinage
     liste_voisinage = new QComboBox;
@@ -97,6 +99,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     form_choix->addRow("Auteur :", auteur);
     form_choix->addRow("Année :", annee);
     form_choix->addRow("Description :", description);
+    form_choix->addRow("Etat par défaut", etat_defaut);
     form_choix->addRow("Nombre d'états :", nb_etats);
     form_choix->addRow("Règle de transition :", liste_regle_transition);
     form_choix->addRow("Voisinage :", liste_voisinage);
@@ -330,7 +333,8 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     destination = new QLabel("Destination : ");
     etatCourant = new QLabel("Etat Courant : ");
 
-    etatDest = new QSpinBox;
+    QSpinBox* etatDest = new QSpinBox;
+    etatDest->setRange(0, nb_etats->value());
 
     valid_Etat = new QComboBox;
     valid_Etat->addItem("Oui");
