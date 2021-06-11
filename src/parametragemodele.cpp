@@ -42,13 +42,13 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     // infos sur l'automate
     QString nomDefaut = "Nouvel automate";
-    QLineEdit* nom_automate = new QLineEdit(nomDefaut);
+    nom_automate = new QLineEdit(nomDefaut);
     QString auteurDefaut = "Anonym";
-    QLineEdit* auteur = new QLineEdit(auteurDefaut);
+    auteur = new QLineEdit(auteurDefaut);
     QString anneeDefaut = "2000";
-    QLineEdit* annee = new QLineEdit(anneeDefaut);
+    annee = new QLineEdit(anneeDefaut);
     QString descDefaut = "Nouvel automate créé par l'utilisateur";
-    QLineEdit* description = new QLineEdit(descDefaut);
+    description = new QLineEdit(descDefaut);
     // nb d'états
     nb_etats = new QSpinBox;
     nb_etats->setRange(2, 8);
@@ -427,7 +427,16 @@ void NouveauModele::addRegle(){
     paramRegle("Nouvelle fonction de transition");
 }
 
-/*void NouveauModele::validerParametrage(){
+void NouveauModele::validerParametrage(){
+
+    Automate::getInstance().reinitialiserAutomate();
+
+    Automate::getInstance().setTitle(nom_automate->text().toStdString());
+    Automate::getInstance().setAuthor(auteur->text().toStdString());
+    Automate::getInstance().setDesc(description->text().toStdString());
+    Automate::getInstance().setYear(annee->text().toInt());
+
+    /*
 	Automate::getInstance().setTitle(nom_automate->value().toStdString());
 	Automate::getInstance().setAuthor(auteur->value().toStdString());
 	Automate::getInstance().setYear(anneee->value().toInt());
@@ -451,6 +460,6 @@ void NouveauModele::addRegle(){
 
     nvAutocell = new AutoCell;
 
-    nvAutocell->show();
-}*/
+    nvAutocell->show();*/
+}
 
