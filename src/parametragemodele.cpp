@@ -429,8 +429,6 @@ void NouveauModele::addRegle(){
 
 void NouveauModele::validerParametrage(){
 
-    Automate::getInstance().reinitialiserAutomate();
-
     Automate::getInstance().setTitle(nom_automate->text().toStdString());
     Automate::getInstance().setAuthor(auteur->text().toStdString());
     Automate::getInstance().setDesc(description->text().toStdString());
