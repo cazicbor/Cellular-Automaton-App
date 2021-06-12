@@ -217,6 +217,8 @@ this->setWindowTitle("Automate cellulaire");
     win_grid = new QWidget;
 
     grid = new QTableWidget(0,0,win_grid);
+
+    afficherNotice();
 };
 
 void AutoCell::afficherGrille(const Reseau* grille)
@@ -450,3 +452,11 @@ void AutoCell::reinitialiserSimulation()
     afficherGrille(&Automate::getInstance().getReseauInit());
 }
 
+void AutoCell::afficherNotice(){
+    fenetre_notice.reset(new QWidget);
+    fenetre_notice.get()->setMinimumWidth(1000);
+    fenetre_notice->setWindowTitle("Notice");
+    QString str_notice("test");
+    lab_notice.reset(new QLabel(str_notice, fenetre_notice.get()));
+    fenetre_notice.get()->show();
+};
