@@ -269,6 +269,9 @@ void AutoCell::afficherGrille(Reseau* grille)
     }
     connect(grid,SIGNAL(clicked(const QModelIndex&)),this,SLOT(modifierCellule(const QModelIndex&)));
     general->addWidget(win_grid,1,1,2,2);
+
+    edit_nb_step->setText(to_string(Automate::getInstance().getNbStep()).c_str());
+    edit_periode->setText(to_string(Automate::getInstance().getNbCycle()).c_str());
 };
 
 
