@@ -9,11 +9,14 @@
 /// Règle générale
 ///
 /// Classe mère abstraite de toutes les règles, utilisé pour rendre le code évoluable, définir des règles au comportement totalement différent de ce que nous avons.
+/// Définit les concepts de base d'une règle (qui représente une condition suffisante pour passer à un état donné)
 class RegleGen {
 	private:
 		Etat destination;
 
 	public:
+		/// Construire une règle générale
+		/// @param[in] nDestination État de destination de la règle
 		RegleGen(const Etat& nDestination): destination(nDestination) {}
 		virtual ~RegleGen() = default;
 		/// Vérifier si une règle est vérifiée
