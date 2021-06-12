@@ -106,7 +106,7 @@ class Automate {
 		/// Se placer sur l'état suivant si disponible
 		void next() { if(itBuffer!=(--buffer.end())) itBuffer++; }
 		/// On vide la buffer et on l'initialise avec une première grille
-		void reset() { buffer.clear(); buffer.push_back(reseauInit); }
+		void reset() { buffer.clear(); buffer.push_back(reseauInit); nbStep = 0 ; nbCycle = 0;}
 
 		/// Se placer sur l'état suivant du buffer et le calculer s'il n'y en a plus de disponible
 		void step();
