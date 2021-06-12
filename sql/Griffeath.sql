@@ -36,7 +36,7 @@ INSERT INTO Etats VALUES(
 	2,
 	"Orange foncé",
 	255,
-	69,
+	89,
 	0
 );
 
