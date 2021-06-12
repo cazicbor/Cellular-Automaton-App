@@ -64,6 +64,7 @@ class AutoCell : public QWidget
 
     QGridLayout* grid_run_control;
 
+    QCheckBox* matriceTorique;
     QLabel* lab_time_step;
     QLineEdit* edit_time_step;
     QPushButton* button_valider_delai;
@@ -135,6 +136,7 @@ class AutoCell : public QWidget
     void previous();
     /// Aller en avant dans la simulation
     void next();
+    void setMatriceTorique(int val);
 };
 
 #endif // AUTOCELL_H

@@ -67,12 +67,17 @@ public:
 };
 
 class RegleVoisinage{
+	private:
+		bool matriceTorique;
+
 	public :
 		virtual void calculVoisinage(Voisinage& v, const Reseau& r) const = 0;
 		virtual int getType() const = 0;
 		/// Renvoie le rayon d'une règle de voisinage, 0 si ce n'est pas pertinant pour ce voisinage (arbitraire, ...)
 		virtual unsigned int getr() const { return 0; }
 		virtual ~RegleVoisinage() = default;
+		void setMatriceTorique(const bool val) { matriceTorique = val; }
+		bool getMatriceTorique() const { return matriceTorique; }
 };
 
 class RegleVoisinageNeumann : public RegleVoisinage {

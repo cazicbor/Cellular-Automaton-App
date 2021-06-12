@@ -141,6 +141,9 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 
     grid_run_control->addWidget(lab_run_crtl, 0,0,1,3,Qt::AlignTop);
 
+    matriceTorique = new QCheckBox("Matrice torique");
+    connect(matriceTorique, SIGNAL(stateChanged(int)), this, SLOT(setMatriceTorique(int)));
+
     lab_time_step = new QLabel("Pas de temps : ");
     edit_time_step = new QLineEdit;
     edit_time_step->setStyleSheet("background-color: rgb(255,255,255)");
@@ -166,13 +169,14 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     button_reinitialiser->setStyleSheet("background-color: rgb(255,255,255)");
     button_reinitialiser->setFixedWidth(200);
 
-    grid_run_control->addWidget(lab_time_step, 1, 0);
-    grid_run_control->addWidget(edit_time_step, 1, 1);
-    grid_run_control->addWidget(button_valider_delai, 1, 2);
-    grid_run_control->addWidget(button_prev, 2, 0);
-    grid_run_control->addWidget(button_run, 2, 1);
-    grid_run_control->addWidget(button_next, 2, 2);
-    grid_run_control->addWidget(button_reinitialiser, 3, 0, Qt::AlignCenter);
+    grid_run_control->addWidget(matriceTorique, 1, 0, Qt::AlignCenter);
+    grid_run_control->addWidget(lab_time_step, 2, 0);
+    grid_run_control->addWidget(edit_time_step, 2, 1);
+    grid_run_control->addWidget(button_valider_delai, 2, 2);
+    grid_run_control->addWidget(button_prev, 3, 0);
+    grid_run_control->addWidget(button_run, 3, 1);
+    grid_run_control->addWidget(button_next, 3, 2);
+    grid_run_control->addWidget(button_reinitialiser, 4, 0, Qt::AlignCenter);
 
     lab_sauv_grille = new QLabel("Sauvegarder la grille courante");
     edit_nom_grille = new QLineEdit;
@@ -396,6 +400,8 @@ void AutoCell::initAutomate(const QString& name) {
 		QString msg(m);
 		afficherErreur(msg);
 	}
+	Automate::getInstance().setMatriceTorique(true);
+	matriceTorique->setCheckState(Qt::Checked);
 }
 
 void AutoCell::changeDelai() {
@@ -421,4 +427,11 @@ void AutoCell::previous() {
 		QString msg(m);
 		afficherErreur(msg);
 	}
+}
+
+void AutoCell::setMatriceTorique(int val) {
+	if (val == 0)
+		Automate::getInstance().setMatriceTorique(false);
+	else
+		Automate::getInstance().setMatriceTorique(true);
 }
