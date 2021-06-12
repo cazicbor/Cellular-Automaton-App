@@ -16,7 +16,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 	Automate::getInstance().getEnsemble().ajouterEtat(7, "État 8", 200, 200, 200);
    // fonction.reset(new Fonction(Automate::getInstance().getEnsemble().getEtat(0)));
     this->setWindowTitle("Paramétrage d'un nouveau modèle");
-    this->setMinimumSize(850, 550);
+    this->setMinimumSize(850, 650);
 
     general = new QGridLayout;
     this->setLayout(general);
@@ -217,7 +217,7 @@ void NouveauModele::modifGrille(const QModelIndex& index){
 void NouveauModele::changerVoisinage(const QString& choix_regle){
 
     //delete liste_voisinage;
-    form_choix->removeRow(6);
+    form_choix->removeRow(7);
     liste_voisinage = new QComboBox();
     layoutvalid = new QHBoxLayout;
 
@@ -241,7 +241,7 @@ void NouveauModele::changerVoisinage(const QString& choix_regle){
         liste_voisinage->addItem("Voisinage arbitraire");
         liste_voisinage->setCurrentIndex(-1);
     }
-    form_choix->insertRow(6, "Voisinage :", liste_voisinage);
+    form_choix->insertRow(8, "Voisinage :", liste_voisinage);
     layoutvalid->addWidget(bouton_valide);
     layoutvalid->addWidget(boutonEtat);
     form_choix->addRow(layoutvalid);
