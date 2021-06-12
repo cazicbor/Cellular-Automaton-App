@@ -1,3 +1,5 @@
+.DS_Store
+cellulut.pro.user
 *.o
 cellulut
 .qmake.stash
