@@ -272,7 +272,8 @@ void Database::saveAutomaton(const Automate& a) const {
 
 	saveFunction(a.getTitle().c_str(), a.getFonction());
 	saveVoisinage(a.getTitle().c_str(), a.getRegleVoisinage());
-	stockerReseau(a.getReseauInit(), "To be determined", a.getTitle().c_str());
+    stockerReseau(a.getReseauInit(), "To be determined", a.getTitle().c_str());
+    saveEnsemble(Automate::getInstance());
 }
 
 void Database::saveFunction(const QString& name, const Fonction& f) const {
@@ -292,98 +293,98 @@ void Database::saveFunction(const QString& name, const Fonction& f) const {
 			query.bindValue(":min1", rule->getMin(1));
 		}
 		else { // NULL value
-			query.bindValue(":min1", QVariant(QVariant::Int));
+            query.bindValue(":min1", -1);
 		}
 		if(rule->getMin(2) != -1) {
 			query.bindValue(":min2", rule->getMin(2));
 		}
 		else { // NULL value
-			query.bindValue(":min2", QVariant(QVariant::Int));
+            query.bindValue(":min2", -1);
 		}
 		if(rule->getMin(3) != -1) {
 			query.bindValue(":min3", rule->getMin(3));
 		}
 		else { // NULL value
-			query.bindValue(":min3", QVariant(QVariant::Int));
+            query.bindValue(":min3", -1);
 		}
 		if(rule->getMin(4) != -1) {
 			query.bindValue(":min4", rule->getMin(4));
 		}
 		else { // NULL value
-			query.bindValue(":min4", QVariant(QVariant::Int));
+            query.bindValue(":min4", -1);
 		}
 		if(rule->getMin(5) != -1) {
 			query.bindValue(":min5", rule->getMin(5));
 		}
 		else { // NULL value
-			query.bindValue(":min5", QVariant(QVariant::Int));
+            query.bindValue(":min5", -1);
 		}
 		if(rule->getMin(6) != -1) {
 			query.bindValue(":min6", rule->getMin(6));
 		}
 		else { // NULL value
-			query.bindValue(":min6", QVariant(QVariant::Int));
+            query.bindValue(":min6", -1);
 		}
 		if(rule->getMin(7) != -1) {
 			query.bindValue(":min7", rule->getMin(7));
 		}
 		else { // NULL value
-			query.bindValue(":min7", QVariant(QVariant::Int));
+            query.bindValue(":min7", -1);
 		}
 		if(rule->getMin(8) != -1) {
 			query.bindValue(":min8", rule->getMin(8));
 		}
 		else { // NULL value
-			query.bindValue(":min8", QVariant(QVariant::Int));
+            query.bindValue(":min8", -1);
 		}
 
 		if(rule->getMax(1) != -1) {
 			query.bindValue(":max1", rule->getMax(1));
 		}
 		else { // NULL value
-			query.bindValue(":max1", QVariant(QVariant::Int));
+            query.bindValue(":max1", -1);
 		}
 		if(rule->getMax(2) != -1) {
 			query.bindValue(":max2", rule->getMax(2));
 		}
 		else { // NULL value
-			query.bindValue(":max2", QVariant(QVariant::Int));
+            query.bindValue(":max2", -1);
 		}
 		if(rule->getMax(3) != -1) {
 			query.bindValue(":max3", rule->getMax(3));
 		}
 		else { // NULL value
-			query.bindValue(":max3", QVariant(QVariant::Int));
+            query.bindValue(":max3", -1);
 		}
 		if(rule->getMax(4) != -1) {
 			query.bindValue(":max4", rule->getMax(4));
 		}
 		else { // NULL value
-			query.bindValue(":max4", QVariant(QVariant::Int));
+            query.bindValue(":max4", -1);
 		}
 		if(rule->getMax(5) != -1) {
 			query.bindValue(":max5", rule->getMax(5));
 		}
 		else { // NULL value
-			query.bindValue(":max5", QVariant(QVariant::Int));
+            query.bindValue(":max5", -1);
 		}
 		if(rule->getMax(6) != -1) {
 			query.bindValue(":max6", rule->getMax(6));
 		}
 		else { // NULL value
-			query.bindValue(":max6", QVariant(QVariant::Int));
+            query.bindValue(":max6", -1);
 		}
 		if(rule->getMax(7) != -1) {
 			query.bindValue(":max7", rule->getMax(7));
 		}
 		else { // NULL value
-			query.bindValue(":max7", QVariant(QVariant::Int));
+            query.bindValue(":max7", -1);
 		}
 		if(rule->getMax(8) != -1) {
 			query.bindValue(":max8", rule->getMax(8));
 		}
 		else { // NULL value
-			query.bindValue(":max8", QVariant(QVariant::Int));
+            query.bindValue(":max8", -1);
 		}
 
 		query.exec();
