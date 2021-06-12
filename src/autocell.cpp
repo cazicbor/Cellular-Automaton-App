@@ -150,7 +150,7 @@ this->setWindowTitle("Automate cellulaire");
     spin_time_step->setFixedWidth(70);
     spin_time_step->setValue(1000);
     spin_time_step->setRange(500,2500);
-    connect(spin_time_step, SIGNAL(valueChanged(int i)), this, SLOT(changeDelai(int i)));
+    connect(spin_time_step, SIGNAL(valueChanged()), this, SLOT(changeDelai()));
     button_prev = new QPushButton("<<");
     button_prev->setStyleSheet("background-color: rgb(255,255,255)");
     button_prev->setFixedSize(40,40);
@@ -415,8 +415,8 @@ void AutoCell::initAutomate(const QString& name) {
 	matriceTorique->setCheckState(Qt::Checked);
 }
 
-void AutoCell::changeDelai(int i) {
-    Automate::getInstance().setDelai(static_cast<unsigned int>(i));
+void AutoCell::changeDelai() {
+    Automate::getInstance().setDelai(static_cast<unsigned int>(spin_time_step->value()));
 }
 
 void AutoCell::next() {
