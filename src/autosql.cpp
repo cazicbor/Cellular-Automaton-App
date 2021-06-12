@@ -166,23 +166,20 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 
 	int type = query.value("type").toInt();
 
+	RegleVoisinage *regle = nullptr;
 	if(type == 1) {
 		if(query.isNull("rayon"))
 			throw "Error: r can't be undefined here";
 
-		RegleVoisinageNeumann *regle = new RegleVoisinageNeumann;
-		regle->setr(query.value("rayon").toInt());
-
-		return regle;
+		regle = new RegleVoisinageNeumann;
+		dynamic_cast<RegleVoisinageNeumann*>(regle)->setr(query.value("rayon").toInt());
 	}
 	else if(type == 2) {
 		if(query.isNull("rayon"))
 			throw "Error: r can't be undefined here";
 
-		RegleVoisinageMoore *regle = new RegleVoisinageMoore;
-		regle->setr(query.value("rayon").toInt());
-
-		return regle;
+		regle = new RegleVoisinageMoore;
+		dynamic_cast<RegleVoisinageMoore*>(regle)->setr(query.value("rayon").toInt());
 	}
 	else if(type != 3) {
 		query.prepare("SELECT x, y FROM coord_voisinage WHERE id = :id");
@@ -192,20 +189,20 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 		if(!query.first())
 			throw "There must be at least one coord in this rule";
 
-		RegleVoisinageArbitraire *regle = new RegleVoisinageArbitraire;
+		regle = new RegleVoisinageArbitraire;
 		Coordonnees coord;
 		do {
 			coord.x = query.value(0).toUInt();
 			coord.y = query.value(1).toUInt();
-			regle->coordonnees.push_back(coord);
+			dynamic_cast<RegleVoisinageArbitraire*>(regle)->coordonnees.push_back(coord);
 		} while(query.next());
 
 		query.prepare("SELECT COUNT(*) FROM coord_voisinage WHERE id = :id");
 		query.bindValue(":id", name);
 		query.exec();
-
-		return regle;
 	}
+
+	return regle;
 }
 
 /// Retourne un descriptif des réseaux ("id", "nom", "id", "nom", etc.) liés à un automate
