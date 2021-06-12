@@ -241,6 +241,7 @@ void AutoCell::afficherGrille(Reseau* Grille)
 
             grid->setItem(i, j, new QTableWidgetItem(indice));
             grid->item(i,j)->setFlags(Qt::ItemIsEnabled);
+            grid->item(i,j)->setToolTip(label);
 
             //afficherCellule
 
