@@ -132,7 +132,7 @@ class AutoCell : public QWidget
     /// Initialiser un automate par son nom
     void initAutomate(const QString& name);
     /// Changer le délai de l'automate
-    void changeDelai(int i);
+    void changeDelai();
     /// Aller en arrière dans la simulation
     void previous();
     /// Aller en avant dans la simulation
