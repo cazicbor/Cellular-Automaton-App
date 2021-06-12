@@ -144,6 +144,8 @@ class AutoCell : public QWidget
     void setMatriceTorique(int val);
     /// Revenir au réseau initial
     void reinitialiserSimulation();
+    ///Afficher la notice d'utilisation
+    void afficherNotice();
 };
 
 #endif // AUTOCELL_H
