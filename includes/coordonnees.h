@@ -1,31 +1,45 @@
 #ifndef COORDONNEES_H
 #define COORDONNEES_H
 
-//on définit ici une structure Coordonnees permettant de décrire les coordonnées d'une cellule
-//etant donné que notre grille est en 2D, on a donc deux coordonnées x et y
-
-struct Coordonnees //peu d'intérêt de définir une classe pour qq chose de si simple, une structure fait l'affaire
+/// Structure de Coordonnees permettant de décrire les coordonnées d'une cellule
+///
+/// etant donné que notre grille est en 2D, on a donc deux coordonnées x et y
+/// peu d'intérêt de définir une classe pour qq chose de si simple, une structure fait l'affaire
+struct Coordonnees
 {
-    int x; //abscisse
-    int y; //ordonnée
+	/// Abscisse de la Coordonnees
+	int x;
+	/// Ordonnées de la Coordonnees
+	int y;
 };
 
-inline bool operator==(const Coordonnees& gauche, const Coordonnees& droite) { //test de l'égalité entre deux coordonnées
-    return gauche.x == droite.x && gauche.y == droite.y;
+/// Test de l'égalité entre deux Coordonnees
+/// @param[in] gauche Coordonnees 1 de l'assertion
+/// @param[in] droite Coordonnees 2 de l'assertion
+inline bool operator==(const Coordonnees& gauche, const Coordonnees& droite) {
+	return gauche.x == droite.x && gauche.y == droite.y;
 }
 
-inline bool operator!=(const Coordonnees& gauche, const Coordonnees& droite) { //test si deux coordonnées sont différentes
-    return !(gauche == droite);
+/// Test si deux coordonnées sont différentes
+/// @param[in] gauche Coordonnees 1 de l'assertion
+/// @param[in] droite Coordonnees 2 de l'assertion
+inline bool operator!=(const Coordonnees& gauche, const Coordonnees& droite) {
+	return !(gauche == droite);
 }
 
-inline Coordonnees operator+(const Coordonnees& gauche, const Coordonnees& droite) { //opération d'addition entre deux coordonnées
-    return {gauche.x + droite.x, gauche.y + droite.y};
+/// Opération d'addition entre deux coordonnées
+/// @param[in] gauche Coordonnees 1 de l'opération
+/// @param[in] droite Coordonnees 2 de l'opération
+inline Coordonnees operator+(const Coordonnees& gauche, const Coordonnees& droite) {
+	return {gauche.x + droite.x, gauche.y + droite.y};
 }
 
-inline Coordonnees operator-(const Coordonnees& gauche, const Coordonnees& droite) { //opération de soustraction entre deux coordonnées
-    return {gauche.x - droite.x, gauche.y - droite.y};
+/// Opération de soustraction entre deux coordonnées
+/// @param[in] gauche Coordonnees 1 de l'opération
+/// @param[in] droite Coordonnees 2 de l'opération
+inline Coordonnees operator-(const Coordonnees& gauche, const Coordonnees& droite) {
+	return {gauche.x - droite.x, gauche.y - droite.y};
 }
-
 
 #endif // COORDONNEES_H
 
