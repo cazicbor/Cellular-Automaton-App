@@ -2,7 +2,7 @@
 #include <Automate.h>
 #include <parametragemodele.h>
 
-ParamAlpha::ParamAlpha(const int nbEtats): QWidget(), nb(nbEtats) {
+ParamAlpha::ParamAlpha(const int nbEtats, const QWidget *parent): QWidget(), nb(nbEtats) {
 	this->setWindowTitle("Configuration des états");
 	this->setMinimumSize(900, 700);
 
@@ -28,7 +28,7 @@ ParamAlpha::ParamAlpha(const int nbEtats): QWidget(), nb(nbEtats) {
 		form[i]->addRow("Vert:", green[i]);
 		form[i]->addRow("Bleu:", blue[i]);
 	}
-    connect(valider, SIGNAL(clicked()), this, SLOT(changerRegle()));
+    connect(valider, SIGNAL(clicked()), parent, SLOT(changerRegle()));
 
 	connect(valider, SIGNAL(clicked()), this, SLOT(valide()));
 
