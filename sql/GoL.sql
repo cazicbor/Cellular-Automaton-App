@@ -11,7 +11,7 @@ INSERT INTO EnsembleEtats VALUES(
 	"Game of Life"
 );
 
--- 3 états : on, dying and off --> vivant (blanc), mourant (gris), mort (noir)
+-- 2 états : vivant (blanc), mort (noir)
 
 INSERT INTO Etats VALUES(
 	2,
@@ -89,11 +89,11 @@ INSERT INTO regles_transition VALUES(
 	0
 );
 
--- Grille de test
+-- Grille de test 4 * 4 - Oscillateur
 
 INSERT INTO reseaux VALUES(
 	3,  
-	"Grille 4*4 - Game of Life", 
+	"Grille 4*4 - Game of Life - Oscillateur", 
 	4, 
 	4,
 	"Game of Life"
@@ -209,4 +209,189 @@ INSERT INTO Cellules VALUES(
 	1,
 	3,
 	3
+);
+
+--- Exemple 2 : planeur 5*5
+
+INSERT INTO reseaux VALUES(
+	4,  
+	"Grille 5*5 - Game of Life - Planeur", 
+	5, 
+	5,
+	"Game of Life"
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	0,
+	0,
+	0
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	0,
+	1,
+	0
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	2,
+	0
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	3,
+	0
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	4,
+	0
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	0,
+	0,
+	1
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	1,
+	1
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	0,
+	2,
+	1
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	3,
+	1
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	4,
+	1
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	0,
+	0,
+	2
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	1,
+	2
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	2,
+	2
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	3,
+	2
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	4,
+	2
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	0,
+	3
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	1,
+	3
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	2,
+	3
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	3,
+	3
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	4,
+	3
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	0,
+	4
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	1,
+	4
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	2,
+	4
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	3,
+	4
+);
+
+INSERT INTO Cellules VALUES(
+	4, 
+	1,
+	4,
+	4
 );
