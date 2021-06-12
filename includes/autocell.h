@@ -106,17 +106,18 @@ class AutoCell : public QWidget
     public slots:
     //void chargerModele();
     //void listerModele(); //à faire en dernier
-    /// slot pour charger les grilles disponibles pour le modèle sélectionné
+    /// slot pour charger les Reseau disponibles pour le modèle sélectionné
     void chargerGrilles();
     //void listerGrille(); //déjà réfléchir à la recopie
     //Reseau initialiserGrille(); //méthode à implémenter qui récupère les données du formulaire - penser à réinitialiser les données annexes
     //void afficherGrille(Reseau&); //affiche une grille
     //void chargerGrilles(const QString &text);
 
-    /// Afficher une grille dans l'espace dédié
+    /// Afficher un Reseau dans l'espace dédié
+    /// @param[in] Grille pointeur vers le Reseau à afficher
     void afficherGrille(const Reseau* Grille);
 
-    /// Initialiser une grille
+    /// Initialiser un Reseau
     void initialiserGrille();
     /// Remettre à 0 la simulation
     void RAZ();
@@ -126,21 +127,26 @@ class AutoCell : public QWidget
     //Reseau& modifierCellule(const QModelIndex&, Reseau& Grille);//à implémenter
 
     /// Modifier l'état d'une cellule de la grille affichée (par clic par exemple)
+    /// @param[in] index localisation de la cellule à modifier
     void modifierCellule(const QModelIndex& index);
-    /// Sauvegarder la grille courante dans la BDD
+    /// Sauvegarder le Reseau courant dans la BDD
     void sauvegarderGrille();
     /// Créer un nouveau modèle
     void defNouveauModele();
     /// Afficher une boîte d'erreur
+    /// @param[in] msg Message à afficher
     void afficherErreur(QString& msg);
-    /// Initialiser un automate par son nom
+    /// Initialiser un Automate par son nom
+    /// @param[in] nom de l'Automate à initialiser
     void initAutomate(const QString& name);
-    /// Changer le délai de l'automate
+    /// Changer le délai de l'Automate
     void changeDelai();
     /// Aller en arrière dans la simulation
     void previous();
     /// Aller en avant dans la simulation
     void next();
+    /// Changer le comportement de la matrice aux frontières
+    /// @param[in] val comportement à avoir (true = matrice torique, false = ignorer)
     void setMatriceTorique(int val);
     /// Revenir au réseau initial
     void reinitialiserSimulation();
