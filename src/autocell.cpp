@@ -141,15 +141,16 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 
     grid_run_control->addWidget(lab_run_crtl, 0,0,1,3,Qt::AlignTop);
 
+    matriceTorique = new QCheckBox("Matrice torique");
+    connect(matriceTorique, SIGNAL(stateChanged(int)), this, SLOT(setMatriceTorique(int)));
+
     lab_time_step = new QLabel("Pas de temps : ");
-    edit_time_step = new QLineEdit;
-    edit_time_step->setStyleSheet("background-color: rgb(255,255,255)");
-    edit_time_step->setFixedWidth(30);
-    edit_time_step->setText("1000"); //valeur par défaut pour le pas de temps
-    button_valider_delai = new QPushButton("valider");
-    button_valider_delai->setStyleSheet("background-color: rgb(255,255,255)");
-    button_valider_delai->setFixedWidth(50);
-    connect(button_valider_delai, SIGNAL(clicked()), this, SLOT(changeDelai()));
+    spin_time_step = new QSpinBox;
+    spin_time_step->setStyleSheet("background-color: rgb(255,255,255)");
+    spin_time_step->setFixedWidth(70);
+    spin_time_step->setValue(1000);
+    spin_time_step->setRange(500,2500);
+    connect(spin_time_step, SIGNAL(valueChanged(int i)), this, SLOT(changeDelai(int i)));
     button_prev = new QPushButton("<<");
     button_prev->setStyleSheet("background-color: rgb(255,255,255)");
     button_prev->setFixedSize(40,40);
@@ -166,13 +167,13 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     button_reinitialiser->setStyleSheet("background-color: rgb(255,255,255)");
     button_reinitialiser->setFixedWidth(200);
 
-    grid_run_control->addWidget(lab_time_step, 1, 0);
-    grid_run_control->addWidget(edit_time_step, 1, 1);
-    grid_run_control->addWidget(button_valider_delai, 1, 2);
-    grid_run_control->addWidget(button_prev, 2, 0);
-    grid_run_control->addWidget(button_run, 2, 1);
-    grid_run_control->addWidget(button_next, 2, 2);
-    grid_run_control->addWidget(button_reinitialiser, 3, 0, Qt::AlignCenter);
+    grid_run_control->addWidget(matriceTorique, 1, 0, Qt::AlignCenter);
+    grid_run_control->addWidget(lab_time_step, 2, 0);
+    grid_run_control->addWidget(spin_time_step, 2, 1);
+    grid_run_control->addWidget(button_prev, 3, 0);
+    grid_run_control->addWidget(button_run, 3, 1);
+    grid_run_control->addWidget(button_next, 3, 2);
+    grid_run_control->addWidget(button_reinitialiser, 4, 0, Qt::AlignCenter);
 
     lab_sauv_grille = new QLabel("Sauvegarder la grille courante");
     edit_nom_grille = new QLineEdit;
@@ -308,7 +309,7 @@ void AutoCell::RAZ(){
     grid = new QTableWidget(0,0,win_grid);
     edit_largeur->setText("");
     edit_hauteur->setText("");
-    edit_time_step->setText("1000");
+    spin_time_step->setValue(1000);
     check_aleatoire->setCheckState(Qt::Unchecked);
     check_load_grid->setCheckState(Qt::Unchecked);
 ;}
@@ -354,6 +355,10 @@ void AutoCell::sauvegarderGrille(){
     QString nom_automate;
     nom_automate = liste->currentText();
     Database::getInstance().stockerReseau(*Grille, nom_grille, nom_automate);
+    edit_nom_grille->setText("");
+    QMessageBox messageBox;
+    messageBox.critical(0,"Confirmation", "Grille enregistrée");
+    messageBox.setFixedSize(500,200);
 };
 
 void AutoCell::chargerGrilles(){
@@ -363,6 +368,7 @@ void AutoCell::chargerGrilles(){
     text = liste->currentText();
 
     list_grids->clear();
+    list_grids->setFixedWidth(90);
     vector<QString> noms = Database::getInstance().getListeReseaux(text);
     nb.setNum(noms.size());
 
@@ -396,16 +402,12 @@ void AutoCell::initAutomate(const QString& name) {
 		QString msg(m);
 		afficherErreur(msg);
 	}
+	Automate::getInstance().setMatriceTorique(true);
+	matriceTorique->setCheckState(Qt::Checked);
 }
 
-void AutoCell::changeDelai() {
-	 if(edit_time_step->text() == "" || edit_time_step->text().toInt() < 500 || edit_time_step->text().toInt() > 2500 ){
-        QString msg("Veuillez indiquer un pas de temps entre 500 ms et 2500 ms");
-        afficherErreur(msg);
-        edit_time_step->setText("1000");
-        return;
-    }
-	Automate::getInstance().setDelai(static_cast<unsigned int>(edit_time_step->text().toInt()));
+void AutoCell::changeDelai(int i) {
+    Automate::getInstance().setDelai(static_cast<unsigned int>(i));
 }
 
 void AutoCell::next() {
@@ -421,4 +423,11 @@ void AutoCell::previous() {
 		QString msg(m);
 		afficherErreur(msg);
 	}
+}
+
+void AutoCell::setMatriceTorique(int val) {
+	if (val == 0)
+		Automate::getInstance().setMatriceTorique(false);
+	else
+		Automate::getInstance().setMatriceTorique(true);
 }

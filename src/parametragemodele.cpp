@@ -1,8 +1,12 @@
 #include"parametragemodele.h"
 #include <autocell.h>
 #include <Automate.h>
+<<<<<<< HEAD
 #include<autosql.h>
 
+=======
+#include <autosql.h>
+>>>>>>> aa94038ad54c3aac4dd6ab4c2275b185fe3c1dfb
 
 
 NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
@@ -66,6 +70,14 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     //choisir une règle de transition
 
 
+<<<<<<< HEAD
+=======
+    //liste_regle_transition->addItem("--- select ---");
+    std::vector<QString> automates = Database::getInstance().getAutomates();
+    for(size_t i = 0 ; i<automates.size(); i++)
+        liste_regle_transition->addItem(automates[i]);
+    liste_regle_transition->addItem("Nouvelle fonction de transition");
+>>>>>>> aa94038ad54c3aac4dd6ab4c2275b185fe3c1dfb
 
 
 

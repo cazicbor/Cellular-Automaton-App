@@ -156,6 +156,10 @@ class Automate {
 
 		/// Réinitialiser totalement la configuration de l'automate
 		void reinitialiserAutomate();
+
+		/// Définir le comportement aux frontières
+		void setMatriceTorique(const bool val) { regleVoisinage->setMatriceTorique(val); }
+		bool getMatriceTorique() { return regleVoisinage->getMatriceTorique(); }
 };
 
 #endif
