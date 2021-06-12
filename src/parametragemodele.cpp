@@ -213,14 +213,11 @@ void NouveauModele::changerVoisinage(){
 
     Fonction* automateFonction = new Fonction(Automate::getInstance().getEnsemble().getEtat(static_cast<unsigned int>(etat_default->value())));
     Automate::getInstance().setFonction(automateFonction);
-    
+
     //delete liste_voisinage;
     form_choix->removeRow(7);
     liste_voisinage = new QComboBox();
     layoutvalid = new QHBoxLayout;
-
-
-
 
     liste_voisinage->addItem("Voisinage de Moore");
     liste_voisinage->addItem("Voisinage de von Neumann");
@@ -406,8 +403,25 @@ void NouveauModele::paramRegle() {
 
 
 void NouveauModele::addRegle(){
+    if(valid_Etat->currentIndex()==(-1));
+    else
+    {
+        int min[8], max[8];
 
-    paramRegle();
+        for(int i = 0; i<8; i++)
+        {
+            min[i] = numSeuilMin[i]->text().toInt();
+            max[i] = numSeuilMax[i]->text().toInt();
+        }
+
+        if(valid_Etat->currentIndex()==1)
+            Automate::getInstance().getFonction().ajouterRegle(Automate::getInstance().getEnsemble().getEtat(etatDest->value()), min, max);
+
+        else
+            Automate::getInstance().getFonction().ajouterRegle(Automate::getInstance().getEnsemble().getEtat(etatDest->value()), min, max, numEtatCourant->value());
+
+        paramRegle();
+    }
 }
 
 void NouveauModele::validerParametrage(){
@@ -417,33 +431,46 @@ void NouveauModele::validerParametrage(){
     Automate::getInstance().setDesc(description->text().toStdString());
     Automate::getInstance().setYear(annee->text().toInt());
 
-    Fonction* automateFonction = new Fonction(Automate::getInstance().getEnsemble().getEtat(etat_default->value()));
+    Automate::getInstance().getFonction().setEtatDefaut(Automate::getInstance().getEnsemble().getEtat(etat_default->value()));
 
-    /*
-	Automate::getInstance().setTitle(nom_automate->value().toStdString());
-	Automate::getInstance().setAuthor(auteur->value().toStdString());
-	Automate::getInstance().setYear(anneee->value().toInt());
-	Automate::getInstance().setDescription(description->value().toStdString());
-	Automate::getInstance().setFonction(fonction.get());
-	if (liste_voisinage->currentText().toStdString() == "Voisinage de von Neumann") {
-		RegleVoisinageNeumann *regle_voisins = new RegleVoisinageNeumann;
-		regle_voisins->setr(rayon.value());
-		Automate::getInstance().setRegleVoisinage(rayon_voisins);
-	}
-	else if (liste_voisinage->currentText().toStdString() == "Voisinage de Moore") {
-		RegleVoisinageMoore *regle_voisins = new RegleVoisinageMoore;
-		regle_voisins->setr(rayon.value());
-		Automate::getInstance().setRegleVoisinage(rayon_voisins);
-	}
-	else if (liste_voisinage->currentText().toStdString() == "Voisinage arbitraire") {
-		//todo
-	}
-	Database::saveAutomaton(Automate::getInstance());
-    if(nvAutocell != nullptr) delete nvAutocell;
-
-    nvAutocell = new AutoCell;
-
-    nvAutocell->show();*/
+    if(liste_voisinage->currentIndex()==-1);
+    else
+        if(liste_voisinage->currentIndex()==0) //moore
+        {
+            RegleVoisinageMoore *regle_voisins = new RegleVoisinageMoore;
+            regle_voisins->setr(rayon->value());
+            Automate::getInstance().setRegleVoisinage(regle_voisins);
+            Database::getInstance().saveAutomaton(Automate::getInstance());
+            this->close();
+        }
+    else
+        if(liste_voisinage->currentIndex()==1) //von neumann
+        {
+            RegleVoisinageNeumann *regle_voisins = new RegleVoisinageNeumann;
+            regle_voisins->setr(rayon->value());
+            Automate::getInstance().setRegleVoisinage(regle_voisins);
+            Database::getInstance().saveAutomaton(Automate::getInstance());
+            this->close();
+        }
+    else //arbitraire
+        {
+            RegleVoisinageArbitraire *regle_voisins = new RegleVoisinageArbitraire;
+            Coordonnees c;
+            for(unsigned int i=0; i<5; i++){
+                for(unsigned int j=0; j<5; j++)
+                {
+                    if(grid->item(i,j)->background().color()==Qt::red)
+                    {
+                        c.x = i;
+                        c.y = j;
+                        regle_voisins->coordonnees.push_back(c);
+                    }
+                }
+            }
+            Automate::getInstance().setRegleVoisinage(regle_voisins);
+            Database::getInstance().saveAutomaton(Automate::getInstance());
+            this->close();
+        }
 }
 
 
@@ -462,6 +489,24 @@ void NouveauModele::changerEtatDefault(){
 }
 
 void NouveauModele::validation(){
-    bouton_valide = new QPushButton("Valider");
+    if(valid_Etat->currentIndex()==(-1));
+    else
+    {
+        int min[8], max[8];
+
+        for(int i = 0; i<8; i++)
+        {
+            min[i] = numSeuilMin[i]->text().toInt();
+            max[i] = numSeuilMax[i]->text().toInt();
+        }
+
+        if(valid_Etat->currentIndex()==1)
+            Automate::getInstance().getFonction().ajouterRegle(Automate::getInstance().getEnsemble().getEtat(etatDest->value()), min, max);
+
+        else
+            Automate::getInstance().getFonction().ajouterRegle(Automate::getInstance().getEnsemble().getEtat(etatDest->value()), min, max, numEtatCourant->value());
+    }
+
+    //bouton_valide = new QPushButton("Valider");
     form_choix->addRow(bouton_valide);
 }
