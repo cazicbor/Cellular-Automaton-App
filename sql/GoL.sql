@@ -93,9 +93,9 @@ INSERT INTO regles_transition VALUES(
 
 INSERT INTO reseaux VALUES(
 	3,  
-	"Grille 3*3 - Game of Life", 
-	3, 
-	3,
+	"Grille 4*4 - Game of Life", 
+	4, 
+	4,
 	"Game of Life"
 );
 
@@ -122,6 +122,13 @@ INSERT INTO Cellules VALUES(
 
 INSERT INTO Cellules VALUES(
 	3, 
+	1,
+	3,
+	0
+);
+
+INSERT INTO Cellules VALUES(
+	3, 
 	0,
 	0,
 	1
@@ -144,6 +151,13 @@ INSERT INTO Cellules VALUES(
 INSERT INTO Cellules VALUES(
 	3, 
 	1,
+	3,
+	1
+);
+
+INSERT INTO Cellules VALUES(
+	3, 
+	1,
 	0,
 	2
 );
@@ -160,4 +174,39 @@ INSERT INTO Cellules VALUES(
 	1,
 	2,
 	2
+);
+
+INSERT INTO Cellules VALUES(
+	3, 
+	1,
+	3,
+	2
+);
+
+INSERT INTO Cellules VALUES(
+	3, 
+	1,
+	0,
+	3
+);
+
+INSERT INTO Cellules VALUES(
+	3, 
+	1,
+	1,
+	3
+);
+
+INSERT INTO Cellules VALUES(
+	3, 
+	1,
+	2,
+	3
+);
+
+INSERT INTO Cellules VALUES(
+	3, 
+	1,
+	3,
+	3
 );
