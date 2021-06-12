@@ -124,11 +124,6 @@ public slots:
 
     void validation();
 
-
-   //  void validerParametrage();
-
-
-
 };
 
 
