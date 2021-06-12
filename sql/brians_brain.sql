@@ -428,3 +428,181 @@ INSERT INTO Cellules VALUES(
 	3,
 	3
 );
+
+-- Planeur
+
+INSERT INTO reseaux VALUES (
+	5,
+	"Grille 6*4 - Brian s brain - Planeur",
+	4,
+	6,
+	"Brian s brain"
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	0,
+	0
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	0,
+	1
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	0,
+	2
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	0,
+	3
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	1,
+	0
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	1,
+	1
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	0,
+	1,
+	2
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	1,
+	1,
+	3
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	2,
+	0
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	0,
+	2,
+	1
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	1,
+	2,
+	2
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	2,
+	3
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	3,
+	0
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	0,
+	3,
+	1
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	1,
+	3,
+	2
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	3,
+	3
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	4,
+	0
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	4,
+	1
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	0,
+	4,
+	2
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	1,
+	4,
+	3
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	5,
+	0
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	5,
+	1
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	5,
+	2
+);
+
+INSERT INTO Cellules VALUES (
+	5,
+	2,
+	5,
+	3
+);
