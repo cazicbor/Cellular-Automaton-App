@@ -66,10 +66,9 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     liste_regle_transition->setPlaceholderText("--- select ---");
 
     //liste_regle_transition->addItem("--- select ---");
-    liste_regle_transition->addItem("Life Game");
-    liste_regle_transition->addItem("Langston's Loop");
-    liste_regle_transition->addItem("Brian's brain");
-    liste_regle_transition->addItem("Circulaire de Griffeath");
+    std::vector<QString> automates = Database::getInstance().getAutomates();
+    for(size_t i = 0 ; i<automates.size(); i++)
+        liste_regle_transition->addItem(automates[i]);
     liste_regle_transition->addItem("Nouvelle fonction de transition");
 
     liste_regle_transition->setCurrentIndex(-1);
