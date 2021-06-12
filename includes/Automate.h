@@ -73,16 +73,19 @@ class Automate {
 		/// Définir la fonction de transition de l'automate
 		///
 		/// L'objet est géré dynamiquement par l'utilisateur mais une fois donnné à l'automate il gère son cycle de vie
+		/// @param[in] f pointeur vers la Fonction à associer
 		void setFonction(Fonction* f) { fonction.reset(f); }
 		/// Récupérer la fonction de transition
 		Fonction& getFonction() const { return *fonction; }
 		/// Définir une règle de voisinage
 		///
 		/// L'objet est géré dynamiquement par l'utilisateur mais une fois donnné à l'automate il gère son cycle de vie
+		/// @param[in] r pointeur vers la RegleVoisinga à associer
 		void setRegleVoisinage(RegleVoisinage* r) { regleVoisinage.reset(r); }
 		/// Récupérer la règle de voisinage
 		const RegleVoisinage& getRegleVoisinage() const { return *regleVoisinage; }
 		/// Définir le délai entre 2 itérations de l'automate en mode Timer
+		/// @param[in] d nouveau délai
 		void setDelai(const unsigned int d) { delai = d; }
 
 		/// Accesseur ensemble états
@@ -90,8 +93,10 @@ class Automate {
 		/// Accesseur ensemble états
 		const EnsembleEtat& getEnsemble() const { return ensemble; }
 		/// définir la hauteur de la grille
+		/// @param[in] hauteur Définir la hauteur des Reseau de la simulation
 		void setHauteur(unsigned int hauteur) { h = hauteur; }
 		/// définir la largheur de la grille
+		/// @param[in] largeur Définir la largeur des Reseau de la simulation
 		void setLargeur(unsigned int largeur) { l = largeur; }
 
 		/// Se placer sur l'état précédent si disponible
@@ -111,6 +116,7 @@ class Automate {
 		/// Se placer sur l'état suivant du buffer et le calculer s'il n'y en a plus de disponible
 		void step();
 		/// Execution multiple de la méthode step
+		/// @param[in] n nombre de fois à exécuter
 		void run(int n) {
 			for(int i=0;i<n;i++)
 				step();
@@ -131,30 +137,36 @@ class Automate {
 		void initialiserBuffer() { buffer.clear(); buffer.push_front(reseauInit); itBuffer = buffer.begin(); }
 
 		/// Définir le réseau initial de l'automate
+		/// @param[in] r nouveau Reseau initial
 		void setReseauInit(Reseau& r) { reseauInit = r; h = r.getHauteur(); l = r.getLargeur(); }
 		/// Récupérer le réseau initial de l'automate
 		const Reseau& getReseauInit() const { return reseauInit; }
 		/// Récupérer le nom de l'automate
 		std::string getTitle() const { return title; }
 		/// Redéfinir le nom de l'automate
+		/// @param[in] t nouveau titre
 		void setTitle(const std::string& t) { title = t; }
 		/// Récupérer le nom de l'auteur
 		std::string getAuthor() const { return author; }
 		/// Redéfinir le nom de l'auteur
+		/// @param[in] a nouvel auteur
 		void setAuthor(const std::string& a) { author = a; }
 		/// Récupérer la description
 		std::string getDesc() const { return desc; }
 		/// Redéfinir la description
+		/// @param[in] d description
 		void setDesc(const std::string& d) { desc = d; }
 		/// Récupérer l'année
 		int getYear() const { return year; }
-		/// Redéfinir le nom de l'automate
+		/// Redéfinir l'année de l'Automate
+		/// @param[in] y année
 		void setYear(const int y) { year = y; }
 
 		/// Réinitialiser totalement la configuration de l'automate
 		void reinitialiserAutomate();
 
 		/// Définir le comportement aux frontières
+		/// @param[in] val valeur du comportement aux frontière (true = matrice torique, false = ignorer)
 		void setMatriceTorique(const bool val) { regleVoisinage->setMatriceTorique(val); }
 		/// Obtenir le comportement aux frontières
 		bool getMatriceTorique() { return regleVoisinage->getMatriceTorique(); }
