@@ -196,10 +196,6 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 			coord.y = query.value(1).toUInt();
 			dynamic_cast<RegleVoisinageArbitraire*>(regle)->coordonnees.push_back(coord);
 		} while(query.next());
-
-		query.prepare("SELECT COUNT(*) FROM coord_voisinage WHERE id = :id");
-		query.bindValue(":id", name);
-		query.exec();
 	}
 
 	return regle;
@@ -524,8 +520,6 @@ void Database::initSingletonAutomate(const QString& modele) const
     Database::initEnsEtat(Automate::getInstance());
     Automate::getInstance().setFonction(Database::getFonction(Automate::getInstance()));
     Automate::getInstance().setRegleVoisinage(Database::getRegleVoisinage(modele));
-
-    //Automate::getInstance().getEnsemble();
 
     std::vector<QString> reseaux = Database::getListeReseaux(modele);
     Automate::getInstance().setReseauInit(Database::getReseau(reseaux[0].toInt()));
