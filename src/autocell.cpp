@@ -150,7 +150,7 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     spin_time_step->setFixedWidth(70);
     spin_time_step->setValue(1000);
     spin_time_step->setRange(500,2500);
-    connect(spin_time_step, SIGNAL(valueChanged(int i)), this, SLOT(changeDelai(int i)));
+    connect(spin_time_step, SIGNAL(valueChanged(int)), this, SLOT(changeDelai(int)));
     button_prev = new QPushButton("<<");
     button_prev->setStyleSheet("background-color: rgb(255,255,255)");
     button_prev->setFixedSize(40,40);
@@ -167,7 +167,7 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     button_reinitialiser->setStyleSheet("background-color: rgb(255,255,255)");
     button_reinitialiser->setFixedWidth(200);
 
-    grid_run_control->addWidget(matriceTorique, 1, 0, Qt::AlignCenter);
+    grid_run_control->addWidget(matriceTorique, 1, 0, 1, 2);
     grid_run_control->addWidget(spin_time_step, 2, 1);
     grid_run_control->addWidget(button_prev, 3, 0);
     grid_run_control->addWidget(button_run, 3, 1);
@@ -208,8 +208,9 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     general->addWidget(win_notice,0,2,3,1);
 };
 
-void AutoCell::afficherGrille(Reseau* Grille)
+void AutoCell::afficherGrille(Reseau* grille)
 {
+	Grille.reset(new Reseau(*grille));
     win_grid = new QWidget;
 
     int l = Grille->getLargeur();
@@ -279,28 +280,28 @@ void AutoCell::initialiserGrille(){
         return;
     }
 
-    this->Grille.reset(new Reseau(h,l));
+    Reseau grille = Reseau(h,l);
 
     if (check_aleatoire->isChecked())
-	    Grille->setAleatoire();
+	    grille.setAleatoire();
 
     QString nom_grille = list_grids->currentText();
 
     if (check_load_grid->isChecked()) {
-      this->Grille.reset(new Reseau(Database::getInstance().getReseau(listeGrille[list_grids->currentIndex()*2].toInt())));
+      grille = Reseau(Database::getInstance().getReseau(listeGrille[list_grids->currentIndex()*2].toInt()));
       QString str_largeur;
       //str_largeur.setNum(listeGrille[list_grids->currentIndex()*2].toInt());
       QString str_hauteur;
       //edit_largeur->setText(str_largeur);
-      edit_largeur->setText(str_largeur.setNum(Grille->getLargeur(),10));
-      edit_hauteur->setText(str_hauteur.setNum(Grille->getHauteur(),10));
+      edit_largeur->setText(str_largeur.setNum(grille.getLargeur(),10));
+      edit_hauteur->setText(str_hauteur.setNum(grille.getHauteur(),10));
       }
 
     //réinitialiser l'automate
     Automate::getInstance().reset();
 
-    this->afficherGrille(this->Grille.get());
-    Automate::getInstance().setReseauInit(*Grille);
+    this->afficherGrille(&grille);
+    Automate::getInstance().setReseauInit(grille);
     Automate::getInstance().initialiserBuffer();
 };
 void AutoCell::RAZ(){

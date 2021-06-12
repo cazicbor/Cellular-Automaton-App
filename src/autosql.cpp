@@ -485,7 +485,7 @@ void Database::stockerReseau(const Reseau& reseau, const QString& nomReseau, con
     int idReseau = query.value(0).toInt() + 1;
 
     //Insertion du tuple dans reseaux
-    query.prepare("INSERT INTO reseaux VALUES (:id, ':nom', :h, :l, ':automate')");
+    query.prepare("INSERT INTO reseaux VALUES (:id, :nom, :h, :l, :automate)");
     query.bindValue(":id", idReseau);
     query.bindValue(":nom", nomReseau);
     query.bindValue(":h", reseau.getHauteur());
@@ -502,7 +502,7 @@ void Database::stockerReseau(const Reseau& reseau, const QString& nomReseau, con
             query.bindValue(":reseau", idReseau);
             query.bindValue(":etat", reseau.getReseau()[i][j].getIndEtat());
             query.bindValue(":x", i);
-            query.bindValue(":x", j);
+            query.bindValue(":y", j);
             query.exec();
         }
     }
