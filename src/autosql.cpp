@@ -450,7 +450,7 @@ void Database::saveEnsemble(Automate& a) const {
     //Il nous faut prendre de chaque état : ensemble (idEns), indice, label, r, g, b
     for(unsigned int i = 0 ; i < enseEtats.getNbEtats() ; i++)
     {
-        query.prepare("INSERT INTO Etats VALUES (:ensemble, :indice, ':label', :r, :g, :b)");
+        query.prepare("INSERT INTO Etats VALUES (:ensemble, :indice, :label, :r, :g, :b)");
         query.bindValue(":ensemble", idEns);
         query.bindValue(":indice", enseEtats.getEtat(i).getIndice());
         query.bindValue(":label", QString::fromStdString(enseEtats.getEtat(i).getLabel()));
