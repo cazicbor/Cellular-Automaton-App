@@ -1,13 +1,13 @@
 #include <Fonction.h>
 
-bool RegleAvecEtatCourant::verify(const Voisinage& voisins, const Cellule& cellule) const {
-	if(cellule.getIndEtat() != etatCourant)
+bool RegleAvecEtatCourant::verify(const Voisinage& voisins) const {
+	if(voisins.getCelluleCentre().getIndEtat() != etatCourant)
 		return false;
 
-	return Regle::verify(voisins, cellule);
+	return Regle::verify(voisins);
 }
 
-bool Regle::verify(const Voisinage& voisins, const Cellule& cellule) const {
+bool Regle::verify(const Voisinage& voisins) const {
 	int nb[8] = {0};
 
 	auto *cellules = voisins.creerIterator();
@@ -28,9 +28,9 @@ bool Regle::verify(const Voisinage& voisins, const Cellule& cellule) const {
 	return true;
 }
 
-const Etat& Fonction::getEtatSuivant(const Voisinage& voisins, const Cellule& cellule) const {
+const Etat& Fonction::getEtatSuivant(const Voisinage& voisins) const {
 	for(const auto& regle: regles)
-		if (regle->verify(voisins, cellule))
+		if (regle->verify(voisins))
 			return regle->getDestination();
 
 	return etatDefaut;

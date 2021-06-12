@@ -18,8 +18,7 @@ class RegleGen {
 		virtual ~RegleGen() = default;
 		/// Vérifier si une règle est vérifiée
 		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
-		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
-		virtual bool verify(const Voisinage& voisins, const Cellule& cellule) const = 0;
+		virtual bool verify(const Voisinage& voisins) const = 0;
 		/// Utilisé pour obtenir l'état courant de la règle s'il existe, n'a pas de sens pour toutes donc on préfère mettre -1 par défaut
 		virtual int getCourant() const { return -1; }
 		/// Obtenir la destination de cette règle
@@ -42,8 +41,7 @@ class Regle: public RegleGen {
 		Regle(const Etat& nDestination, const int nSeuilsMin[8], const int nSeuilsMax[8]);
 		/// Vérifier si une règle est vérifiée
 		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
-		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
-		virtual bool verify(const Voisinage& voisins, const Cellule& cellule) const override;
+		virtual bool verify(const Voisinage& voisins) const override;
 		/// Obtenir le seuil minimum du nombre de voisins requis pour un état donné afin de valider la règle
 		/// Principalement utilisé pour sauvegarder une règle de transition
 		/// @param[in] i numéro de l'état
@@ -70,8 +68,7 @@ class RegleAvecEtatCourant: public Regle {
 		RegleAvecEtatCourant(const Etat& nDestination, const int nSeuilsMin[8], const int nSeuilsMax[8], const int nEtat);
 		/// Vérifier si une règle est vérifiée
 		/// @param[in] voisins Le voisinage de la cellule pour laquelle on vérifie la règle
-		/// @param[in] cellule La cellule pour laquelle on vérifie la règle
-		bool verify(const Voisinage& voisins, const Cellule& cellule) const override;
+		bool verify(const Voisinage& voisins) const override;
 		/// Obtenir l'état courant requis pour valider la règle
 		/// Principalement utilisé pour sauvegarder une règle de transition
 		int getCourant() const override { return static_cast<int>(etatCourant); }
@@ -109,7 +106,7 @@ class Fonction {
 		/// Appliquer la fonction de transition à une cellule et obtenir son prochain état
 		/// @param[in] voisins voisins de la cellule à laquelle appliquer la fonction
 		/// @param[in] cellule cellule à laquelle appliquer la fonction
-		virtual const Etat& getEtatSuivant(const Voisinage& voisins, const Cellule& cellule) const;
+		virtual const Etat& getEtatSuivant(const Voisinage& voisins) const;
 		/// Accesseur sur la liste de règles, il est impossible de modifier les règles de cette manière, la liste est en lecture seule
 		const std::list<Regle*>& getRules() const { return regles; }
 };
