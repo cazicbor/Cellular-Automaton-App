@@ -391,7 +391,7 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
         seuilValidator->setRange(0,1);
 
         layouth1->addWidget(seuilMin);
-        for(unsigned int i=0; i<8; i++) {
+        for(int i=0; i<8; i++) {
             numSeuilMin[i]=new QLineEdit;
             numSeuilMin[i]->setFixedWidth(22);
             numSeuilMin[i]->setMaxLength(2);
@@ -404,7 +404,7 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
 
 
          layouth2->addWidget(seuilMax);
-         for(unsigned int i=0; i<8; i++) {
+         for(int i=0; i<8; i++) {
              numSeuilMax[i]=new QLineEdit;
              numSeuilMax[i]->setFixedWidth(22);
              numSeuilMax[i]->setMaxLength(2);
