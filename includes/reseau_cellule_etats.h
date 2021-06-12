@@ -77,4 +77,5 @@ public:
     Reseau(const Reseau&);
     ~Reseau();
     Reseau& operator=(const Reseau& r);
+    bool operator==(const Reseau&r);
 };
