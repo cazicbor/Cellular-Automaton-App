@@ -47,7 +47,7 @@ class NouveauModele : public QWidget {
 
     QSpinBox* nb_etats;
     QComboBox* liste_voisinage;
-    QComboBox* liste_regle_transition;
+    QComboBox* liste_regle_transition = nullptr;
     QPushButton* bouton_valide;
 
     QHBoxLayout* layoutvalid = nullptr;
@@ -60,6 +60,7 @@ class NouveauModele : public QWidget {
     QLabel* etatCourant;
     QLabel* etatCourant2 = nullptr;
     QLabel* etat_d = nullptr;
+    QLabel* etat;
 
     QComboBox* valid_Etat;
     QSpinBox* numEtatCourant = nullptr;
@@ -82,6 +83,8 @@ class NouveauModele : public QWidget {
     QVBoxLayout* layoutv2 = nullptr;
     QHBoxLayout* layouth5 = nullptr;
     QHBoxLayout* layouth6 = nullptr;
+
+    QHBoxLayout* layoutEtat;
 
     //définition de la frame paramétrage du choix
     QWidget* fenetre_param;
@@ -113,6 +116,7 @@ public slots:
     void parametrerEtats();
 
     void addRegle();
+    void changerRegle();
 
    //  void validerParametrage();
 
