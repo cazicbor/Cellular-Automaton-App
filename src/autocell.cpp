@@ -352,6 +352,9 @@ void AutoCell::sauvegarderGrille(){
     nom_automate = liste->currentText();
     Database::getInstance().stockerReseau(*Grille, nom_grille, nom_automate);
     edit_nom_grille->setText("");
+    QMessageBox messageBox;
+    messageBox.critical(0,"Confirmation", "Grille enregistrée");
+    messageBox.setFixedSize(500,200);
 };
 
 void AutoCell::chargerGrilles(){
