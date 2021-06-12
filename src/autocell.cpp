@@ -168,6 +168,7 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     button_reinitialiser->setFixedWidth(200);
 
     grid_run_control->addWidget(matriceTorique, 1, 0, Qt::AlignCenter);
+    grid_run_control->addWidget(lab_time_step, 2, 0);
     grid_run_control->addWidget(spin_time_step, 2, 1);
     grid_run_control->addWidget(button_prev, 3, 0);
     grid_run_control->addWidget(button_run, 3, 1);
