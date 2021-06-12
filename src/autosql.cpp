@@ -181,7 +181,7 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 		regle = new RegleVoisinageMoore;
 		dynamic_cast<RegleVoisinageMoore*>(regle)->setr(query.value("rayon").toInt());
 	}
-	else if(type != 3) {
+	else if(type == 3) {
 		query.prepare("SELECT x, y FROM coord_voisinage WHERE id = :id");
 		query.bindValue(":id", name);
 		query.exec();
@@ -196,6 +196,9 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 			coord.y = query.value(1).toUInt();
 			dynamic_cast<RegleVoisinageArbitraire*>(regle)->coordonnees.push_back(coord);
 		} while(query.next());
+	}
+	else {
+		throw "Unknown type of neighbourhood!";
 	}
 
 	return regle;
