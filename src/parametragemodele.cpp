@@ -429,6 +429,10 @@ void NouveauModele::validerParametrage(){
     Automate::getInstance().setDesc(description->text().toStdString());
     Automate::getInstance().setYear(annee->text().toInt());
 
+    Reseau* reseauInit = new Reseau(9,10);
+    reseauInit = &reseauInit->setAleatoire();
+    Automate::getInstance().setReseauInit(*reseauInit);
+
     Automate::getInstance().getFonction().setEtatDefaut(Automate::getInstance().getEnsemble().getEtat(etat_default->value()));
 
     if(liste_voisinage->currentIndex()==-1);
