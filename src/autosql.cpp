@@ -271,7 +271,7 @@ void Database::saveAutomaton(const Automate& a) const {
 
 	saveFunction(a.getTitle().c_str(), a.getFonction());
 	saveVoisinage(a.getTitle().c_str(), a.getRegleVoisinage());
-    stockerReseau(a.getReseauInit(), "To be determined", a.getTitle().c_str());
+    stockerReseau(a.getReseauInit(), "Grille 10*10 - Aleatoire", a.getTitle().c_str());
     saveEnsemble(Automate::getInstance());
 }
 
@@ -496,8 +496,8 @@ void Database::stockerReseau(const Reseau& reseau, const QString& nomReseau, con
             query.prepare("INSERT INTO Cellules VALUES (:reseau, :etat, :x, :y)");
             query.bindValue(":reseau", idReseau);
             query.bindValue(":etat", reseau.getReseau()[i][j].getIndEtat());
-            query.bindValue(":x", i);
-            query.bindValue(":y", j);
+            query.bindValue(":x", j);
+            query.bindValue(":y", i);
             query.exec();
         }
     }
