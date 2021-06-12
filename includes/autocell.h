@@ -110,7 +110,7 @@ class AutoCell : public QWidget
     //void chargerGrilles(const QString &text);
 
     /// Afficher une grille dans l'espace dédié
-    void afficherGrille(Reseau* Grille);
+    void afficherGrille(const Reseau* Grille);
 
     /// Initialiser une grille
     void initialiserGrille();
