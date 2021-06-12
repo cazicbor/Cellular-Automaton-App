@@ -150,7 +150,7 @@ this->setWindowTitle("Automate cellulaire");
     spin_time_step->setFixedWidth(70);
     spin_time_step->setValue(1000);
     spin_time_step->setRange(500,2500);
-    connect(spin_time_step, SIGNAL(valueChanged()), this, SLOT(changeDelai()));
+    connect(spin_time_step, SIGNAL(valueChanged(int)), this, SLOT(changeDelai()));
     button_prev = new QPushButton("<<");
     button_prev->setStyleSheet("background-color: rgb(255,255,255)");
     button_prev->setFixedSize(40,40);
