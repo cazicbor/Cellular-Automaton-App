@@ -453,18 +453,7 @@ void NouveauModele::validerParametrage(){
     else //arbitraire
         {
             RegleVoisinageArbitraire *regle_voisins = new RegleVoisinageArbitraire;
-            Coordonnees c;
-            for(unsigned int i=0; i<5; i++){
-                for(unsigned int j=0; j<5; j++)
-                {
-                    if(grid->item(i,j)->background().color()==Qt::red)
-                    {
-                        c.x = i;
-                        c.y = j;
-                        regle_voisins->coordonnees.push_back(c);
-                    }
-                }
-            }
+	    regle_voisins->getVoisinage(grid);
             Automate::getInstance().setRegleVoisinage(regle_voisins);
             Database::getInstance().saveAutomaton(Automate::getInstance());
             this->close();

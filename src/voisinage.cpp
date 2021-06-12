@@ -58,33 +58,32 @@ Voisinage::~Voisinage() {
 }
 
 void RegleVoisinageArbitraire::calculVoisinage(Voisinage &v, const Reseau& r) const { //définir get?
-    v.voisinage = std::vector<Cellule*>();
+	v.voisinage = std::vector<Cellule*>();
+	int cellX = static_cast<int>(v.celluleCentre->abs);
+	int cellY = static_cast<int>(v.celluleCentre->ord);
+	int hauteur = static_cast<int>(r.getHauteur());
+	int largeur = static_cast<int>(r.getLargeur());
 
-    unsigned int abs = v.celluleCentre->abs;
-    unsigned int ord = v.celluleCentre->ord;
-    unsigned int hauteur = r.getHauteur();
-    unsigned int largeur = r.getLargeur();
-
-    for (size_t nb = 0; nb < coordonnees.size(); nb++){
-        v.voisinage[nb] = new Cellule(r.getReseau()[(abs - coordonnees[nb].x)%hauteur] [(ord - coordonnees[nb].y)%largeur]);
-    }
+	for (size_t nb = 0; nb < coordonnees.size(); nb++){
+		int x = (cellY+coordonnees[nb].y)%largeur;
+		if (x < 0)
+			x = largeur + x;
+		int y = (cellX+coordonnees[nb].x)%hauteur;
+		if (y < 0)
+			y = hauteur + y;
+		v.voisinage.push_back(new Cellule(r.getReseau()[y][x]));
+	}
 }
 
-vector<Coordonnees> RegleVoisinageArbitraire::getVoisinage(const QTableWidget* grid)
-{
-    vector<Coordonnees> coordonnees;
-    int k = 0;
-
-    for (unsigned int i = 0; i < 5; i++) {
-        for (unsigned int j = 0; j < 5; j++){
-            if (grid->item(i,j)->background() == Qt::red){
-               coordonnees[k].x = (2-i);
-               coordonnees[k].y = (2-j);
-               k += 1;
-            }
-        }
-
-      }
-
-    return coordonnees;
+void RegleVoisinageArbitraire::getVoisinage(const QTableWidget* grid) {
+	Coordonnees coordonnee;
+	for (unsigned int i = 0; i < 5; i++) {
+		for (unsigned int j = 0; j < 5; j++){
+			if (grid->item(i,j)->background() == Qt::red){
+				coordonnee.x = (i - 2);
+				coordonnee.y = (j - 2);
+				coordonnees.push_back(coordonnee);
+			}
+		}
+	}
 }

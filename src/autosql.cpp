@@ -21,7 +21,7 @@ Database::Database(std::string path): db(QSqlDatabase::addDatabase("QSQLITE")) {
 
     db.exec("CREATE TABLE IF NOT EXISTS EnsembleEtats (id INTEGER PRIMARY KEY, automate VARCHAR(30) NOT NULL, UNIQUE(automate), FOREIGN KEY('automate') REFERENCES 'automates'('nom'))");
 
-    db.exec("CREATE TABLE IF NOT EXISTS Etats (ensemble INTEGER NOT NULL, indice INTEGER NOT NULL, label VARCHAR NOT NULL, r INTEGER NOT NULL, g INTEGER NOT NULL, b INTEGER NOT NULL, CHECK(indice>=0), CHECK(r>=0), CHECK(r<=255), CHECK(g>=0), CHECK(g<=255), CHECK(b>=0), CHECK(b<=255), PRIMARY KEY (ensemble, indice), FOREIGN KEY(ensemble') REFERENCES 'EnsembleEtats'('id'))");
+    db.exec("CREATE TABLE IF NOT EXISTS Etats (ensemble INTEGER NOT NULL, indice INTEGER NOT NULL, label VARCHAR NOT NULL, r INTEGER NOT NULL, g INTEGER NOT NULL, b INTEGER NOT NULL, CHECK(indice>=0), CHECK(r>=0), CHECK(r<=255), CHECK(g>=0), CHECK(g<=255), CHECK(b>=0), CHECK(b<=255), PRIMARY KEY (ensemble, indice), FOREIGN KEY('ensemble') REFERENCES 'EnsembleEtats'('id'))");
 
     db.exec("CREATE TABLE IF NOT EXISTS Cellules (reseau INTEGER NOT NULL, ensemble INTEGER NOT NULL, etat INTEGER NOT NULL, x INTEGER NOT NULL, y INTEGER NOT NULL, FOREIGN KEY('reseau') REFERENCES 'reseaux'('id'))");
 

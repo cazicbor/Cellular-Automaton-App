@@ -143,7 +143,7 @@ class RegleVoisinageArbitraire : public RegleVoisinage {
 		/// @param[in] r Réseau à partir duquel on souhaite calculer le voisinage
 		void calculVoisinage(Voisinage& v, const Reseau& r) const override;
 		/// Obtenir les coordonnées relative d'un voisinage arbitraire en fonction d'un outil QTableWidget
-		vector<Coordonnees> getVoisinage(const QTableWidget* grid );
+		void getVoisinage(const QTableWidget* grid );
 };
 
 #endif /* voisinage_h */
