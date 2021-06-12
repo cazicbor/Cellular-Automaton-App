@@ -14,10 +14,10 @@ void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) const
 		for (int j = -static_cast<int>(rayon); j <= static_cast<int>(rayon); j++)
 			if (abs(i) + abs(j) <= static_cast<int>(rayon) && (i != 0 || j != 0))
 			{
-				int x = (cellY+i)%hauteur;
+				int x = (cellY+i)%largeur;
 				if (x < 0)
 					x = largeur + x;
-				int y = (cellX+j)%largeur;
+				int y = (cellX+j)%hauteur;
 				if (y < 0)
 					y = hauteur + y;
 				v.voisinage.push_back(new Cellule(r.getReseau()[y][x]));
@@ -35,10 +35,10 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r) const {
 		for (int j = -static_cast<int>(rayon); j <= static_cast<int>(rayon); j++)
 			if (i != 0 || j != 0)
 			{
-				int x = (cellY+i)%hauteur;
+				int x = (cellY+i)%largeur;
 				if (x < 0)
 					x = largeur + x;
-				int y = (cellX+j)%largeur;
+				int y = (cellX+j)%hauteur;
 				if (y < 0)
 					y = hauteur + y;
 				v.voisinage.push_back(new Cellule(r.getReseau()[y][x]));
