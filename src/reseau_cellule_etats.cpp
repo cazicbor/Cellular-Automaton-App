@@ -135,7 +135,7 @@ Reseau& Reseau::operator=(const Reseau& init_grille) {
 
 bool Reseau::operator==(const Reseau&r){
     if (static_cast<int>(hauteur) != r.getHauteur() || static_cast<int>(largeur) != r.getLargeur()) return false;
-    for(unsigned int i=0; hauteur; i++)
+    for(unsigned int i=0; i<hauteur; i++)
         for(unsigned int j=0; j<largeur; j++)
             if (reseau[i][j].getIndEtat() != r.getReseau()[i][j].getIndEtat()) return false;
     return true;
