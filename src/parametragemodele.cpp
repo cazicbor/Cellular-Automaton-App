@@ -471,7 +471,7 @@ void NouveauModele::validerParametrage(){
 
 void NouveauModele::changerRegle(){
 
-    if (liste_regle_transition != nullptr) form_choix->removeRow(6);
+    if (liste_regle_transition != nullptr) form_choix->removeRow(8);
     liste_regle_transition = new QComboBox;
 
     liste_regle_transition->setPlaceholderText("--- select ---");
