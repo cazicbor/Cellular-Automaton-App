@@ -50,21 +50,24 @@ class NouveauModele : public QWidget {
     QComboBox* liste_regle_transition = nullptr;
     QPushButton* bouton_valide;
 
+    QPushButton* valider_Etat = nullptr;
+    QPushButton* valider_EtatDefault = nullptr;
+
     QHBoxLayout* layoutvalid = nullptr;
 
     //definition frame règle de transitions
     QWidget* fenetre_regle;
-    QLabel* seuilMax;
-    QLabel* seuilMin;
-    QLabel* destination;
-    QLabel* etatCourant;
+    QLabel* seuilMax= nullptr;
+    QLabel* seuilMin= nullptr;
+    QLabel* destination= nullptr;
+    QLabel* etatCourant= nullptr;
     QLabel* etatCourant2 = nullptr;
     QLabel* etat_d = nullptr;
-    QLabel* etat;
+    QLabel* etat= nullptr;
 
     QComboBox* valid_Etat;
     QSpinBox* numEtatCourant = nullptr;
-    QSpinBox* etatDest;
+    QSpinBox* etatDest= nullptr;
     QSpinBox* etat_default = nullptr;
 
     QPushButton* fin = nullptr;
@@ -117,6 +120,9 @@ public slots:
 
     void addRegle();
     void changerRegle();
+
+    void changerEtatDefault();
+
 
    //  void validerParametrage();
 
