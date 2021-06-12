@@ -318,6 +318,8 @@ void AutoCell::RAZ(){
     grid = new QTableWidget(0,0,win_grid);
     edit_largeur->setText("");
     edit_hauteur->setText("");
+    edit_nb_step->setText("0");
+    edit_periode->setText("0");
     spin_time_step->setValue(1000);
     check_aleatoire->setCheckState(Qt::Unchecked);
     check_load_grid->setCheckState(Qt::Unchecked);
