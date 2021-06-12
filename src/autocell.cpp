@@ -314,6 +314,7 @@ void AutoCell::initialiserGrille(){
       }
 
     this->afficherGrille(&grille);
+    Automate::getInstance().reset();
     Automate::getInstance().setReseauInit(grille);
     Automate::getInstance().initialiserBuffer();
 };
