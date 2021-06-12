@@ -83,6 +83,7 @@ class RegleVoisinage{
 		///
 		/// Si true, on se comporte comme une matrice torique, quand on arrive en haut on continu en utilisant les lignes du bas, de même pour quand on est à gauche ou à droite de la matrice
 		/// Si false, on ne prend pas en compte les voisins au delà de la matrice affichée.
+		/// @param[in] val valeur de la propriété
 		void setMatriceTorique(const bool val) { matriceTorique = val; }
 		/// Obtenir l'état du comportement aux frontières
 		bool getMatriceTorique() const { return matriceTorique; }
