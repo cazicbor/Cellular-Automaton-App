@@ -29,7 +29,7 @@ ParamAlpha::ParamAlpha(const int nbEtats, const QWidget *parent): QWidget(), nb(
 		form[i]->addRow("Bleu:", blue[i]);
 	}
 
-	connect(valider, SIGNAL(clicked()), this, SLOT(valide()));
+    connect(valider, SIGNAL(clicked()), this, SLOT(valide()));
     connect(valider, SIGNAL(clicked()), parent, SLOT(changerVoisinage()));
     connect(valider, SIGNAL(clicked()), parent, SLOT(paramRegle()));
     connect(valider, SIGNAL(clicked()), this, SLOT(close()));
@@ -50,13 +50,14 @@ ParamAlpha::ParamAlpha(const int nbEtats, const QWidget *parent): QWidget(), nb(
 	if(nb == 8)
 		general->addLayout(form[7], 2, 1, 1, 1);
 	general->addWidget(valider, 2, 2, 1, 1, Qt::AlignBottom);
+
+
+
 }
 
 void ParamAlpha::valide() {
-	Automate::getInstance().getEnsemble().reset();
-
-	for(int i = 0; i < nb; ++i)
-		Automate::getInstance().getEnsemble().ajouterEtat(i, label[i]->text().toStdString(), red[i]->value(), green[i]->value(), blue[i]->value());
-
-	this->close();
+    Automate::getInstance().getEnsemble().reset();
+	for(int i = 0; i < nb; ++i) {
+        Automate::getInstance().getEnsemble().ajouterEtat(i, label[i]->text().toStdString(), red[i]->value(), green[i]->value(), blue[i]->value());
+	}
 }
