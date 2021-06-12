@@ -44,3 +44,14 @@ void Automate::reinitialiserAutomate() {
 	desc = "";
 	ensemble.reset();
 }
+
+void Automate::step() {
+	if(itBuffer==(--buffer.end())) {
+		nextTimer();
+		++nbStep;
+	}
+	itBuffer++;
+	if(nbCycle == 0 && *(--buffer.end()) == reseauInit)
+		nbCycle = nbStep;
+	AutoCell::getInstance().afficherGrille(&*itBuffer);
+}

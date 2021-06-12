@@ -204,8 +204,6 @@ RegleVoisinage* Database::getRegleVoisinage(const QString& name) const {
 		query.bindValue(":id", name);
 		query.exec();
 
-		regle->setNbVoisins(query.value(0).toUInt());
-
 		return regle;
 	}
 }

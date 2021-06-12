@@ -26,8 +26,10 @@ class Automate {
 		std::string author;
 		std::string desc;
 		EnsembleEtat ensemble;
+		int nbStep;
+		int nbCycle;
 
-		Automate(): title(""), delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), reseauInit(Reseau(0, 0)), year(2000), author("Anonym"), desc("") { timer.automate = this; }
+		Automate(): title(""), delai(500), fonction(nullptr), regleVoisinage(nullptr), itBuffer(buffer.begin()), h(0), l(0), reseauInit(Reseau(0, 0)), year(2000), author("Anonym"), desc(""), nbStep(0), nbCycle(0) { timer.automate = this; }
 		Automate(const Automate& a) = delete;
 		Automate& operator=(const Automate& a) = delete;
 		class Timer: public QObject {
@@ -107,12 +109,7 @@ class Automate {
 		void reset() { buffer.clear(); buffer.push_back(reseauInit); }
 
 		/// Se placer sur l'état suivant du buffer et le calculer s'il n'y en a plus de disponible
-		void step() {
-			if(itBuffer==(--buffer.end()))
-				nextTimer();
-			itBuffer++;
-			AutoCell::getInstance().afficherGrille(&*itBuffer);
-		}
+		void step();
 		/// Execution multiple de la méthode step
 		void run(int n) {
 			for(int i=0;i<n;i++)
@@ -159,7 +156,15 @@ class Automate {
 
 		/// Définir le comportement aux frontières
 		void setMatriceTorique(const bool val) { regleVoisinage->setMatriceTorique(val); }
+		/// Obtenir le comportement aux frontières
 		bool getMatriceTorique() { return regleVoisinage->getMatriceTorique(); }
+
+		/// Obtenir le nombre d'étapes effectuées
+		int getNbStep() const { return nbStep; }
+		/// Obtenir le nombre d'étapes nécessaires pour effectuer un cycle
+		///
+		/// Retourne 0 s'il n'a pas encore pu être calculé
+		int getNbCycle() const { return nbCycle; }
 };
 
 #endif

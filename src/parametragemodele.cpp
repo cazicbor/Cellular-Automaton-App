@@ -77,12 +77,16 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     layoutEtat->addWidget(etat);
     layoutEtat->addWidget(nb_etats);
 
+<<<<<<< HEAD
 
 
     valider_Etat = new QPushButton("Valider le nombre d'états");
 
 
 
+=======
+    connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
+>>>>>>> 79d70f004b9e06f9113a2a1d2873a97e332be23d
     connect(bouton_valide, SIGNAL(clicked()), this, SLOT(validerParametrage()));
     connect(valider_Etat, SIGNAL(clicked()), this, SLOT(changerEtatDefault()));
 
@@ -127,7 +131,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 }
 
 void NouveauModele::parametrerEtats() {
-	paramAlpha.reset(new ParamAlpha(nb_etats->value()));
+    paramAlpha.reset(new ParamAlpha(nb_etats->value(), this));
 	paramAlpha->show();
 }
 
@@ -482,7 +486,7 @@ void NouveauModele::validerParametrage(){
 
 void NouveauModele::changerRegle(){
 
-    if (liste_regle_transition != nullptr) delete liste_regle_transition;
+    if (liste_regle_transition != nullptr) form_choix->removeRow(6);
     liste_regle_transition = new QComboBox;
 
     liste_regle_transition->setPlaceholderText("--- select ---");
@@ -497,7 +501,7 @@ void NouveauModele::changerRegle(){
 
     liste_regle_transition->setCurrentIndex(-1);
 
-    form_choix->addRow("Règle de transition : ", liste_regle_transition);
+    form_choix->insertRow(6, "Règle de transition : ", liste_regle_transition);
 
     connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(changerVoisinage(const QString&)));
     connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));

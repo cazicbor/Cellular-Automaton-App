@@ -73,6 +73,11 @@ class AutoCell : public QWidget
     QPushButton* button_next;
     QPushButton* button_reinitialiser;
 
+    QLabel* lab_nb_step;
+    QLineEdit* edit_nb_step;
+    QLabel* lab_periode;
+    QLineEdit* edit_periode;
+
     QLabel* lab_sauv_grille;
     QLineEdit* edit_nom_grille;
     QPushButton* button_save_grid;
@@ -80,10 +85,6 @@ class AutoCell : public QWidget
     //définition de la frame affichage de la grille
     QWidget* win_grid;
     QTableWidget* grid;
-
-    //notice
-    QWidget* win_notice;
-    QLabel* lab_notice;
 
     explicit AutoCell(QWidget* parent=nullptr);
     friend class NouveauModele;
@@ -131,7 +132,7 @@ class AutoCell : public QWidget
     /// Initialiser un automate par son nom
     void initAutomate(const QString& name);
     /// Changer le délai de l'automate
-    void changeDelai(int i);
+    void changeDelai();
     /// Aller en arrière dans la simulation
     void previous();
     /// Aller en avant dans la simulation
