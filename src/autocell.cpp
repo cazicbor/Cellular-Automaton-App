@@ -399,7 +399,12 @@ void AutoCell::initAutomate(const QString& name) {
 }
 
 void AutoCell::changeDelai() {
-	// @todo : implémenter un message d'erreur
+	 if(edit_time_step->text() == "" || edit_time_step->text().toInt() < 500 || edit_time_step->text().toInt() > 2500 ){
+        QString msg("Veuillez indiquer un pas de temps entre 500 ms et 2500 ms");
+        afficherErreur(msg);
+        edit_time_step->setText("1000");
+        return;
+    }
 	Automate::getInstance().setDelai(static_cast<unsigned int>(edit_time_step->text().toInt()));
 }
 
