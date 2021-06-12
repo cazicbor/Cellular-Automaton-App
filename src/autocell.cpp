@@ -456,8 +456,9 @@ void AutoCell::reinitialiserSimulation()
 void AutoCell::afficherNotice(){
     fenetre_notice.reset(new QWidget);
     fenetre_notice.get()->setMinimumWidth(1000);
+    fenetre_notice.get()->setMinimumHeight(800);
     fenetre_notice->setWindowTitle("Notice");
-    QString str_notice("test");
+    QString str_notice("--- Partie simulation ---\n\n1/ Choix du modèle\n \n Sélectionnez un modèle d'automate préenregistré ou en enregistrez un nouveau. Un modèle comprend ; un ensemble d'états, une fonction de transistion, un mode de détermination du\n voisinnage.\n \n2/ Initialisation de la grille de départ\n \nPour importer une grille préenregistrée associée à l'automate chargé, sélectionnez 'Importer Grille' et choisir une grille dans la liste déroulante.\nPour définir une grille personnalisable ; entrez la largeur souhaitée (entre 1 et 40) puis la hauteur (entre 1 et 20). Si vous souhaitez que la grille soit générée aléatoirement,\ncliquez sur 'Aléatoire'. Pour intitialiser l'automate selon vos choix ; cliquez sur 'Valider'.\n \n3/ Gestion de la simulation\n \nAprès avoir sélectionné un modèle et initialisé la grille de départ, vous pouvez choisir un pas de temps et cliquer sur 'RUN' pour lancer la simulation en mode automatique.\nPour indiquer un nouveau pas de temps, il faut mettre la simulation en pause puis la relancer pour que le changement devienne effectif. Les boutons << et >> servent respectivement\nà revenir aux états précédents (15 grilles sont sauvegardées) et à avancer manuellement dans la simulation.\nLe champs 'période' indique le nombre d'étapes nécéssaires pour revenir à la grille initiale. Si ce n'est jamais le cas, ce champs reste à 0.\n \n4/ Sauvegarde des données\n \nVous pouvez sauvegarder la grille qui s'affiche à tout moment en cliquant sur le bouton 'sauvegarder'.\nLa grille sera alors enregistrée en mémoire avec le nom indiqué dans la barre de saisie et automatiquement associée au modèle de l'automate chargé.\nVous pourrez alors sélectionner cette grille lors du prochain chargement de ce modèle.");
     lab_notice.reset(new QLabel(str_notice, fenetre_notice.get()));
     fenetre_notice.get()->show();
 };
