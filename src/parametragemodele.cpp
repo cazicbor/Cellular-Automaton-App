@@ -220,7 +220,7 @@ void NouveauModele::modifGrille(const QModelIndex& index){
 
 }
 
-void NouveauModele::changerVoisinage(const QString& choix_regle){
+void NouveauModele::changerVoisinage(){
 
     //delete liste_voisinage;
     form_choix->removeRow(7);
@@ -229,27 +229,15 @@ void NouveauModele::changerVoisinage(const QString& choix_regle){
 
 
 
-    if(choix_regle == "Life Game"){
-        //liste_voisinage->addItem("--- select ---");
-        liste_voisinage->addItem("Voisinage de von Neumann");
-        liste_voisinage->addItem("Voisinage arbitraire");
-        liste_voisinage->setCurrentIndex(-1);
-    }
-    else if(choix_regle == "Langston's Loop"){
-        liste_voisinage->addItem("Voisinage de Moore");
-        liste_voisinage->addItem("Voisinage arbitraire");
-        liste_voisinage->setCurrentIndex(-1);
-    }
-    else if(choix_regle == "Brian's brain" || choix_regle == "Circulaire de Griffeath" || choix_regle == "Nouvelle fonction de transition"){
-        //liste_voisinage->addItem("--- select ---");
-        liste_voisinage->addItem("Voisinage de Moore");
-        liste_voisinage->addItem("Voisinage de von Neumann");
-        liste_voisinage->addItem("Voisinage arbitraire");
-        liste_voisinage->setCurrentIndex(-1);
-    }
-    form_choix->insertRow(8, "Voisinage :", liste_voisinage);
-    layoutvalid->addWidget(bouton_valide);
-    form_choix->addRow(layoutvalid);
+
+    liste_voisinage->addItem("Voisinage de Moore");
+    liste_voisinage->addItem("Voisinage de von Neumann");
+    liste_voisinage->addItem("Voisinage arbitraire");
+    liste_voisinage->setCurrentIndex(-1);
+
+
+    form_choix->insertRow(7, "Voisinage :", liste_voisinage);
+
     connect(liste_voisinage, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramVoisinage(const QString&)));
 }
 
@@ -267,8 +255,6 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
         if (numEtatCourant != nullptr) delete numEtatCourant;
 
 
-
-
         layouth6 = new QHBoxLayout;
         layouth5 = new QHBoxLayout;
         layoutv2 = new QVBoxLayout;
@@ -277,12 +263,9 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
         fin = new QPushButton("Terminer");
         next = new QPushButton("Règle suivante");
 
-        form_choix->addRow(layoutv2);
+        form_choix->insertRow(9,layoutv2);
         layoutv2->addLayout(layouth5);
         layoutv2->addLayout(layouth6);
-
-
-
 
         etatCourant2 = new QLabel("Etat Courant : ");
 
@@ -297,6 +280,8 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
 
 
         connect(next, SIGNAL(clicked()), this, SLOT(addRegle()));
+        connect(fin, SIGNAL(clicked()), this, SLOT(validation()));
+
 
     }else{
 
@@ -308,6 +293,7 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
        if (layoutv2 != nullptr) delete layoutv2;
        if (etatCourant2 != nullptr) delete etatCourant2;
        if (numEtatCourant != nullptr) delete numEtatCourant;
+
 
        numEtatCourant = new QSpinBox;
        numEtatCourant = nullptr;
@@ -322,7 +308,7 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
        fin = new QPushButton("Terminer");
        next = new QPushButton("Règle suivante");
 
-       form_choix->addRow(layoutv2);
+       form_choix->insertRow(9,layoutv2);
        layoutv2->addLayout(layouth5);
        layoutv2->addLayout(layouth6);
 
@@ -333,25 +319,21 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
        layouth6->addWidget(next);
 
 
-
        connect(next, SIGNAL(clicked()), this, SLOT(addRegle()));
+       connect(fin, SIGNAL(clicked()), this, SLOT(validation()));
+
 
     }
 
 
 }
 
-void NouveauModele::paramRegle(const QString& choix_regle) {
-
+void NouveauModele::paramRegle() {
 
     seuilMax = new QLabel("Seuil Max : ");
     seuilMin = new QLabel("Seuil Min : ");
     destination = new QLabel("Destination : ");
     etatCourant = new QLabel("Etat Courant : ");
-    etat_d = new QLabel("Etat défault : ");
-
-    etat_default = new QSpinBox;
-    etat_default->setRange(0,(nb_etats->value())-1);
 
     etatDest = new QSpinBox;
     etatDest->setRange(0, nb_etats->value()-1);
@@ -362,13 +344,8 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     valid_Etat->setCurrentIndex(-1);
 
 
-
-
-    if (choix_regle == "Nouvelle fonction de transition") {
         seuilValidator=new QIntValidator;
 
-
-        //if(layouth != nullptr) delete layouth;
         if(layouth1 != nullptr) delete layouth1;
         if(layouth2 != nullptr) delete layouth2;
         if(layouth3 != nullptr) delete layouth3;
@@ -385,13 +362,12 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
         layouth3 = new QHBoxLayout;
         layouth4 = new QHBoxLayout;
 
+        layouth6 = new QHBoxLayout;
+        layouth5 = new QHBoxLayout;
+        layoutv2 = new QVBoxLayout;
 
 
-        //layouth6 = new QHBoxLayout;
-        //layouth5 = new QHBoxLayout;
-        //layoutv2 = new QVBoxLayout;
-
-        form_choix->addRow(layoutv);
+        form_choix->insertRow(8,layoutv);
         layoutv->addLayout(layouth1);
         layoutv->addLayout(layouth2);
         layoutv->addLayout(layouth3);
@@ -431,17 +407,15 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
          layouth4->addWidget(etatCourant);
          layouth4->addWidget(valid_Etat);
 
-         //layouth->addWidget(etat_d);
-         //layouth->addWidget(etat_default);
-
          connect(valid_Etat, SIGNAL(currentTextChanged(const QString&)), this, SLOT(choisirEtatCourant(const QString&)));
-    }
+
 }
 
 
 
 void NouveauModele::addRegle(){
-    paramRegle("Nouvelle fonction de transition");
+
+    paramRegle();
 }
 
 void NouveauModele::validerParametrage(){
@@ -480,28 +454,7 @@ void NouveauModele::validerParametrage(){
     nvAutocell->show();*/
 }
 
-void NouveauModele::changerRegle(){
 
-    if (liste_regle_transition != nullptr) form_choix->removeRow(6);
-    liste_regle_transition = new QComboBox;
-
-    liste_regle_transition->setPlaceholderText("--- select ---");
-
-    //liste_regle_transition->addItem("--- select ---");
-    /*std::vector<QString> automates = Database::getInstance().getAutomates();
-    for(size_t i = 0 ; i<automates.size(); i++){
-        liste_regle_transition->addItem(automates[i]);
-   }*/
-    liste_regle_transition->addItem("Game Life");
-    liste_regle_transition->addItem("Nouvelle fonction de transition");
-
-    liste_regle_transition->setCurrentIndex(-1);
-
-    form_choix->insertRow(8,"Règle de transition : ", liste_regle_transition);
-
-    connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(changerVoisinage(const QString&)));
-    connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));
-}
 
 void NouveauModele::changerEtatDefault(){
     etat_default = new QSpinBox;
@@ -513,4 +466,9 @@ void NouveauModele::changerEtatDefault(){
     form_choix->addRow("Etat défaut : ",etat_default);
     form_choix->addRow(valider_EtatDefault);
     connect(valider_EtatDefault, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
+}
+
+void NouveauModele::validation(){
+    bouton_valide = new QPushButton("Valider");
+    form_choix->addRow(bouton_valide);
 }
