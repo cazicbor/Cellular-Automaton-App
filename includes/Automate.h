@@ -156,9 +156,14 @@ class Automate {
 
 		/// Définir le comportement aux frontières
 		void setMatriceTorique(const bool val) { regleVoisinage->setMatriceTorique(val); }
+		/// Obtenir le comportement aux frontières
 		bool getMatriceTorique() { return regleVoisinage->getMatriceTorique(); }
 
+		/// Obtenir le nombre d'étapes effectuées
 		int getNbStep() const { return nbStep; }
+		/// Obtenir le nombre d'étapes nécessaires pour effectuer un cycle
+		///
+		/// Retourne 0 s'il n'a pas encore pu être calculé
 		int getNbCycle() const { return nbCycle; }
 };
 
