@@ -1,6 +1,7 @@
 #include"parametragemodele.h"
 #include <autocell.h>
 #include <Automate.h>
+#include <autosql.h>
 
 
 NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
