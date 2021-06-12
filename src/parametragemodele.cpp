@@ -211,7 +211,7 @@ void NouveauModele::modifGrille(const QModelIndex& index){
 
 void NouveauModele::changerVoisinage(){
 
-    Fonction* automateFonction = new Fonction(Automate::getInstance().getEnsemble().getEtat(etat_default->value()));
+    Fonction* automateFonction = new Fonction(Automate::getInstance().getEnsemble().getEtat(static_cast<unsigned int>(etat_default->value())));
     Automate::getInstance().setFonction(automateFonction);
     
     //delete liste_voisinage;
