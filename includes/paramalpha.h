@@ -27,7 +27,7 @@ class ParamAlpha: public QWidget {
 	public:
 		/// Construire une fenêtre de paramétrage de l'alphabet
 		/// @param[in] nbEtats nombre d'états à initialiser
-        ParamAlpha(const int nbEtats, const QWidget* parent);
+		ParamAlpha(const int nbEtats, const QWidget* parent);
 	public slots:
 		/// Valider le paramétrage de l'alphabet, a pour effet de l'initialiser dans l'automate
 		void valide();
