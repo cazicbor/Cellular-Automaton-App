@@ -36,8 +36,8 @@ std::unique_ptr<AutoCell> AutoCell::instance = nullptr;
 
 AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 {
-    this->setWindowTitle("Automate cellulaire");
-    this->setMinimumSize(1150, 650);
+this->setWindowTitle("Automate cellulaire");
+    this->setMinimumSize(1000, 650);
 
     //division en frame de la fenêtre de l'application
 
@@ -134,10 +134,10 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
 
     grid_run_control = new QGridLayout(win_run_ctrl);
 
-    grid_run_control->setColumnMinimumWidth(1,100);
-    grid_run_control->setColumnMinimumWidth(2,100);
+    grid_run_control->setColumnMinimumWidth(1,80);
+    grid_run_control->setColumnMinimumWidth(2,80);
     grid_run_control->setRowMinimumHeight(3,80);
-    grid_run_control->setRowMinimumHeight(4,400);
+    grid_run_control->setRowMinimumHeight(7,300);
 
     grid_run_control->addWidget(lab_run_crtl, 0,0,1,3,Qt::AlignTop);
 
@@ -150,7 +150,7 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     spin_time_step->setFixedWidth(70);
     spin_time_step->setValue(1000);
     spin_time_step->setRange(500,2500);
-    connect(spin_time_step, SIGNAL(valueChanged(int)), this, SLOT(changeDelai(int)));
+    connect(spin_time_step, SIGNAL(valueChanged(int i)), this, SLOT(changeDelai(int i)));
     button_prev = new QPushButton("<<");
     button_prev->setStyleSheet("background-color: rgb(255,255,255)");
     button_prev->setFixedSize(40,40);
@@ -167,13 +167,31 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     button_reinitialiser->setStyleSheet("background-color: rgb(255,255,255)");
     button_reinitialiser->setFixedWidth(200);
 
-    grid_run_control->addWidget(matriceTorique, 1, 0, 1, 2);
+    lab_nb_step = new QLabel("Nombre d'étapes : ");
+    edit_nb_step = new QLineEdit;
+    edit_nb_step->setReadOnly(true);
+    edit_nb_step->setFixedWidth(30);
+    edit_nb_step->setText("0");
+    edit_nb_step->setStyleSheet("background-color: rgb(255,255,255)");
+    lab_periode = new QLabel("Période observée : ");
+    edit_periode = new QLineEdit;
+    edit_periode->setReadOnly(true);
+    edit_periode->setFixedWidth(30);
+    edit_periode->setText("0");
+    edit_periode->setStyleSheet("background-color: rgb(255,255,255)");
+
+    grid_run_control->addWidget(matriceTorique, 1, 0, Qt::AlignCenter);
     grid_run_control->addWidget(lab_time_step, 2, 0);
     grid_run_control->addWidget(spin_time_step, 2, 1);
     grid_run_control->addWidget(button_prev, 3, 0);
     grid_run_control->addWidget(button_run, 3, 1);
     grid_run_control->addWidget(button_next, 3, 2);
-    grid_run_control->addWidget(button_reinitialiser, 4, 0, Qt::AlignCenter);
+    grid_run_control->addWidget(button_reinitialiser, 4, 0, Qt::AlignTop);
+
+    grid_run_control->addWidget(lab_nb_step, 5,0);
+    grid_run_control->addWidget(edit_nb_step, 5,1);
+    grid_run_control->addWidget(lab_periode,6,0);
+    grid_run_control->addWidget(edit_periode,6,1);
 
     lab_sauv_grille = new QLabel("Sauvegarder la grille courante");
     edit_nom_grille = new QLineEdit;
@@ -186,9 +204,9 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     button_save_grid->setFixedWidth(90);
     connect(button_save_grid,SIGNAL(clicked()),this,SLOT(sauvegarderGrille()));
 
-    grid_run_control->addWidget(lab_sauv_grille,4,0,1,3, Qt::AlignBottom);
-    grid_run_control->addWidget(edit_nom_grille,5,0, Qt::AlignBottom);
-    grid_run_control->addWidget(button_save_grid,5,2,Qt::AlignBottom);
+    grid_run_control->addWidget(lab_sauv_grille,7,0,1,3, Qt::AlignBottom);
+    grid_run_control->addWidget(edit_nom_grille,8,0, Qt::AlignBottom);
+    grid_run_control->addWidget(button_save_grid,8,2,Qt::AlignBottom);
 
     general->addWidget(win_run_ctrl,1,0,2,1);
 
@@ -197,16 +215,6 @@ AutoCell::AutoCell(QWidget* parent):QWidget(parent)
     win_grid = new QWidget;
 
     grid = new QTableWidget(0,0,win_grid);
-
-    //notice
-
-    win_notice = new QWidget;
-    win_notice->setStyleSheet("background-color: rgb(204, 209, 209)");
-    win_notice->setMaximumWidth(300);
-    win_notice->setMinimumWidth(200);
-    lab_notice = new QLabel("Notice :", win_notice);
-
-    general->addWidget(win_notice,0,2,3,1);
 };
 
 void AutoCell::afficherGrille(Reseau* grille)
