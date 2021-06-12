@@ -56,7 +56,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
 
 
-    liste_voisinage->setPlaceholderText("--- select ---");
+    //liste_voisinage->setPlaceholderText("--- select ---");
     liste_voisinage->setCurrentIndex(-1);
 
 
@@ -79,7 +79,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     layoutEtat->addWidget(boutonEtat);
 
     connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
-    connect(boutonEtat, SIGNAL(clicked()), this, SLOT(changerRegle()));
     connect(bouton_valide, SIGNAL(clicked()), this, SLOT(validerParametrage()));
 
     //ajout regle :
@@ -115,7 +114,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 }
 
 void NouveauModele::parametrerEtats() {
-	paramAlpha.reset(new ParamAlpha(nb_etats->value()));
+    paramAlpha.reset(new ParamAlpha(nb_etats->value(), this));
 	paramAlpha->show();
 }
 
@@ -462,10 +461,10 @@ void NouveauModele::validerParametrage(){
 
 void NouveauModele::changerRegle(){
 
-    if (liste_regle_transition != nullptr) delete liste_regle_transition;
+    if (liste_regle_transition != nullptr) form_choix->removeRow(6);
     liste_regle_transition = new QComboBox;
 
-    liste_regle_transition->setPlaceholderText("--- select ---");
+    //liste_regle_transition->setPlaceholderText("--- select ---");
 
     //liste_regle_transition->addItem("--- select ---");
     std::vector<QString> automates = Database::getInstance().getAutomates();
@@ -476,7 +475,7 @@ void NouveauModele::changerRegle(){
 
     liste_regle_transition->setCurrentIndex(-1);
 
-    form_choix->addRow("Règle de transition : ", liste_regle_transition);
+    form_choix->insertRow(6, "Règle de transition : ", liste_regle_transition);
 
     connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(changerVoisinage(const QString&)));
     connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));
