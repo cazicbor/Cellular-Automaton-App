@@ -28,10 +28,9 @@ ParamAlpha::ParamAlpha(const int nbEtats, const QWidget *parent): QWidget(), nb(
 		form[i]->addRow("Vert:", green[i]);
 		form[i]->addRow("Bleu:", blue[i]);
 	}
-<<<<<<< HEAD
-=======
+
+
     connect(valider, SIGNAL(clicked()), parent, SLOT(changerRegle()));
->>>>>>> 79d70f004b9e06f9113a2a1d2873a97e332be23d
 
 	connect(valider, SIGNAL(clicked()), this, SLOT(valide()));
 

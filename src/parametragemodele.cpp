@@ -77,16 +77,16 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     layoutEtat->addWidget(etat);
     layoutEtat->addWidget(nb_etats);
 
-<<<<<<< HEAD
+
 
 
     valider_Etat = new QPushButton("Valider le nombre d'états");
 
 
 
-=======
+
     connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
->>>>>>> 79d70f004b9e06f9113a2a1d2873a97e332be23d
+
     connect(bouton_valide, SIGNAL(clicked()), this, SLOT(validerParametrage()));
     connect(valider_Etat, SIGNAL(clicked()), this, SLOT(changerEtatDefault()));
 
@@ -437,8 +437,6 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
          //layouth->addWidget(etat_default);
 
          connect(valid_Etat, SIGNAL(currentTextChanged(const QString&)), this, SLOT(choisirEtatCourant(const QString&)));
-    }else{
-
     }
 }
 
@@ -501,7 +499,7 @@ void NouveauModele::changerRegle(){
 
     liste_regle_transition->setCurrentIndex(-1);
 
-    form_choix->insertRow(6, "Règle de transition : ", liste_regle_transition);
+    form_choix->insertRow(8,"Règle de transition : ", liste_regle_transition);
 
     connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(changerVoisinage(const QString&)));
     connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));
@@ -517,6 +515,4 @@ void NouveauModele::changerEtatDefault(){
     form_choix->addRow("Etat défaut : ",etat_default);
     form_choix->addRow(valider_EtatDefault);
     connect(valider_EtatDefault, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
-    connect(valider_EtatDefault, SIGNAL(clicked()), this, SLOT(changerRegle()));
-
 }
