@@ -29,9 +29,10 @@ ParamAlpha::ParamAlpha(const int nbEtats, const QWidget *parent): QWidget(), nb(
 		form[i]->addRow("Bleu:", blue[i]);
 	}
 
-	connect(valider, SIGNAL(clicked()), parent, SLOT(changerVoisinage()));
-	connect(valider, SIGNAL(clicked()), parent, SLOT(paramRegle()));
 	connect(valider, SIGNAL(clicked()), this, SLOT(valide()));
+    connect(valider, SIGNAL(clicked()), parent, SLOT(changerVoisinage()));
+    connect(valider, SIGNAL(clicked()), parent, SLOT(paramRegle()));
+    connect(valider, SIGNAL(clicked()), this, SLOT(close()));
 
 	general->addLayout(form[0], 0, 0, 1, 1);
 	if(nb >= 2)
