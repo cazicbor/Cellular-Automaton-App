@@ -306,9 +306,6 @@ void AutoCell::initialiserGrille(){
       edit_hauteur->setText(str_hauteur.setNum(grille.getHauteur(),10));
       }
 
-    //réinitialiser l'automate
-    Automate::getInstance().reset();
-
     this->afficherGrille(&grille);
     Automate::getInstance().setReseauInit(grille);
     Automate::getInstance().initialiserBuffer();
