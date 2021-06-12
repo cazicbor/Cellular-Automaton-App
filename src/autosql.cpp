@@ -237,12 +237,12 @@ Reseau& Database::getReseau(int idReseau) const {
     reseau.exec();
     if(!reseau.first())
 	    throw "Can't select (reseau) !";
-    Reseau* r = new Reseau(reseau.value("h").toUInt(), reseau.value("l").toUInt());
+    Reseau* r = new Reseau(reseau.value("l").toUInt(), reseau.value("h").toUInt());
 
     //remplissage du réseau
-    for(size_t i = 0; i<reseau.value("h").toUInt(); i++)
+    for(size_t i = 0; i<reseau.value("l").toUInt(); i++)
     {
-        for(size_t j = 0; j<reseau.value("l").toUInt(); j++)
+        for(size_t j = 0; j<reseau.value("h").toUInt(); j++)
         {
             QSqlQuery cellule(db);
             cellule.prepare("SELECT etat FROM Cellules WHERE (reseau = :id AND x = :i AND y = :j)");
