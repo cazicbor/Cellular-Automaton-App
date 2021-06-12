@@ -23,6 +23,8 @@ class Database {
 		Database(std::string path);
 	public:
 		/// Obtenir une référence vers l'instance unique du singleton database
+		///
+		/// Le chemin vers la base de données et hardcodé pour le moment mais pourrait aisément être rendu dynamique
 		static Database& getInstance() {
 			if(instance == nullptr)
 				instance.reset(new Database("application.db"));

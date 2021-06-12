@@ -166,6 +166,7 @@ this->setWindowTitle("Automate cellulaire");
     button_reinitialiser = new QPushButton("Réinitialiser la simulation");
     button_reinitialiser->setStyleSheet("background-color: rgb(255,255,255)");
     button_reinitialiser->setFixedWidth(200);
+    connect(button_reinitialiser, SIGNAL(clicked()), this, SLOT(reinitialiserSimulation()));
 
     lab_nb_step = new QLabel("Nombre d'étapes : ");
     edit_nb_step = new QLineEdit;
@@ -442,3 +443,10 @@ void AutoCell::setMatriceTorique(int val) {
 	else
 		Automate::getInstance().setMatriceTorique(true);
 }
+
+void AutoCell::reinitialiserSimulation()
+{
+    Automate::getInstance().reset();
+    afficherGrille(&Automate::getInstance().getReseauInit());
+}
+
