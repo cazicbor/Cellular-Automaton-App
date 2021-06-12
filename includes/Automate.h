@@ -75,7 +75,7 @@ class Automate {
 		/// L'objet est géré dynamiquement par l'utilisateur mais une fois donnné à l'automate il gère son cycle de vie
 		void setFonction(Fonction* f) { fonction.reset(f); }
 		/// Récupérer la fonction de transition
-		const Fonction& getFonction() const { return *fonction; }
+		Fonction& getFonction() const { return *fonction; }
 		/// Définir une règle de voisinage
 		///
 		/// L'objet est géré dynamiquement par l'utilisateur mais une fois donnné à l'automate il gère son cycle de vie
