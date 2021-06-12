@@ -380,7 +380,6 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
 
 
         layoutv = new QVBoxLayout;
-       // layouth = new QHBoxLayout;
         layouth1 = new QHBoxLayout;
         layouth2 = new QHBoxLayout;
         layouth3 = new QHBoxLayout;
@@ -396,7 +395,6 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
         layoutv->addLayout(layouth1);
         layoutv->addLayout(layouth2);
         layoutv->addLayout(layouth3);
-        //layoutv->addLayout(layouth);
         layoutv->addLayout(layouth4);
 
 

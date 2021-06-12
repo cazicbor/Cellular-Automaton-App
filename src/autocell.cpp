@@ -218,7 +218,7 @@ this->setWindowTitle("Automate cellulaire");
     grid = new QTableWidget(0,0,win_grid);
 };
 
-void AutoCell::afficherGrille(Reseau* grille)
+void AutoCell::afficherGrille(const Reseau* grille)
 {
 	Grille.reset(new Reseau(*grille));
     win_grid = new QWidget;
