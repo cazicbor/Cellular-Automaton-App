@@ -1,5 +1,6 @@
 #include <paramalpha.h>
 #include <Automate.h>
+#include <parametragemodele.h>
 
 ParamAlpha::ParamAlpha(const int nbEtats): QWidget(), nb(nbEtats) {
 	this->setWindowTitle("Configuration des états");
@@ -27,6 +28,7 @@ ParamAlpha::ParamAlpha(const int nbEtats): QWidget(), nb(nbEtats) {
 		form[i]->addRow("Vert:", green[i]);
 		form[i]->addRow("Bleu:", blue[i]);
 	}
+    connect(valider, SIGNAL(clicked()), this, SLOT(changerRegle()));
 
 	connect(valider, SIGNAL(clicked()), this, SLOT(valide()));
 
@@ -46,13 +48,18 @@ ParamAlpha::ParamAlpha(const int nbEtats): QWidget(), nb(nbEtats) {
 	if(nb == 8)
 		general->addLayout(form[7], 2, 1, 1, 1);
 	general->addWidget(valider, 2, 2, 1, 1, Qt::AlignBottom);
+
+
+
 }
 
 void ParamAlpha::valide() {
+
     Automate::getInstance().getEnsemble();
 
     Automate::getInstance().getEnsemble().reset();
 	for(int i = 0; i < nb; ++i) {
         Automate::getInstance().getEnsemble().ajouterEtat(i, label[i]->text().toStdString(), red[i]->value(), green[i]->value(), blue[i]->value());
 	}
+    this->close();
 }

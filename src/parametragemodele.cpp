@@ -1,6 +1,8 @@
 #include"parametragemodele.h"
 #include <autocell.h>
 #include <Automate.h>
+#include<autosql.h>
+
 
 
 NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
@@ -48,6 +50,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     nb_etats = new QSpinBox;
     nb_etats->setRange(2, 8);
     nom_modele = new QLineEdit("Nouveau modèle");
+    etat = new QLabel("Nombre d'états :");
 
     //choisir un voisinage
     liste_voisinage = new QComboBox;
@@ -61,22 +64,13 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     connect(liste_voisinage, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramVoisinage(const QString&)));
 
     //choisir une règle de transition
-    liste_regle_transition = new QComboBox;
 
-    liste_regle_transition->setPlaceholderText("--- select ---");
 
-    //liste_regle_transition->addItem("--- select ---");
-    liste_regle_transition->addItem("Life Game");
-    liste_regle_transition->addItem("Langston's Loop");
-    liste_regle_transition->addItem("Brian's brain");
-    liste_regle_transition->addItem("Circulaire de Griffeath");
-    liste_regle_transition->addItem("Nouvelle fonction de transition");
 
-    liste_regle_transition->setCurrentIndex(-1);
+
 
     //connect(liste_regle_transition, SIGNAL(currentIndexChanged(int)), liste_voisinage, SLOT(setCurrentIndex(int)));
-    connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(changerVoisinage(const QString&)));
-    connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));
+
 
     bouton_valide = new QPushButton("Valider");
 
@@ -84,7 +78,13 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
     boutonEtat = new QPushButton("Etats");
 
+    layoutEtat = new QHBoxLayout;
+    layoutEtat->addWidget(etat);
+    layoutEtat->addWidget(nb_etats);
+    layoutEtat->addWidget(boutonEtat);
+
     connect(boutonEtat, SIGNAL(clicked()), this, SLOT(parametrerEtats()));
+    connect(boutonEtat, SIGNAL(clicked()), this, SLOT(changerRegle()));
     connect(bouton_valide, SIGNAL(clicked()), this, SLOT(validerParametrage()));
 
     //ajout regle :
@@ -93,12 +93,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     form_choix->addRow("Auteur :", auteur);
     form_choix->addRow("Année :", annee);
     form_choix->addRow("Description :", description);
-    //form_choix->addRow("Etat par défaut", etat_defaut);
-    form_choix->addRow("Nombre d'états :", nb_etats);
-    form_choix->addRow("Règle de transition :", liste_regle_transition);
-    //form_choix->addRow(layoutvalid);
-    //layoutvalid->addWidget(bouton_valide);
-    //layoutvalid->addWidget(boutonEtat);
+    form_choix->addRow(layoutEtat);
 
     general->addWidget(fenetre_init, 0, 0, 9, 1);
 
@@ -243,7 +238,6 @@ void NouveauModele::changerVoisinage(const QString& choix_regle){
     }
     form_choix->insertRow(8, "Voisinage :", liste_voisinage);
     layoutvalid->addWidget(bouton_valide);
-    layoutvalid->addWidget(boutonEtat);
     form_choix->addRow(layoutvalid);
     connect(liste_voisinage, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramVoisinage(const QString&)));
 }
@@ -357,7 +351,7 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
     if (choix_regle == "Nouvelle fonction de transition") {
         seuilValidator=new QIntValidator;
 
-        //if(layouth != nullptr) delete layouth;
+        if(layouth != nullptr) delete layouth;
         if(layouth1 != nullptr) delete layouth1;
         if(layouth2 != nullptr) delete layouth2;
         if(layouth3 != nullptr) delete layouth3;
@@ -471,3 +465,24 @@ void NouveauModele::validerParametrage(){
     nvAutocell->show();*/
 }
 
+void NouveauModele::changerRegle(){
+
+    if (liste_regle_transition != nullptr) delete liste_regle_transition;
+    liste_regle_transition = new QComboBox;
+
+    liste_regle_transition->setPlaceholderText("--- select ---");
+
+    //liste_regle_transition->addItem("--- select ---");
+    std::vector<QString> automates = Database::getInstance().getAutomates();
+    for(size_t i = 0 ; i<automates.size(); i++){
+        liste_regle_transition->addItem(automates[i]);
+   }
+    liste_regle_transition->addItem("Nouvelle fonction de transition");
+
+    liste_regle_transition->setCurrentIndex(-1);
+
+    form_choix->addRow("Règle de transition : ", liste_regle_transition);
+
+    connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(changerVoisinage(const QString&)));
+    connect(liste_regle_transition, SIGNAL(currentTextChanged(const QString&)), this, SLOT(paramRegle(const QString)));
+}
