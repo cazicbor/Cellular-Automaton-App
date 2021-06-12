@@ -86,6 +86,10 @@ class AutoCell : public QWidget
     QWidget* win_grid;
     QTableWidget* grid;
 
+    //notice
+    std::unique_ptr<QWidget> fenetre_notice;
+    std::unique_ptr<QLabel> lab_notice;
+
     explicit AutoCell(QWidget* parent=nullptr);
     friend class NouveauModele;
     public:
