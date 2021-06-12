@@ -367,7 +367,7 @@ void AutoCell::chargerGrilles(){
     text = liste->currentText();
 
     list_grids->clear();
-    list_grids.setFixedWidth(90);
+    list_grids->setFixedWidth(90);
     vector<QString> noms = Database::getInstance().getListeReseaux(text);
     nb.setNum(noms.size());
 
