@@ -476,12 +476,10 @@ void NouveauModele::changerRegle(){
 
     liste_regle_transition->setPlaceholderText("--- select ---");
 
-    //liste_regle_transition->addItem("--- select ---");
-    /*std::vector<QString> automates = Database::getInstance().getAutomates();
+    std::vector<QString> automates = Database::getInstance().getAutomates();
     for(size_t i = 0 ; i<automates.size(); i++){
         liste_regle_transition->addItem(automates[i]);
-   }*/
-    liste_regle_transition->addItem("Game Life");
+    }
     liste_regle_transition->addItem("Nouvelle fonction de transition");
 
     liste_regle_transition->setCurrentIndex(-1);
