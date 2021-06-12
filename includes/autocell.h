@@ -21,6 +21,7 @@
 #include <QPushButton>
 #include <QCheckBox>
 #include <QFormLayout>
+#include <QSpinBox>
 
 using namespace std;
 
@@ -65,8 +66,7 @@ class AutoCell : public QWidget
     QGridLayout* grid_run_control;
 
     QLabel* lab_time_step;
-    QLineEdit* edit_time_step;
-    QPushButton* button_valider_delai;
+    QSpinBox* spin_time_step;
     QPushButton* button_prev;
     QPushButton* button_run;
     QPushButton* button_next;
@@ -130,7 +130,7 @@ class AutoCell : public QWidget
     /// Initialiser un automate par son nom
     void initAutomate(const QString& name);
     /// Changer le délai de l'automate
-    void changeDelai();
+    void changeDelai(int i);
     /// Aller en arrière dans la simulation
     void previous();
     /// Aller en avant dans la simulation
