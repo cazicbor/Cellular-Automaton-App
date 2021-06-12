@@ -30,7 +30,9 @@ ParamAlpha::ParamAlpha(const int nbEtats, const QWidget *parent): QWidget(), nb(
 	}
 
 
-    connect(valider, SIGNAL(clicked()), parent, SLOT(changerRegle()));
+    connect(valider, SIGNAL(clicked()), parent, SLOT(changerVoisinage()));
+    connect(valider, SIGNAL(clicked()), parent, SLOT(paramRegle()));
+
 
 	connect(valider, SIGNAL(clicked()), this, SLOT(valide()));
 

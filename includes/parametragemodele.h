@@ -109,19 +109,20 @@ public:
     NouveauModele(QWidget* parent = nullptr);
 public slots:
     void paramVoisinage(const QString& choix_voisinage);
-    void changerVoisinage(const QString& choix_regle);
+    void changerVoisinage();
     void affGrille();
     void modifGrille(const QModelIndex& index);
-    void paramRegle(const QString& choix_regle);
+    void paramRegle();
     void validerParametrage();
 
     void choisirEtatCourant(const QString& validEtat);
     void parametrerEtats();
 
     void addRegle();
-    void changerRegle();
 
     void changerEtatDefault();
+
+    void validation();
 
 
    //  void validerParametrage();
