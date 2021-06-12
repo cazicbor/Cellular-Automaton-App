@@ -88,7 +88,7 @@ this->setWindowTitle("Automate cellulaire");
     //définition de la frame initialisation
 
     win_init = new QWidget;
-    win_init->setFixedWidth(400);
+    win_init->setFixedWidth(500);
     lab_init = new QLabel("Configuration du modèle :");
 
     form_init = new QGridLayout(win_init);
@@ -100,6 +100,7 @@ this->setWindowTitle("Automate cellulaire");
     form_init->addLayout(form_config, 1,0);
 
     list_grids = new QComboBox;
+    list_grids->setFixedWidth(150);
     check_load_grid = new QCheckBox;
 
     edit_largeur = new QLineEdit;
@@ -380,7 +381,6 @@ void AutoCell::chargerGrilles(){
     text = liste->currentText();
 
     list_grids->clear();
-    list_grids->setFixedWidth(90);
     vector<QString> noms = Database::getInstance().getListeReseaux(text);
     nb.setNum(noms.size());
 
