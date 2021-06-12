@@ -39,6 +39,7 @@ class NouveauModele : public QWidget {
 
     QFormLayout* form_choix;
 
+    QLineEdit* nom_modele;
     QLineEdit* nom_automate;
     QLineEdit* auteur;
     QLineEdit* annee;
@@ -51,7 +52,6 @@ class NouveauModele : public QWidget {
 
     QHBoxLayout* layoutvalid = nullptr;
 
-    QLineEdit* nomModele;
     //definition frame règle de transitions
     QWidget* fenetre_regle;
     QLabel* seuilMax;

@@ -47,6 +47,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     // nb d'états
     nb_etats = new QSpinBox;
     nb_etats->setRange(2, 8);
+    nom_modele = new QLineEdit("Nouveau modèle");
 
     //choisir un voisinage
     liste_voisinage = new QComboBox;
@@ -87,6 +88,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     connect(bouton_valide, SIGNAL(clicked()), this, SLOT(validerParametrage()));
 
     //ajout regle :
+    form_choix->addRow("Nom du modèle : ", nom_modele);
     form_choix->addRow("Nom automate :", nom_automate);
     form_choix->addRow("Auteur :", auteur);
     form_choix->addRow("Année :", annee);
@@ -280,7 +282,7 @@ void NouveauModele::choisirEtatCourant(const QString& validEtat){
         etatCourant2 = new QLabel("Etat Courant : ");
 
         numEtatCourant = new QSpinBox;
-        numEtatCourant->setRange(1,8);
+        numEtatCourant->setRange(0,nb_etats->value()-1);
 
         layouth5->addWidget(etatCourant2);
         layouth5->addWidget(numEtatCourant);
@@ -343,11 +345,6 @@ void NouveauModele::paramRegle(const QString& choix_regle) {
 
     etat_default = new QSpinBox;
     etat_default->setRange(0,(nb_etats->value())-1);
-
-    /*QLabel* etat_d = new QLabel("Etat Defaut : ");
-    QSpinBox* etat_defaut = new QSpinBox;
-    etat_defaut->setRange(0,nb_etats->value()-1);
-    form_choix->addRow("Etat par défaut", etat_defaut);*/
 
     QSpinBox* etatDest = new QSpinBox;
     etatDest->setRange(0, nb_etats->value()-1);
