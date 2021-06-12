@@ -5,10 +5,10 @@
 
 void RegleVoisinageNeumann::calculVoisinage(Voisinage& v, const Reseau& r) const {
 	v.voisinage = std::vector<Cellule*>();
-	unsigned int cellX = v.celluleCentre->abs;
-	unsigned int cellY = v.celluleCentre->ord;
-	unsigned int hauteur = r.getHauteur();
-	unsigned int largeur = r.getLargeur();
+	int cellX = static_cast<int>(v.celluleCentre->abs);
+	int cellY = static_cast<int>(v.celluleCentre->ord);
+	int hauteur = static_cast<int>(r.getHauteur());
+	int largeur = static_cast<int>(r.getLargeur());
 
 	for (int i = -static_cast<int>(rayon); i <= static_cast<int>(rayon); i++)
 		for (int j = -static_cast<int>(rayon); j <= static_cast<int>(rayon); j++)
@@ -31,8 +31,8 @@ void RegleVoisinageMoore::calculVoisinage(Voisinage& v, const Reseau& r) const {
 	v.voisinage = std::vector<Cellule*>();
 	int cellX = static_cast<int>(v.celluleCentre->abs);
 	int cellY = static_cast<int>(v.celluleCentre->ord);
-	int hauteur = r.getHauteur();
-	int largeur = r.getLargeur();
+	int hauteur = static_cast<int>(r.getHauteur());
+	int largeur = static_cast<int>(r.getLargeur());
 
 	for (int i = -static_cast<int>(rayon); i <= static_cast<int>(rayon); i++)
 		for (int j = -static_cast<int>(rayon); j <= static_cast<int>(rayon); j++)

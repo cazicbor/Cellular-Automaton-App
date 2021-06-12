@@ -88,7 +88,7 @@ this->setWindowTitle("Automate cellulaire");
     //définition de la frame initialisation
 
     win_init = new QWidget;
-    win_init->setFixedWidth(400);
+    win_init->setFixedWidth(500);
     lab_init = new QLabel("Configuration du modèle :");
 
     form_init = new QGridLayout(win_init);
@@ -100,6 +100,7 @@ this->setWindowTitle("Automate cellulaire");
     form_init->addLayout(form_config, 1,0);
 
     list_grids = new QComboBox;
+    list_grids->setFixedWidth(150);
     check_load_grid = new QCheckBox;
 
     edit_largeur = new QLineEdit;
@@ -150,7 +151,7 @@ this->setWindowTitle("Automate cellulaire");
     spin_time_step->setFixedWidth(70);
     spin_time_step->setValue(1000);
     spin_time_step->setRange(500,2500);
-    connect(spin_time_step, SIGNAL(valueChanged()), this, SLOT(changeDelai()));
+    connect(spin_time_step, SIGNAL(valueChanged(int)), this, SLOT(changeDelai()));
     button_prev = new QPushButton("<<");
     button_prev->setStyleSheet("background-color: rgb(255,255,255)");
     button_prev->setFixedSize(40,40);
@@ -216,6 +217,8 @@ this->setWindowTitle("Automate cellulaire");
     win_grid = new QWidget;
 
     grid = new QTableWidget(0,0,win_grid);
+
+    afficherNotice();
 };
 
 void AutoCell::afficherGrille(const Reseau* grille)
@@ -311,6 +314,7 @@ void AutoCell::initialiserGrille(){
       }
 
     this->afficherGrille(&grille);
+    Automate::getInstance().reset();
     Automate::getInstance().setReseauInit(grille);
     Automate::getInstance().initialiserBuffer();
 };
@@ -380,7 +384,6 @@ void AutoCell::chargerGrilles(){
     text = liste->currentText();
 
     list_grids->clear();
-    list_grids->setFixedWidth(90);
     vector<QString> noms = Database::getInstance().getListeReseaux(text);
     nb.setNum(noms.size());
 
@@ -450,3 +453,11 @@ void AutoCell::reinitialiserSimulation()
     afficherGrille(&Automate::getInstance().getReseauInit());
 }
 
+void AutoCell::afficherNotice(){
+    fenetre_notice.reset(new QWidget);
+    fenetre_notice.get()->setMinimumWidth(1000);
+    fenetre_notice->setWindowTitle("Notice");
+    QString str_notice("test");
+    lab_notice.reset(new QLabel(str_notice, fenetre_notice.get()));
+    fenetre_notice.get()->show();
+};

@@ -5,17 +5,6 @@
 
 
 NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
-	Automate::getInstance().reset();
-	//create dumb ensembleetat
-	Automate::getInstance().getEnsemble().ajouterEtat(0, "État 1", 0, 0, 0);
-	Automate::getInstance().getEnsemble().ajouterEtat(1, "État 2", 10, 10, 30);
-	Automate::getInstance().getEnsemble().ajouterEtat(2, "État 3", 10, 30, 10);
-	Automate::getInstance().getEnsemble().ajouterEtat(3, "État 4", 30, 10, 10);
-	Automate::getInstance().getEnsemble().ajouterEtat(4, "État 5", 100, 70, 70);
-	Automate::getInstance().getEnsemble().ajouterEtat(5, "État 6", 70, 100, 70);
-	Automate::getInstance().getEnsemble().ajouterEtat(6, "État 7", 70, 70, 100);
-	Automate::getInstance().getEnsemble().ajouterEtat(7, "État 8", 200, 200, 200);
-   // fonction.reset(new Fonction(Automate::getInstance().getEnsemble().getEtat(0)));
     this->setWindowTitle("Paramétrage d'un nouveau modèle");
     this->setMinimumSize(850, 650);
 
@@ -378,7 +367,7 @@ void NouveauModele::paramRegle() {
         seuilValidator->setRange(0,1);
 
         layouth1->addWidget(seuilMin);
-        for(unsigned int i=0; i<8; i++) {
+        for(int i=0; i<8; i++) {
             numSeuilMin[i]=new QLineEdit;
             numSeuilMin[i]->setFixedWidth(22);
             numSeuilMin[i]->setMaxLength(2);
@@ -391,7 +380,7 @@ void NouveauModele::paramRegle() {
 
 
          layouth2->addWidget(seuilMax);
-         for(unsigned int i=0; i<8; i++) {
+         for(int i=0; i<8; i++) {
              numSeuilMax[i]=new QLineEdit;
              numSeuilMax[i]->setFixedWidth(22);
              numSeuilMax[i]->setMaxLength(2);
@@ -453,6 +442,7 @@ void NouveauModele::validerParametrage(){
 
     nvAutocell->show();*/
 }
+
 
 
 
