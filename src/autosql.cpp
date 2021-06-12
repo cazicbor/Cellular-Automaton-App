@@ -271,7 +271,7 @@ void Database::saveAutomaton(const Automate& a) const {
 
 	saveFunction(a.getTitle().c_str(), a.getFonction());
 	saveVoisinage(a.getTitle().c_str(), a.getRegleVoisinage());
-    stockerReseau(a.getReseauInit(), "Grille 10*10 - Aleatoire", a.getTitle().c_str());
+    stockerReseau(a.getReseauInit(), "Grille Aleatoire", a.getTitle().c_str());
     saveEnsemble(Automate::getInstance());
 }
 
