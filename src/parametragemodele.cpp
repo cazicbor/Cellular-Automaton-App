@@ -56,7 +56,7 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
 
 
-    //liste_voisinage->setPlaceholderText("--- select ---");
+    liste_voisinage->setPlaceholderText("--- select ---");
     liste_voisinage->setCurrentIndex(-1);
 
 
@@ -464,7 +464,7 @@ void NouveauModele::changerRegle(){
     if (liste_regle_transition != nullptr) form_choix->removeRow(6);
     liste_regle_transition = new QComboBox;
 
-    //liste_regle_transition->setPlaceholderText("--- select ---");
+    liste_regle_transition->setPlaceholderText("--- select ---");
 
     //liste_regle_transition->addItem("--- select ---");
     std::vector<QString> automates = Database::getInstance().getAutomates();
