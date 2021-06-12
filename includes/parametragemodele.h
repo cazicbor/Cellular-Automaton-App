@@ -49,7 +49,7 @@ class NouveauModele : public QWidget {
     QComboBox* liste_regle_transition;
     QPushButton* bouton_valide;
 
-    QHBoxLayout* layoutvalid;
+    QHBoxLayout* layoutvalid = nullptr;
 
     QLineEdit* nomModele;
     //definition frame règle de transitions
