@@ -37,7 +37,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
     // nb d'états
     nb_etats = new QSpinBox;
     nb_etats->setRange(2, 8);
-    nom_modele = new QLineEdit("Nouveau modèle");
     etat = new QLabel("Nombre d'états :");
 
     //choisir un voisinage
@@ -81,7 +80,6 @@ NouveauModele::NouveauModele(QWidget* parent) : QWidget() {
 
 
     //ajout regle :
-    form_choix->addRow("Nom du modèle : ", nom_modele);
     form_choix->addRow("Nom automate :", nom_automate);
     form_choix->addRow("Auteur :", auteur);
     form_choix->addRow("Année :", annee);
