@@ -167,9 +167,9 @@ class Automate {
 
 		/// Définir le comportement aux frontières
 		/// @param[in] val valeur du comportement aux frontière (true = matrice torique, false = ignorer)
-		void setMatriceTorique(const bool val) { regleVoisinage->setMatriceTorique(val); }
+		void setMatriceTorique(const bool val) { if (regleVoisinage.get() == nullptr) throw "Uninitialized rule"; regleVoisinage->setMatriceTorique(val); }
 		/// Obtenir le comportement aux frontières
-		bool getMatriceTorique() { return regleVoisinage->getMatriceTorique(); }
+		bool getMatriceTorique() { if (regleVoisinage.get() == nullptr) throw "Uninitialized rule"; return regleVoisinage->getMatriceTorique(); }
 
 		/// Obtenir le nombre d'étapes effectuées
 		int getNbStep() const { return nbStep; }

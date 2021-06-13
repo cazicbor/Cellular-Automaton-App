@@ -441,10 +441,16 @@ void AutoCell::previous() {
 }
 
 void AutoCell::setMatriceTorique(int val) {
-	if (val == 0)
-		Automate::getInstance().setMatriceTorique(false);
-	else
-		Automate::getInstance().setMatriceTorique(true);
+	try {
+		if (val == 0)
+			Automate::getInstance().setMatriceTorique(false);
+		else
+			Automate::getInstance().setMatriceTorique(true);
+	}
+	catch (const char* m) {
+		QString msg(m);
+		afficherErreur(msg);
+	}
 }
 
 void AutoCell::reinitialiserSimulation()
