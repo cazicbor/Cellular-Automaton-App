@@ -87,7 +87,7 @@ class EnsembleEtat{
 		void reset();
 };
 
-/// Classe correspondant à un réseau d'une simulation
+/// @brief Classe correspondant à un réseau d'une simulation
 ///
 /// Un ensemble fini de cellules en 2 dimensions
 class Reseau{
