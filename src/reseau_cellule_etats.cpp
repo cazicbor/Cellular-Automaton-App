@@ -76,13 +76,14 @@ void Cellule::incrementerEtat(){
 
 //méthodes de la classe Reseau
 
-Reseau::Reseau(const unsigned int &h, const unsigned int &l):hauteur(h),largeur(l){
-        reseau = new Cellule* [hauteur];
-            for(unsigned int i=0; i<hauteur; i++)
-                reseau[i] = new Cellule [largeur];
-        for(unsigned int i=0; i<hauteur; i++) //initialisation des cellules dans un second car pas possible avec l'allocation dynamique
-            for(unsigned int j=0; j<largeur; j++)
-                reseau[i][j].initCellule(1,i,j);}
+Reseau::Reseau(const unsigned int &h, const unsigned int &l, const int defautcell):hauteur(h),largeur(l){
+	reseau = new Cellule* [hauteur];
+	for(unsigned int i=0; i<hauteur; i++)
+		reseau[i] = new Cellule [largeur];
+	for(unsigned int i=0; i<hauteur; i++) //initialisation des cellules dans un second car pas possible avec l'allocation dynamique
+		for(unsigned int j=0; j<largeur; j++)
+			reseau[i][j].initCellule(defautcell,i,j);
+}
 
 Reseau::~Reseau(){
     for(unsigned int i=0; i<hauteur; i++)

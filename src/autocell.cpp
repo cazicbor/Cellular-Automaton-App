@@ -296,7 +296,7 @@ void AutoCell::initialiserGrille(){
         return;
     }
 
-    Reseau grille = Reseau(h,l);
+    Reseau grille = Reseau(h,l, Automate::getInstance().getFonction().getEtatDefaut().getIndice());
 
     if (check_aleatoire->isChecked())
 	    grille.setAleatoire();

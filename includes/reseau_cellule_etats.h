@@ -108,7 +108,7 @@ class Reseau{
 		/// Construire un réseau
 		/// @param[in] h Hauteur du réseau
 		/// @param[in] l Largeur du réseau
-		Reseau(const unsigned int &h, const unsigned int &l);
+		Reseau(const unsigned int &h, const unsigned int &l, const int defautcell = 0);
 		/// Construire un réseau par recopie d'un autre
 		/// @param[in] r Réseau à recopier
 		Reseau(const Reseau& r);
