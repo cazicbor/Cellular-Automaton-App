@@ -6,7 +6,7 @@
 #include <voisinage.h>
 #include <list>
 
-/// Règle générale
+/// @brief Règle générale
 ///
 /// Classe mère abstraite de toutes les règles, utilisé pour rendre le code évoluable, définir des règles au comportement totalement différent de ce que nous avons.
 /// Définit les concepts de base d'une règle (qui représente une condition suffisante pour passer à un état donné)
@@ -28,7 +28,7 @@ class RegleGen {
 		const Etat& getDestination() const { return destination; }
 };
 
-/// Règle verifiant le nombre de voisins
+/// @brief Règle verifiant le nombre de voisins
 ///
 /// Cette règle regarde le nombre de voisins dans un certain état pour être vérifiée.
 class Regle: public RegleGen {
@@ -55,7 +55,7 @@ class Regle: public RegleGen {
 		int getMax(const size_t i) { if(i > 0 && i <= 8) return seuilsMax[i - 1]; else throw "Invalid number!"; }
 };
 
-/// Règle prenant en compte l'état courant
+/// @brief Règle prenant en compte l'état courant
 ///
 /// Cette règle en plus de vérifier le nombre de voisins, permet de vérifier l'état courant de la cellule à laquelle on applique la règle
 class RegleAvecEtatCourant: public Regle {
@@ -77,7 +77,7 @@ class RegleAvecEtatCourant: public Regle {
 		int getCourant() const override { return static_cast<int>(etatCourant); }
 };
 
-/// Fonction de transition
+/// @brief Fonction de transition
 ///
 /// Cette fonction permet de regrouper des règles et de connaître l'état suivant d'une cellule
 class Fonction {
