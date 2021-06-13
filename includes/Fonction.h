@@ -33,7 +33,13 @@ class RegleGen {
 /// Cette règle regarde le nombre de voisins dans un certain état pour être vérifiée.
 class Regle: public RegleGen {
 	protected:
+		/// valeurs des bornes inférieures des intervalles concernant le nombre de cellules voisines dans un état de 0 à 7
+		///
+		/// Si une des sommes est inférieure, la règle est rejetée. -1 équivaut à -infini
 		int seuilsMin[8];
+		/// valeurs des bornes supérieures des intervalles concernant le nombre de cellules voisines dans un état de 0 à 7
+		///
+		/// Si une des sommes est supérieure, la règle est rejetée. -1 équivaut à +infini
 		int seuilsMax[8];
 
 	public:
@@ -96,19 +102,18 @@ class Fonction {
 		/// @param[in] nouveau Nouvel état par défaut de la fonction
 		void setEtatDefaut(const Etat& nouveau) { etatDefaut = nouveau; }
 		/// Ajouter une règle à la fonction
-		/// @param[in] nDestination Etat de destination en cas de validation de la règle
-		/// @param[in] nSeuilsMax   Tableau de seuils à ne pas dépasser en nombre de voisins par état pour vérifier la règle
-		/// @param[in] nSeuilsMin   Tableau de seuils à dépasser en nombre de voisins par état pour vérifier la règle
+		/// @param[in] destination Etat de destination en cas de validation de la règle
+		/// @param[in] seuilsMax   Tableau de seuils à ne pas dépasser en nombre de voisins par état pour vérifier la règle
+		/// @param[in] seuilsMin   Tableau de seuils à dépasser en nombre de voisins par état pour vérifier la règle
 		void ajouterRegle(const Etat& destination, const int seuilsMin[8], const int seuilsMax[8]);
 		/// Ajouter une règle prenant en compte l'état courant à la fonction
-		/// @param[in] nDestination Etat de destination en cas de validation de la règle
-		/// @param[in] nSeuilsMax   Tableau de seuils à ne pas dépasser en nombre de voisins par état pour vérifier la règle
-		/// @param[in] nSeuilsMin   Tableau de seuils à dépasser en nombre de voisins par état pour vérifier la règle
-		/// @param[in] nEtat        numéro de l'état courant de la cellule nécessaire pour vérifier la règle
+		/// @param[in] destination Etat de destination en cas de validation de la règle
+		/// @param[in] seuilsMax   Tableau de seuils à ne pas dépasser en nombre de voisins par état pour vérifier la règle
+		/// @param[in] seuilsMin   Tableau de seuils à dépasser en nombre de voisins par état pour vérifier la règle
+		/// @param[in] etat        numéro de l'état courant de la cellule nécessaire pour vérifier la règle
 		void ajouterRegle(const Etat& destination, const int seuilsMin[8], const int seuilsMax[8], const int etat);
 		/// Appliquer la fonction de transition à une cellule et obtenir son prochain état
 		/// @param[in] voisins voisins de la cellule à laquelle appliquer la fonction
-		/// @param[in] cellule cellule à laquelle appliquer la fonction
 		virtual const Etat& getEtatSuivant(const Voisinage& voisins) const;
 		/// Accesseur sur la liste de règles, il est impossible de modifier les règles de cette manière, la liste est en lecture seule
 		const std::list<Regle*>& getRules() const { return regles; }

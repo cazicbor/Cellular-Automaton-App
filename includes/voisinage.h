@@ -52,6 +52,8 @@ class Voisinage {
 				Cellule* currentItem() { return vsn->voisinage[i]; }
 		};
 
+		/// Construire un voisinage
+		/// @param[in] centre Cellule au centre de ce voisinage
 		Voisinage(const Cellule* centre): celluleCentre(centre) {}
 		~Voisinage();
 		/// Obtenir la cellule au centre du voisinage

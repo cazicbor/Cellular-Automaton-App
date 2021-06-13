@@ -143,7 +143,7 @@ class AutoCell : public QWidget {
 		/// @param[in] msg Message à afficher
 		void afficherErreur(QString& msg);
 		/// Initialiser un Automate par son nom
-		/// @param[in] nom de l'Automate à initialiser
+		/// @param[in] name de l'Automate à initialiser
 		void initAutomate(const QString& name);
 		/// Changer le délai de l'Automate
 		void changeDelai();
