@@ -113,14 +113,8 @@ class AutoCell : public QWidget {
 		}
 
 	public slots:
-		//void chargerModele();
-		//void listerModele(); //à faire en dernier
 		/// slot pour charger les Reseau disponibles pour le modèle sélectionné
 		void chargerGrilles();
-		//void listerGrille(); //déjà réfléchir à la recopie
-		//Reseau initialiserGrille(); //méthode à implémenter qui récupère les données du formulaire - penser à réinitialiser les données annexes
-		//void afficherGrille(Reseau&); //affiche une grille
-		//void chargerGrilles(const QString &text);
 		/// Afficher un Reseau dans l'espace dédié
 		/// @param[in] Grille pointeur vers le Reseau à afficher
 		void afficherGrille(const Reseau* Grille);
@@ -130,8 +124,6 @@ class AutoCell : public QWidget {
 		void RAZ();
 		/// Gérer la mise en route automatique ou non
 		void gererSimulation();
-		//void sauvegarderGrille();
-		//Reseau& modifierCellule(const QModelIndex&, Reseau& Grille);//à implémenter
 		/// Modifier l'état d'une cellule de la grille affichée (par clic par exemple)
 		/// @param[in] index localisation de la cellule à modifier
 		void modifierCellule(const QModelIndex& index);
