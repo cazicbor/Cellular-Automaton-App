@@ -10,7 +10,7 @@
 #include <voisinage.h>
 #include <Automate.h>
 
-/// Cette classe adapte un objet base de données pour le rendre facile d'utilisation dans le cadre de l'application
+/// @brief Cette classe adapte un objet base de données pour le rendre facile d'utilisation dans le cadre de l'application
 ///
 /// Il suffit de lui donner le nom du fichier sqlite à la création et d'appeler les méthodes pour intéragir avec. Les pointeurs retournés par les méthodes getFonction, getRegleVoisinage et getReseau pointent vers des objets dynamiques dont la charge de la destruction est laissée à l'utilisateur
 class Database {
