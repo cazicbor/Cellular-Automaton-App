@@ -27,7 +27,7 @@
  * @author Victor Blanchet
  * @author Boris Cazic
  * @author Romain de Laage
- * @author Léon Do Castolo
+ * @author Leon Do Castelo
  * @author Maxime Goret
  * @author Luning Yang
  *
