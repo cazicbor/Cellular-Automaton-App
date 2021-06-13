@@ -19,7 +19,7 @@
 
 using namespace std;
 
-/// Classe conteneur d'un voisinage
+/// @brief Classe conteneur d'un voisinage
 ///
 /// Elle contient l'ensemble des voisins d'une cellule après application d'une règle de voisinage et définit la cellule au centre du voisinage
 class Voisinage {
@@ -127,7 +127,7 @@ class RegleVoisinageMoore : public RegleVoisinage {
 		int getType() const override { return 2; }
 };
 
-///définit la règle pour le voisinage arbitraire
+/// Définit la règle pour le voisinage arbitraire
 class RegleVoisinageArbitraire : public RegleVoisinage {
 	public:
 		/// Obtenir le type de la règle de voisinage
