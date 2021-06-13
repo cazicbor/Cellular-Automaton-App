@@ -28,7 +28,7 @@
 
 using namespace std;
 
-/// Cette classe définit la fenêtre de paramétrage de l'Automate
+/// @brief Cette classe définit la fenêtre de paramétrage de l'Automate
 ///
 /// Le but est de pouvoir choisir la RegleVoisinage, les Etat et la Fonction de transition
 class NouveauModele : public QWidget {

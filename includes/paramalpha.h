@@ -10,7 +10,7 @@
 #include <QFormLayout>
 #include <reseau_cellule_etats.h>
 
-/// Classe correspondant à la fenêtre pour paramétrer l'alphabet
+/// @brief Classe correspondant à la fenêtre pour paramétrer l'alphabet
 ///
 /// Cette classe s'occupe d'afficher le bon nombre de formulaire selon le nombre de cellules souhaité et paramètre directement l'alphabet de l'automate
 class ParamAlpha: public QWidget {
