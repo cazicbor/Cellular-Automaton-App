@@ -23,6 +23,17 @@
 #include <QFormLayout>
 #include <QSpinBox>
 
+/*! @mainpage Cellulut - Projet de LO21 P21
+ * @author Victor Blanchet
+ * @author Boris Cazic
+ * @author Romain de Laage
+ * @author Léon Do Castolo
+ * @author Maxime Goret
+ * @author Luning Yang
+ *
+ * @include README.md
+ */
+
 using namespace std;
 
 /// Classe représentant l'interface principale de l'application
