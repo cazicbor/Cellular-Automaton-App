@@ -248,7 +248,6 @@ void AutoCell::afficherGrille(const Reseau* grille)
 
     for(int i=0; i < h; ++i) {
             for(int j=0; j < l; ++j) {
-            //vérifier si les cellules ont ou non été générés (!= nullptr)
             QString indice; indice.setNum(Grille->getReseau()[i][j].getIndEtat());
 
             QString label; label = QString::fromStdString(Automate::getInstance().getEnsemble().getEtat(indice.toInt()).getLabel()); //label de la cellule
@@ -306,9 +305,7 @@ void AutoCell::initialiserGrille(){
     if (check_load_grid->isChecked()) {
       grille = Reseau(Database::getInstance().getReseau(listeGrille[list_grids->currentIndex()*2].toInt()));
       QString str_largeur;
-      //str_largeur.setNum(listeGrille[list_grids->currentIndex()*2].toInt());
       QString str_hauteur;
-      //edit_largeur->setText(str_largeur);
       edit_largeur->setText(str_largeur.setNum(grille.getLargeur(),10));
       edit_hauteur->setText(str_hauteur.setNum(grille.getHauteur(),10));
       }
